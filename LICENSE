@@ -1,6 +1,6 @@
 The assets directory is to be defined as a directory located in the project root with a file name of "assets".
 
-The libraries directory is to be defined as a directory located in the project root with a file name of "libs"
+The libraries directory is to be defined as a directory located in the project root with a file name of "lib"
 
 All files in the libraries directory are distributed with a specific license to run
 or link against without modification unless previously noted in the libraries directory
