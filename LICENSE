@@ -1,3 +1,24 @@
+The assets directory is to be defined as a directory located in the project root with a file name of "assets".
+
+The libraries directory is to be defined as a directory located in the project root with a file name of "lib"
+
+All files in the libraries directory are distributed with a specific license to run
+or link against without modification unless previously noted in the libraries directory
+or otherwise noted inside of the specific library package.
+
+All files consisting wholly or partially of plain text, intended to be 
+human readable in text form and not located under the "assets" directory 
+are to be considered "code", with the exception of the libraries directory.
+In addition, all files located under the directory named "src" in the project
+root are also to be considered code.
+
+Unless otherwise noted all files not previously exempted are to be considered
+licensed under the terms of the MIT license.
+
+The MIT license is provided below.
+
+-----------------------------------------------------------------------------
+
 The MIT License (MIT)
 
 Copyright (c) 2014 Contributors
