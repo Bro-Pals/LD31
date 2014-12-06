@@ -48,4 +48,12 @@ public class Dimension {
 			obj.render(g);
 		}
 	}
+	
+	public void addObject(GameObject object) {
+		objects.add(object);
+	}
+	
+	public void removeObject(GameObject object) {
+		objects.remove(object);
+	}
 }
