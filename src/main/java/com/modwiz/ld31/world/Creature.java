@@ -17,15 +17,15 @@ public class Creature extends GameBlock {
 	*/
 	private Animation animation;
 	
-	public Creature(List<Dimension> parent, float x, float y, float w, float h) {
+	public Creature(Dimension parent, float x, float y, float w, float h) {
 		super(parent, x, y, w, h);
 		health = 1.0; // hahahah
 		animation = null; // no animation :(
 		dead = false;
 	}
 	
-	public Creature(List<Dimension> parent, float x, float y, float w, float h, int hp, Animation anim) {
-		super(parent, x, y, w, h);
+	public Creature(Dimension parent, float x, float y, float w, float h, int hp, Animation anim) {
+		this(parent, x, y, w, h);
 		health = hp;
 		animation = anim;
 	}

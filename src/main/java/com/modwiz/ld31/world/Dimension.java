@@ -33,6 +33,8 @@ public class Dimension {
 	}
 	
 	public void renderObjects(Graphics g) {
-		
+		for (GameObject obj : objects) {
+			obj.render(g);
+		}
 	}
 }

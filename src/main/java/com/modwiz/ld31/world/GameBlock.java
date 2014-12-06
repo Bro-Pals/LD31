@@ -11,7 +11,7 @@ public class GameBlock extends GameObject {
 	
 	private float width, height;
 	
-	public GameBlock(List<Dimension> parent, float x, float y, float w, float h) {
+	public GameBlock(Dimension parent, float x, float y, float w, float h) {
 		super(parent, x, y);
 		this.width = w;
 		this.height = height;
@@ -53,9 +53,9 @@ public class GameBlock extends GameObject {
 						getVelocity().set(1, 0);
 					} else {
 						if (this.getX() < bl.getX()) {
-							getX(bl.getX() - getWidth());
+							setX(bl.getX() - getWidth());
 						} else {
-							getX(bl.getX() + bl.getWidth());
+							setX(bl.getX() + bl.getWidth());
 						}
 						getVelocity().set(0, 0);
 					}

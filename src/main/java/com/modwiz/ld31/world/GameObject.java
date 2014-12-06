@@ -12,12 +12,12 @@ import java.util.List;
 */
 public class GameObject {
 	
-	private List<Dimension> parent;
+	private Dimension parent;
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
 	
-	public GameObject(List<Dimension> parent, float x, float y) {
+	public GameObject(Dimension parent, float x, float y) {
 		this.parent = parent;
 		this.x = x;
 		this.y = y;
@@ -37,12 +37,13 @@ public class GameObject {
 		g.fillRect((int)x, (int)y, 3, 3);
 	}
 	
-	public List<Dimension> getParent() {
+	public Dimension getParent() {
 		return parent;
 	}
 	
-	public void setParent(List<Dimension> p) {
+	public void setParent(Dimension p) {
 		this.parent = p;
+		// maybe add itself to the new dimension?
 	}
 	
 	public Vector2 getVelocity() {
