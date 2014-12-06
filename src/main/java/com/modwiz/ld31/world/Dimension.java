@@ -18,6 +18,10 @@ public class Dimension {
 	}
 	
 	public void updateObjects() {
+		
+	}
 	
+	public void renderObjects(Graphics g) {
+		
 	}
 }
