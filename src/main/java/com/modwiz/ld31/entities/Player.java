@@ -28,21 +28,21 @@ public class Player extends Creature {
     }
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, float camX, float camY) {
 		if (getAnimation() != null) {
 			if (isFacingRight()) { 
 				getAnimation().setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
-				g.drawImage(getAnimation().getCurrentFrame(), (int)getX(), (int)getY(), null);
+					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
 			} else {
 				getAnimation().setTrack(1);
-				g.drawImage(getAnimation().getCurrentFrame(), (int)getX() - 15, (int)getY(), null);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
 			}
 		} else {
-			super.render(g);
+			super.render(g, camX, camY);
 		}
 		// bounding box
 		g.setColor(Color.BLACK);
-		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+		g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
 	}
 	
     /**

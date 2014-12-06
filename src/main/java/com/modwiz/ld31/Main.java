@@ -20,6 +20,9 @@ public class Main {
 	private static boolean s = false;
 	private static boolean d = false;
 	private static boolean shift = false;
+	//The position of the camera in the game world
+	private static float camX = 0;
+	private static float camY = 0; 
 
 	// Ratio of our 1 to real 9.8
 	private static final double GRAVITY_RATIO = 0.1020408163265306;
@@ -113,7 +116,7 @@ public class Main {
 				
 				world.updateDimension();
 				g.clearRect(0, 0, width, height);
-				world.renderDimension(g);
+				world.renderDimension(g, camX, camY);
 			
 				window.showBuffer(g);
 

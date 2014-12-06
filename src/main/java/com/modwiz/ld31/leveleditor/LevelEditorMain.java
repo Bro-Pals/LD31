@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JList;
 
 import com.modwiz.ld31.entities.GameObject;
+import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.entities.GameObjectFactory;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
@@ -64,6 +65,7 @@ public class LevelEditorMain extends JFrame {
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
 	private GameObjectFactory gameObjectFactory;
+	private final float snapDistance = 7.5f;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -191,6 +193,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void makeSnapToObjects() {
 		snapToObjects = new JCheckBoxMenuItem("Snap to Object");
+		snapToObjects.setState(snappingToObjects);
 		snapToObjects.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -345,7 +348,11 @@ public class LevelEditorMain extends JFrame {
 	
 	private void choseDimension() {
 		//Set the current dimension to the chosen one
-		System.out.println("Selected a dimension");
+		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
+			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
+			System.out.println("Selected a dimension");
+			viewport.repaint();
+		}
 	}
 	
 	private void addToWorldFromObjectLib() {
@@ -354,8 +361,9 @@ public class LevelEditorMain extends JFrame {
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
 				obj = (GameObject)obj.clone();
+				obj.setX(viewport.get2DCursor().getX());
+				obj.setY(viewport.get2DCursor().getY());
 				currentLevel.getActiveDimension().addObject(obj);
-				viewport.centerCameraOn(obj);
 				viewport.repaint();
 			}
 		}
@@ -413,15 +421,38 @@ public class LevelEditorMain extends JFrame {
 			viewport.setSelected(selecting);
 			this.selecting = selecting;
 			propertyPanel.loadObject(selecting);
+		} else {
+			clearSelectedGameObject();
 		}
+	}
+	
+	private void clearSelectedGameObject() {
+		viewport.setSelected(null);
+		this.selecting = null;
+		propertyPanel.clear();
 	}
 	
 	public void checkSelection(Cursor2D cursor) {
 		if (currentLevel!=null) {
 			Dimension d = currentLevel.getActiveDimension();
 			if (d!=null) {
+				boolean found = false;
 				for (GameObject go : d.getObjects()) {
-					
+					if (go instanceof GameBlock) {
+						GameBlock gb = (GameBlock)go;
+						if (gb.getX() < cursor.getX() &&
+							gb.getX() + gb.getWidth() > cursor.getY() &&
+							gb.getY() < cursor.getY() &&
+							gb.getY() + gb.getHeight() > cursor.getY()
+						) {
+							//Select the object that has the cursor in it
+							selectGameObject(gb);
+							found = true;
+						}
+					}
+				}
+				if (!found) {
+					clearSelectedGameObject();
 				}
 			}
 		}
@@ -430,31 +461,43 @@ public class LevelEditorMain extends JFrame {
 	private void showGrid() {
 		System.out.println("Showing grid");
 		viewport.setGridVisible(true);
+		viewport.repaint();
 	}
 	
 	private void hideGrid() {
 		System.out.println("Hiding grid");
-		viewport.setGridVisible(true);
+		viewport.setGridVisible(false);
 	}
 	
 	private void startSnappingToGrid() {
 		System.out.println("Snapping to grid");
+		snappingToGrid = true;
+		viewport.setGridVisible(true);
+		snappingToObjects = false;
 	}
 	
 	private void stopSnappingToGrid() {
 		System.out.println("Not snapping to grid");
+		snappingToGrid = false;
 	}
 	
 	private void startSnappingToObjects() {
 		System.out.println("Snapping to objects");
+		snappingToGrid = false;
+		snappingToObjects = true;
 	}
 	
 	private void stopSnappingToObjects() {
 		System.out.println("Not snapping to objects");
+		snappingToObjects = false;
 	}
 	
 	private void removeSelectedObject() {
 		System.out.println("Removing the selected object");
+		if (currentLevel!=null && selecting!=null) {
+			currentLevel.getActiveDimension().removeObject(selecting);
+			clearSelectedGameObject();
+		}
 	}
 	
 	public void onClose() {
@@ -468,8 +511,8 @@ public class LevelEditorMain extends JFrame {
 	
 	public void setLevel(GameWorld level) {
 		System.out.println("Set level");
-		viewport.setLevel(level);
-		currentLevel = level;
+		this.currentLevel = level;
+		viewport.setLevel(this.currentLevel);
 		propertyPanel.clear();
 		dimList.setListData(level.getDimensions());
 		dimListViewport.repaint();
@@ -486,100 +529,17 @@ public class LevelEditorMain extends JFrame {
 		viewport.repaint();
 	}	
 	
-	public void mouseDragged(float x, float y) {
-		if (currentLevel!=null) {
-			
+	public void mouseDragged(Cursor2D cursor) {
+		if (currentLevel!=null && selecting!=null) {
+			if (!cursor.isDragging()) {
+				cursor.startDragging(selecting);
+			} else {
+				cursor.updateDrag();
+			}
+			/* Snapping code */
+			if (snappingToGrid) {
+				
+			}
 		}
 	}
-	
-	/*
-		List models
-	*/
-	/*
-	class DimensionListSelectionModel implements ListModel<Dimension> {
-		
-		private List<Dimension> list;
-		private List<ListDataListener> dataListeners;
-		
-		public DimensionListSelectionModel() {
-			list = new ArrayList<Dimension>();
-			dataListeners = new ArrayList<ListDataListener>();
-		}
-
-		public void add(Dimension d) {
-			list.add(d);
-		}
-		
-		public void remove(Dimension d) {
-			list.remove(d);
-		}
-		
-		@Override
-		public int getSize() {
-			return list.size();
-		}
-		
-		@Override
-		public Dimension getElementAt(int index) {
-			return list.get(index);
-		}
-		
-		@Override
-		public void addListDataListener(ListDataListener l) {
-			dataListeners.add(l);
-		}
-		
-		@Override
-		public void removeListDataListener(ListDataListener l) {
-			dataListeners.remove(l);
-		}
-		
-		public void clear() {
-			list.clear();
-		}
-	}
-	
-	class ObjectLibrarySelectionModel implements ListModel<GameObject> {
-		
-		private List<ListDataListener> dataListeners;
-		private List<GameObject> list;
-		
-		public ObjectLibrarySelectionModel() {
-			list = new ArrayList<GameObject>();
-			dataListeners = new ArrayList<ListDataListener>();
-		}
-		
-		public void add(GameObject d) {
-			list.add(d);
-		}
-		
-		public void remove(GameObject d) {
-			list.remove(d);
-		}
-		
-		@Override
-		public void addListDataListener(ListDataListener l) {
-			dataListeners.add(l);
-		}
-		
-		@Override
-		public void removeListDataListener(ListDataListener l) {
-			dataListeners.remove(l);
-		}
-		
-		@Override
-		public int getSize() {
-			return list.size();
-		}
-		
-		@Override
-		public GameObject getElementAt(int index) {
-			return list.get(index);
-		}
-		
-		public void clear() {
-			list.clear();
-		}
-	}
-	*/
 }

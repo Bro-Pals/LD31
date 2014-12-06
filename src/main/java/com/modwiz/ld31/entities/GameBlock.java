@@ -146,10 +146,10 @@ public class GameBlock extends GameObject {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, float camX, float camY) {
 		//if (image == null) {
 			g.setColor(Color.BLACK);
-			g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
+			g.fillRect((int)(getX()-camX), (int)(getY()-camY), (int)width, (int)height);
 		//} else {
 			
 		//}

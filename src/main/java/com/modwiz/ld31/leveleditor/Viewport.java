@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseMotionAdapter;
 import com.modwiz.ld31.entities.GameObject;
+import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.world.GameWorld;
 
 /**
@@ -23,6 +24,10 @@ public class Viewport extends JComponent {
 	private GameObject selecting;
 	private int gridSpacing;
 	private boolean gridVisible;
+	private final int minX = -4000;
+	private final int maxX = 4000;
+	private final int minY = -4000;
+	private final int maxY = 4000;
 	
 	public Viewport(int viewPortWidth, int viewPortHeight) {
 		cursor = new Cursor2D();
@@ -34,7 +39,7 @@ public class Viewport extends JComponent {
 		gridVisible = false;
 		selecting = null;
 		level = null;
-		gridSpacing = 25;
+		gridSpacing = 50;
 	}
 	
 	public int getGridSpacing() {
@@ -62,15 +67,55 @@ public class Viewport extends JComponent {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.translate(-(int)camX, -(int)camY);
 		if (this.level != null) {
-			level.renderDimension(g);
+			level.renderDimension(g, camX, camY);
 			drawCursor(g);
+			if (gridVisible) {
+				drawGrid(g, camX, camY);
+			}
+			/* Draw a box around the selected object */
+			if (selecting!=null) {
+				g.setColor(Color.BLUE);
+				if (selecting instanceof GameBlock) {
+					//When the selected object has size
+					//The highlight size is 8
+					g.drawRect(
+						(int)(selecting.getX()-camX)-4,
+						(int)(selecting.getY()-camY)-4,
+						(int)((GameBlock)selecting).getWidth()+8,
+						(int)((GameBlock)selecting).getHeight()+8
+					);
+				} else {
+					//When the selected object has no size
+					g.drawOval( (int)(selecting.getX()-camX)-7, (int)(selecting.getY()-camY)-7, 14, 14 );
+				}
+			}
 		} else {
 			g.setColor(Color.RED);
 			g.drawString("No level being edited", 25, 25);
 		}
-		g.translate((int)camX, (int)camY);
+	}
+	
+	private void drawGrid(Graphics g, float camX, float camY) {
+		g.setColor(Color.BLACK);
+		for (int x=minX; x<maxX; x += gridSpacing) {
+			int xPos = (int)(x - camX);
+			g.drawLine(
+				xPos,
+				minY,
+				xPos,
+				maxX
+			);
+		}
+		for (int y=minY; y<maxY; y += gridSpacing) {
+			int yPos = (int)(y - camY);
+			g.drawLine(
+				minX,
+				yPos,
+				maxX,
+				yPos
+			);
+		}
 	}
 	
 	private void drawCursor(Graphics g) {
@@ -82,11 +127,6 @@ public class Viewport extends JComponent {
 		g.drawLine(x, y-15, x, y+15);
 	}
 	
-	public void centerCameraOn(GameObject obj) {
-		camX = obj.getX() - (getWidth()/2);
-		camY = obj.getY() - (getHeight()/2);
-	}
-	
 	public void setupListeners(final LevelEditorMain frame) {
 		setFocusable(true);
 		
@@ -96,15 +136,19 @@ public class Viewport extends JComponent {
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_W:
 						camY -= camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_A:
 						camX -= camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_S:
 						camY += camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_D:
 						camX += camSpeed;
+						System.out.println("Moved camera");
 						break;
 				}
 			}
@@ -112,22 +156,31 @@ public class Viewport extends JComponent {
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
+					cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 					frame.checkSelection(cursor);
 					repaint();
 				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				cursor.endDrag();
 			}
 		});
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
-				frame.mouseDragged(e.getX()+camX, e.getY()+camY);
+				cursor.setCursorLocation(e.getX()+camX,e.getY()+ camY);
+				frame.mouseDragged(cursor);
 				repaint();
 			}
 		});
+	}
+	
+	public Cursor2D get2DCursor() {
+		return cursor;
 	}
 }

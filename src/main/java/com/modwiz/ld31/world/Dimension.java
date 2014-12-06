@@ -59,10 +59,12 @@ public class Dimension {
 	/**
 	 * Called by {@link com.modwiz.ld31.world.GameWorld} to render the dimension
 	 * @param g {@link java.awt.Graphics} context to be rendered with
+	 * @param camX The camera's X position in the world.
+	 * @param camY The camera's Y position in the world.
 	 */
-	public void renderObjects(Graphics g) {
+	public void renderObjects(Graphics g, float camX, float camY) {
 		for (GameObject obj : objects) {
-			obj.render(g);
+			obj.render(g, camX, camY);
 		}
 	}
 	
