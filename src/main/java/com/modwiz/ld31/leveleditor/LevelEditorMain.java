@@ -65,7 +65,6 @@ public class LevelEditorMain extends JFrame {
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
 	private GameObjectFactory gameObjectFactory;
-	private final float snapDistance = 7.5f;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -88,7 +87,7 @@ public class LevelEditorMain extends JFrame {
 		fc = new JFileChooser();
 		viewport = new Viewport(600, 400);
 		fileManager = new FileManager();
-		propertyPanel = new PropertyPanel();
+		propertyPanel = new PropertyPanel(this);
 		rightPanel = new JPanel();
 		southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
@@ -193,7 +192,6 @@ public class LevelEditorMain extends JFrame {
 	
 	private void makeSnapToObjects() {
 		snapToObjects = new JCheckBoxMenuItem("Snap to Object");
-		snapToObjects.setState(snappingToObjects);
 		snapToObjects.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -331,6 +329,7 @@ public class LevelEditorMain extends JFrame {
 				dimList.setListData(dimensions);
 				dimListViewport.revalidate();
 				dimList.repaint();
+				viewport.repaint();
 				System.out.println("Added a dimension (" + dimList.getModel().getSize() + " dimensions)");
 			}
 		}
@@ -378,6 +377,7 @@ public class LevelEditorMain extends JFrame {
 		}
 		currentLevel = new GameWorld();
 		viewport.setLevel(currentLevel);
+		viewport.repaint();
 		System.out.println("Create a new level");
 	}
 	
@@ -389,6 +389,7 @@ public class LevelEditorMain extends JFrame {
 			} else {
 				saveLevelAs();
 			}
+			viewport.repaint();
 		}
 	}
 	
@@ -399,8 +400,13 @@ public class LevelEditorMain extends JFrame {
 			if (confirm == JFileChooser.APPROVE_OPTION) {
 				fileManager.saveAs(fc.getSelectedFile(), currentLevel);
 			}
+			viewport.repaint();
 		}
 	}
+	
+	public void repaintViewport() {
+			viewport.repaint();
+		}
 	
 	private void openLevel() {
 		System.out.println("Open a level");
@@ -414,6 +420,7 @@ public class LevelEditorMain extends JFrame {
 		if (confirm == JFileChooser.APPROVE_OPTION) {
 			setLevel(fileManager.open(fc.getSelectedFile()));
 		}
+		viewport.repaint();
 	}
 	
 	private void selectGameObject(GameObject selecting) {
@@ -421,17 +428,17 @@ public class LevelEditorMain extends JFrame {
 			viewport.setSelected(selecting);
 			this.selecting = selecting;
 			propertyPanel.loadObject(selecting);
-		} else {
-			clearSelectedGameObject();
+			viewport.repaint();
 		}
 	}
-	
+
 	private void clearSelectedGameObject() {
 		viewport.setSelected(null);
 		this.selecting = null;
 		propertyPanel.clear();
+		viewport.repaint();
 	}
-	
+
 	public void checkSelection(Cursor2D cursor) {
 		if (currentLevel!=null) {
 			Dimension d = currentLevel.getActiveDimension();
@@ -440,12 +447,12 @@ public class LevelEditorMain extends JFrame {
 				for (GameObject go : d.getObjects()) {
 					if (go instanceof GameBlock) {
 						GameBlock gb = (GameBlock)go;
-						if (gb.getX() < cursor.getX() &&
-							gb.getX() + gb.getWidth() > cursor.getY() &&
-							gb.getY() < cursor.getY() &&
-							gb.getY() + gb.getHeight() > cursor.getY()
+						if (
+							cursor.getX() > gb.getX() &&
+							cursor.getX() < gb.getX() + gb.getWidth() &&
+							cursor.getY() > gb.getY() &&
+							cursor.getY() < gb.getY() + gb.getHeight()
 						) {
-							//Select the object that has the cursor in it
 							selectGameObject(gb);
 							found = true;
 						}
@@ -455,6 +462,7 @@ public class LevelEditorMain extends JFrame {
 					clearSelectedGameObject();
 				}
 			}
+			viewport.repaint();
 		}
 	}
 	
@@ -467,24 +475,26 @@ public class LevelEditorMain extends JFrame {
 	private void hideGrid() {
 		System.out.println("Hiding grid");
 		viewport.setGridVisible(false);
+		viewport.repaint();
 	}
 	
 	private void startSnappingToGrid() {
 		System.out.println("Snapping to grid");
-		snappingToGrid = true;
-		viewport.setGridVisible(true);
 		snappingToObjects = false;
+        snappingToGrid = true;
+		viewport.setGridVisible(true);
+		viewport.repaint();
 	}
 	
 	private void stopSnappingToGrid() {
 		System.out.println("Not snapping to grid");
-		snappingToGrid = false;
+        snappingToGrid = false;
 	}
 	
 	private void startSnappingToObjects() {
 		System.out.println("Snapping to objects");
-		snappingToGrid = false;
 		snappingToObjects = true;
+        snappingToGrid = false;
 	}
 	
 	private void stopSnappingToObjects() {
@@ -494,10 +504,6 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedObject() {
 		System.out.println("Removing the selected object");
-		if (currentLevel!=null && selecting!=null) {
-			currentLevel.getActiveDimension().removeObject(selecting);
-			clearSelectedGameObject();
-		}
 	}
 	
 	public void onClose() {
@@ -535,11 +541,54 @@ public class LevelEditorMain extends JFrame {
 				cursor.startDragging(selecting);
 			} else {
 				cursor.updateDrag();
-			}
-			/* Snapping code */
-			if (snappingToGrid) {
-				
+				if (snappingToGrid) {
+					if(selecting.getX()%50 > 25){
+						selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
+					}else{
+						selecting.setX(selecting.getX() - selecting.getX()%50);
+					}
+					if(selecting.getY()%50 > 25){
+						selecting.setY(selecting.getY() - selecting.getY()%50 + 50);
+					}else{
+						selecting.setY(selecting.getY() - selecting.getY()%50);
+					}
+				}
+				if (snappingToObjects) {
+					for (GameObject obj : currentLevel.getActiveDimension().getObjects()) {
+						if (obj instanceof GameBlock) {
+							checkSnappageWith((GameBlock)selecting, (GameBlock)obj);
+						}
+					}
+				}
 			}
 		}
 	}
+	
+	private void checkSnappageWith(GameBlock sel, GameBlock other) {
+		//Check snappage in the x direction
+		int dis;
+		//Right side of selecting with left side of other
+		dis = Math.abs((int)( sel.getX()+sel.getWidth() - other.getX()));
+		if (dis < 9) {
+			//close enough, snap to it!
+			sel.setX(other.getX()-sel.getWidth());
+		}
+		//Left side of selecting with right side of other
+		dis = Math.abs((int)( sel.getX() - (other.getX()+other.getWidth()) ));
+		if (dis < 9) {
+			sel.setX(other.getX()+other.getWidth());
+		}
+		//Top side of selecting with bottom side of other
+		dis = Math.abs((int)( sel.getY() - (other.getY()+other.getHeight()) ));
+		if (dis < 9) {
+			sel.setY(other.getY()+other.getHeight());
+		}
+		//Bottom side of selecting with top side of other
+		dis = Math.abs((int)( sel.getY()+sel.getHeight() - other.getY() ));
+		if (dis < 9) {
+			sel.setY(other.getY()-sel.getHeight());
+		}
+	}
+	
+
 }

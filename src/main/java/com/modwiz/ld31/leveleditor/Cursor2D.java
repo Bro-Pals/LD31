@@ -96,13 +96,13 @@ public class Cursor2D {
 			int topBounds = Math.abs((int)(getY() - gb.getY()));
 			int bottomBounds = Math.abs((int)(getY() - (gb.getY()+gb.getHeight())));
 			
-			if (topBounds < 6) {
+			if (topBounds < 9) {
 				type = DragType.RESIZE_UP;
-			} else if (bottomBounds < 6) {
+			} else if (bottomBounds < 9) {
 				type = DragType.RESIZE_DOWN;
-			} else if (leftBounds < 6) {
+			} else if (leftBounds < 9) {
 				type = DragType.RESIZE_LEFT;
-			} else if (rightBounds < 6) {
+			} else if (rightBounds < 9) {
 				type = DragType.RESIZE_RIGHT;
 			}
 		}
