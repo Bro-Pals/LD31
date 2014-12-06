@@ -17,14 +17,18 @@ public class GameBlock extends GameObject {
 		this.height = height;
 	}
 	
+	public void onCollide(GameBlock other) {
+		// what happens when there is a collision with the other block
+		
+		System.out.println("I have ran into another blcok!");
+	}
+	
 	@Override
 	public void update() {
 		super.update();
 		
 		// collision checking
-		Iterator<GameObject> stuff = getParent().getObjects().iterator();
-		while(stuff.hasNext()) {
-			GameObject obj = stuff.next();
+		for (GameObject obj : getParent().getObjects()) {
 			if (obj instanceof GameBlock && obj != this) {
 				GameBlock bl = (GameBlock) obj; // we're working with another block
 				
