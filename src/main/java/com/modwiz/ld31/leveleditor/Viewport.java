@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.KeyAdapter;
-import com.modwiz.ld31.world.GameObject;
+import com.modwiz.ld31.entities.GameObject;
 import com.modwiz.ld31.world.GameWorld;
 
 /**
