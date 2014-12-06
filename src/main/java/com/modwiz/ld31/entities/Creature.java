@@ -73,7 +73,7 @@ public class Creature extends GameBlock {
 	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
-		weapon.use((Vector2)new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
+		weapon.use((Vector2)(new Vector2(getX() - x, getY() - y).normalize())); // use the weapon if it's within range;
 	}
 
 	/**
@@ -82,6 +82,10 @@ public class Creature extends GameBlock {
 	 */
 	public void setAnimation(Animation a) {
 		this.animation = a;
+	}
+	
+	public Animation getAnimation() {
+		return animation;
 	}
 
 	/**
@@ -120,6 +124,11 @@ public class Creature extends GameBlock {
 	@Override
 	public void render(Graphics g) {
 		if (animation != null) {
+			if (facingRight) { 
+				animation.setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
+			} else {
+				animation.setTrack(1);
+			}
 			g.drawImage(animation.getCurrentFrame(), (int)getX(), (int)getY(), null);
 		} else {
 			super.render(g);
