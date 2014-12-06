@@ -10,7 +10,10 @@ import java.awt.image.BufferedImage;
 
 public class Projectile extends GameBlock {
 
-    BufferedImage projectileImage;
+    private BufferedImage projectileImageRight;
+    private BufferedImage projectileImageLeft;
+	private Creature source;
+	private double range, distanceTraveled;
 
     /**
      * Represents a projectile
@@ -22,14 +25,15 @@ public class Projectile extends GameBlock {
      * @param h      The height of this projectile
      * @see com.modwiz.ld31.entities.GameObject
      */
-    public Projectile(Dimension parent, float x, float y, float w, float h) {
+    public Projectile(Creature source, Dimension parent, float x, float y, float w, float h, BufferedImage right, BufferedImage left,
+			float range) {
         super(parent, x, y, w, h);
-        try {
-            projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
-        } catch (IllegalStateException e) {
-            System.err.println("Projectile image not found!");
-            throw new RuntimeException(e);
-        }
+		setCanCollide(false);
+		this.source = source;
+		projectileImageRight = right;
+		projectileImageLeft = left;
+		this.range = range;
+		this.distanceTraveled = 0;
     }
 
     /**
@@ -39,6 +43,10 @@ public class Projectile extends GameBlock {
     public void update() {
         super.update(); // collision stuff from GameBlock
        // System.out.println(isDead());
+	   distanceTraveled += getVelocity().getMagnitude();
+	   if (distanceTraveled > range) {
+			setDead(true);
+	   }
     }
 
     /**
@@ -47,13 +55,15 @@ public class Projectile extends GameBlock {
     @Override
     public void onCollide(GameBlock other) {
         // what happens when there is a collision with the other block
-        if (other instanceof Player) {
-            Player player = (Player) other;
-            player.damage(15);
+        if (!isDead() && other instanceof Creature && other != source) {
+            Creature creature = (Creature) other;
+            creature.damage(15);
             setDead(true);
-            Vector2 knockBack = (Vector2)getVelocity().normalize();
-            knockBack = VectorUtils.multiplyScalar(20, knockBack);
-            VectorUtils.setVector2(player.getVelocity(), (Vector2) player.getVelocity().add(knockBack));
+			Vector2 pushNormal = (Vector2) getVelocity().normalize();
+			float pushX = pushNormal.getX() * 6;
+			float pushY = pushNormal.getY() * 6;
+            creature.getVelocity().set(0, creature.getVelocity().getX() + pushX);
+            creature.getVelocity().set(1, creature.getVelocity().getY() + pushY);
         }
     }
 
@@ -62,7 +72,8 @@ public class Projectile extends GameBlock {
      * {@inheritDoc}
      */
     @Override
-    public void render(Graphics g, float camX, float camY) {
+    public void render(Graphics g) {
+		BufferedImage projectileImage = getVelocity().getX() > 0 ? projectileImageRight : projectileImageLeft;
         if (projectileImage != null) {
             g.drawImage(projectileImage, (int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight(), null);
         } else {

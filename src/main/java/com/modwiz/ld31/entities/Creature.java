@@ -11,7 +11,7 @@ import java.awt.Color;
 */
 public class Creature extends GameBlock {
 
-	private double health;
+	private double health, maxHealth;
 	protected boolean facingRight;
 	private Weapon weapon;
 	
@@ -32,7 +32,8 @@ public class Creature extends GameBlock {
 		super(parent, x, y, w, h);
 		animation = null; // no animation :(
 		this.health = health;
-		weapon = new Weapon(this, 15, 3, 12); // default weapon
+		this.maxHealth = health;
+		weapon = new Weapon(this, 35, 3, 12); // default weapon
 	}
 
 	/**
@@ -60,6 +61,8 @@ public class Creature extends GameBlock {
 		health = health - amount;
 		if (health <= 0) {
 			setDead(true);
+		} else if (health > maxHealth) {
+			health = maxHealth;
 		}
 	}
 
@@ -73,7 +76,7 @@ public class Creature extends GameBlock {
 	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
-		weapon.use((Vector2)(new Vector2(getX() - x, getY() - y).normalize())); // use the weapon if it's within range;
+		weapon.use((Vector2)(new Vector2(x - getX(), y - getY()).normalize())); // use the weapon if it's within range;
 	}
 
 	/**
