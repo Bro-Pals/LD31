@@ -1,4 +1,4 @@
-package main.java.com.modwiz.ld31.leveleditor;
+package com.modwiz.ld31.leveleditor;
 
 import javax.swing.JFrame;
 import java.awt.event.WindowAdapter;
@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
 */
+<<<<<<< HEAD
 public class LevelEditor extends JFrame {
 	
 	private Viewport viewport;
@@ -21,6 +22,9 @@ public class LevelEditor extends JFrame {
 	public LevelEditor() {
 		
 	}
+=======
+public class LevelEditorMain {
+>>>>>>> 2b7a0a34dadb6886730cf12b392d617b4542102f
 	
 	public void onClose() {
 		
