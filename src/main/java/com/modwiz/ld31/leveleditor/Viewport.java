@@ -18,7 +18,6 @@ public class Viewport extends Canvas {
 	private Cursor2D cursor;
 	private float camX, camY;
 	private final float camSpeed;
-	private GameObject selected;
 	
 	public Viewport(int viewPortWidth, int viewPortHeight) {
 		cursor = new Cursor2D();
@@ -40,10 +39,10 @@ public class Viewport extends Canvas {
 	}
 	
 	private void checkSelection() {
-		
+		//Go through all the game objects in the current world and see if 
 	}
 	
-	public void setupListeners(JFrame frame) {
+	public void setupListeners(final LevelEditorMain frame) {
 		frame.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -64,15 +63,15 @@ public class Viewport extends Canvas {
 			}
 		});
 		
-		frame.addKeyListener(new MouseAdapter() {
+		frame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					cursor.setCursorLocation(
 						e.getX() + camX,
 						e.getY() + camY
+						frame.checkSelection(cursor);
 					);
-					checkSelection();
 				}
 			}
 		});

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JCheckBoxMenuItem;
 
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
@@ -32,9 +33,16 @@ public class LevelEditorMain extends JFrame {
 	private JMenuItem saveButton;
 	private JMenuItem saveAsButton;
 	private JMenuItem openButton;
+	private JCheckBoxMenuItem snapToGrid;
+	private JCheckBoxMenuItem snapToObjects;
+	private JCheckBoxMenuItem gridVisible;
+	private GameObject selecting;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1000, 800);
+		
 	}
 	
 	public void init() {
@@ -56,6 +64,10 @@ public class LevelEditorMain extends JFrame {
 	
 	private boolean confirmAction(String message) {
 		return JOptionPane.showConfirmDialog(this, message) == JOptionPane.YES_OPTION;
+	}
+	
+	public void checkSelection(Cursor2D cursor) {
+		//Check to see if the cursor is selecting something
 	}
 
 	public void onClose() {
