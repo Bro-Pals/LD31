@@ -150,6 +150,7 @@ public class Main {
 	
 	private static void changeKey(int keyCode, boolean value) {
 		switch(keyCode) {
+			case KeyEvent.VK_SPACE: // Space should jump too.
 			case KeyEvent.VK_W: w = value; break;
 			case KeyEvent.VK_A: a = value; break;
 			case KeyEvent.VK_S: s = value; break;
