@@ -40,11 +40,9 @@ public abstract class AssetLoader {
 
     static class Basic extends AssetLoader{
 		
-		private DimensionInputOutput dimensionLoader;
 		private GameObjectInputOutput gameWorldLoader;
 		
 		public Basic() {
-			dimensionLoader = new DimensionInputOutput();
 			gameWorldLoader = new GameObjectInputOutput();
 		}
 		
