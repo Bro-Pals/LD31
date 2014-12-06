@@ -1,6 +1,7 @@
 package com.modwiz.ld31.entities;
 
 import com.modwiz.ld31.world.Dimension;
+import horsentpmath.Vector2;
 import com.modwiz.ld31.entities.draw.Animation;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -32,6 +33,7 @@ public class Creature extends GameBlock {
 		animation = null; // no animation :(
 		this.health = health;
 		dead = false;
+		weapon = new Weapon(this, 15, 3, 12); // default weapon
 	}
 
 	/**
@@ -62,6 +64,11 @@ public class Creature extends GameBlock {
 		}
 	}
 
+	public void useWeapon(int x, int y) {
+		facingRight = x > getX();
+		weapon.use(new Vector2(getX() - x, getY() - y)); // use the weapon if it's within range;
+	}
+	
 	/**
 	 * Check if the creature is dead
 	 * @return True if the creature is dead
@@ -104,6 +111,7 @@ public class Creature extends GameBlock {
 		if (getVelocity().getX() != 0) {
 			facingRight = getVelocity().getX() > 0;
 		}
+		weapon.decreaseCooldown();
 		animation.update(); 
 	}
 
