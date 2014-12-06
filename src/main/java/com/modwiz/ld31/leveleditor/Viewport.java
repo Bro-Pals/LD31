@@ -60,14 +60,14 @@ public class Viewport extends JComponent {
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.translate(-(int)camX, -(int)camY);
 		if (this.level != null) {
 			level.renderDimension(g);
 			drawCursor(g);
 		} else {
-			g.setColor(Color.WHITE);
+			g.setColor(Color.RED);
 			g.drawString("No level being edited", 25, 25);
 		}
 		g.translate((int)camX, (int)camY);

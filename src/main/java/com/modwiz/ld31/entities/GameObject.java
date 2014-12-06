@@ -154,7 +154,8 @@ public class GameObject {
 	@Override
 	public String toString() {
 		return getName();
-
+	}
+		
 	/**
 	 * Check if the game object is dead
 	 * @return True if the game object is dead
