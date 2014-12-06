@@ -42,7 +42,7 @@ public class LevelEditorMain extends JFrame {
 		super("Ludum Dare 31 Level Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 800);
-		
+		setVisible(true);
 	}
 	
 	public void init() {
