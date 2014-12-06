@@ -11,6 +11,9 @@ import javax.swing.ListSelectionListener;
 import java.awt.*;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
@@ -23,6 +26,16 @@ public class LevelEditorMain extends JFrame {
 	private JList objectList;
 	private FileManager fileManager;
 	private GameWorld currentLevel;
+	private JButton addObject;
+	private JButton removeObject;
+	private JButton dimAdd;
+	private JButton dimRemove;
+	private JMenu fileMenu;
+	private JMenu editorMenu;
+	private JMenuItem newButton;
+	private JMenuItem saveButton;
+	private JMenuItem saveAsButton;
+	private JMenuItem openButton;
 	
 	public LevelEditor() {
 		super("Ludum Dare 31 Level Editor");
@@ -33,11 +46,7 @@ public class LevelEditorMain extends JFrame {
 			new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
-					if (fileManager.hasCurrent()) {
-						if (confirmAction("")) {
-							
-						}
-					}
+					onClose();
 				}
 			}
 		);
@@ -54,10 +63,11 @@ public class LevelEditorMain extends JFrame {
 	}
 
 	public void onClose() {
-		
-	}
-	
-	public void handleMousePressed(MouseEvent e) {
-		
+		if (fileManager.hasCurrent()) {
+			if (confirmAction("Save current work?")) {
+				fileManager.save(currentLevel);
+				dispose();
+			}
+		}
 	}
 }

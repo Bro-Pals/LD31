@@ -1,6 +1,7 @@
 package com.modwiz.ld31.leveleditor;
 
 import java.io.File;
+import com.modwiz.ld31.world.GameWorld;
 
 public class FileManager {
 	
@@ -10,7 +11,7 @@ public class FileManager {
 		current = null;
 	}
 	
-	public void save() {
+	public void save(GameWorld world) {
 		if (current!=null) {
 			//Save the file
 		}
@@ -20,7 +21,7 @@ public class FileManager {
 		return current != null;
 	}
 	
-	public void saveAs(File file) {
+	public void saveAs(File file, GameWorld world) {
 		current = file;
 	}
 	
