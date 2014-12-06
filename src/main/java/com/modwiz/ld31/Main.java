@@ -1,7 +1,6 @@
 package com.modwiz.ld31;
 
-import com.modwiz.ld31.entities.Creature;
-import com.modwiz.ld31.entities.GameBlock;
+import com.modwiz.ld31.entities.*;
 import com.modwiz.ld31.entities.draw.Animation;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
@@ -9,7 +8,6 @@ import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
 import java.awt.event.KeyEvent;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -52,15 +50,15 @@ public class Main {
 			Animation playerAnim = new Animation(playerAnimations, 8);
 			
 			Dimension firstDimension = new Dimension();
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 50, 100, 100);
-			firstBlock.getVelocity().set(0, 2);
-			firstBlock.getVelocity().set(1, 1);
+			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30);
 
-			Creature testCreature = new Creature(firstDimension, 50, 400, 500, 100, 1, playerAnim);
-			testCreature.getVelocity().set(0, 2);
-			testCreature.getAcceleration().set(1, 1); // gravity!
 
-			firstDimension.getObjects().add(testCreature); // our first block!!
+			Player player = new Player(firstDimension, 60, 20, 65, 120, 8, playerAnim);
+			player.getVelocity().set(0, 2);
+			player.getAcceleration().set(1, 1); // gravity!
+
+			firstDimension.getObjects().add(player); // our first block!!
+			firstDimension.getObjects().add(firstBlock); // our first block!!
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
 			world.setActiveDimension(firstDimension.getName());
@@ -87,10 +85,24 @@ public class Main {
 					changeKey(keyEvent.getKeyCode(), false);
 				}
 				
+				// moving and stuff
+				if (d && !a) {
+					player.getVelocity().set(0, 3);
+				} else if (a && !d) {
+					player.getVelocity().set(0, -3);
+				} else if (!a && !d) {
+					player.getVelocity().set(0, 0);
+				}
+				if (w) {
+					if (player.isGrounded()) {
+						System.out.println("JUMP");
+						player.getVelocity().set(1, -24); // jumping
+					}
+				}
 				
 				world.updateDimension();
-				
-				g.clearRect(0, 0, width, height);
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, width, height);
 				world.renderDimension(g);
 			
 				window.showBuffer(g);

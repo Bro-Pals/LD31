@@ -3,6 +3,7 @@ package com.modwiz.ld31.entities;
 import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
 import java.awt.Graphics;
+import java.awt.Color;
 
 /**
 	The extreme creature that the Player and Enemies will extend from
@@ -12,7 +13,7 @@ public class Creature extends GameBlock {
 	private double health;
 	private boolean dead;
 	private Weapon weapon;
-
+	
 	// The animation for this creature
 	private Animation animation;
 
@@ -103,6 +104,9 @@ public class Creature extends GameBlock {
 		} else {
 			super.render(g);
 		}
+		// bounding box
+		g.setColor(Color.BLACK);
+		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 	}
 	
 }

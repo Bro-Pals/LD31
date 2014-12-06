@@ -9,7 +9,8 @@ import com.modwiz.ld31.world.Dimension;
 public class GameBlock extends GameObject {
 	
 	private float width, height;
-
+	private boolean grounded; // has this object collided with something below it?
+	
 	/**
 	 * Represents a {@link GameObject} with a width and height
 	 * @param parent The dimension for this object to be loaded into
@@ -23,6 +24,7 @@ public class GameBlock extends GameObject {
 		super(parent, x, y);
 		this.width = w;
 		this.height = h;
+		this.grounded = false;
 	}
 
 	/**
@@ -32,7 +34,7 @@ public class GameBlock extends GameObject {
 	public void onCollide(GameBlock other) {
 		// what happens when there is a collision with the other block
 		
-		System.out.println("I have ran into another block!");
+		//System.out.println("I have ran into another block!");
 	}
 
 	/**
@@ -57,11 +59,12 @@ public class GameBlock extends GameObject {
 				
 				float penX = largestMinX - smallestMaxX;
 				float penY = largestMinY - smallestMaxY;
-				
+				grounded = false;
 				if (penX < 0 && penY < 0) {
 					if (Math.abs(penY) < Math.abs(penX)) {
 						if (this.getY() < bl.getY()) {
 							setY(bl.getY() - getHeight());
+							grounded = true;
 						} else {
 							setY(bl.getY() + bl.getHeight());
 						}
@@ -85,7 +88,7 @@ public class GameBlock extends GameObject {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.BLACK);
 		g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
 	}
 
@@ -97,6 +100,14 @@ public class GameBlock extends GameObject {
 		this.height = h;
 	}
 
+	/**
+	 * See if the Block is ground. Only really matters if it has gravity
+	 * @return if the block is grounded or not
+	 */
+	public boolean isGrounded() {
+		return grounded;
+	}
+	
 	/**
 	 * Sets the width of this game block
 	 * @param w The width

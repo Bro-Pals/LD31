@@ -34,7 +34,7 @@ public class GameObject {
 	 * Update logic called every game tick
 	 */
 	public void update() {
-		velocity.add(acceleration);
+		velocity = (Vector2)velocity.add(acceleration);
 		this.x += velocity.getX();
 		this.y += velocity.getY();
 	}

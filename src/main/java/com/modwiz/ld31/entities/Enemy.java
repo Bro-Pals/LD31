@@ -8,11 +8,11 @@ import com.modwiz.ld31.entities.draw.Animation;
  */
 public class Enemy extends Creature {
 
-    public Enemy(Dimension parent, float x, float y, float w, float h) {
-        super(parent, x, y, w, h);
+    public Enemy(Dimension parent, float x, float y, float w, float h, double hp) {
+        super(parent, x, y, w, h, hp);
     }
 
-    public Enemy(Dimension parent, float x, float y, float w, float h, int hp, Animation anim) {
+    public Enemy(Dimension parent, float x, float y, float w, float h, double hp, Animation anim) {
         super(parent, x, y, w, h, hp, anim);
     }
 }
