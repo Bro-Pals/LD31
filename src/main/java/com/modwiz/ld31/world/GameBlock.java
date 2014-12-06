@@ -5,10 +5,10 @@ package com.modwiz.ld31.world;
 */
 public class GameBlock extends GameObject {
 	
-	float width, height;
+	private float width, height;
 	
-	public GameBlock(float x, float y, float w, float h) {
-		super(x, y);
+	public GameBlock(ArrayList<Dimension> parent, float x, float y, float w, float h) {
+		super(parent, x, y);
 		this.width = w;
 		this.height = height;
 	}
@@ -24,6 +24,14 @@ public class GameBlock extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
+	}
+	
+	public void setHeight(float h) {
+		this.height = h;
+	}
+	
+	public void setWidth(float w) {
+		this.width = w;
 	}
 	
 	public float getHeight() {
