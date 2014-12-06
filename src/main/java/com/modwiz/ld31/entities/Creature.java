@@ -11,9 +11,8 @@ public class Creature extends GameBlock {
 
 	private double health;
 	private boolean dead;
-	/**
-		The animation for this creature
-	*/
+
+	// The animation for this creature
 	private Animation animation;
 	
 	public Creature(Dimension parent, float x, float y, float w, float h) {
