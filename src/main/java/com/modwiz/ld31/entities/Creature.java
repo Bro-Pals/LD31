@@ -11,6 +11,7 @@ public class Creature extends GameBlock {
 
 	private double health;
 	private boolean dead;
+	private Weapon weapon;
 
 	// The animation for this creature
 	private Animation animation;

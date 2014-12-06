@@ -66,7 +66,7 @@ public class GameBlock extends GameObject {
 	
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
 	}
 	
