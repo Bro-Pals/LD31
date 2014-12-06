@@ -38,11 +38,19 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
         super(parent, x, y, w, h, health, anim);
     }
-	
+
+    /**
+     * Set sneaking mode, this reduces enemy detection? TODO: Clarify what this does
+     * @param s Whether or not the player is sneaking
+     */
 	public void setSneaking(boolean s) {
 		this.sneaking = s;
 	}
-	
+
+    /**
+     * Gets whether or not the player is in sneaking mode
+     * @return Whether this player is sneaking
+     */
 	public boolean isSneaking() {
 		return sneaking;
 	}
