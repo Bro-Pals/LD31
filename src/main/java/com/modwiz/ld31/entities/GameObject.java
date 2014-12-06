@@ -15,6 +15,7 @@ public class GameObject {
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
+	private boolean dead;
 
 	/**
 	 * Creates a new GameObject instance
@@ -26,6 +27,7 @@ public class GameObject {
 		this.parent = parent;
 		this.x = x;
 		this.y = y;
+		dead = false;
 		velocity = new Vector2();
 		acceleration = new Vector2();
 	}
@@ -56,7 +58,19 @@ public class GameObject {
 	public Dimension getParent() {
 		return parent;
 	}
-
+	
+	/**
+	 * Check if the creature is dead
+	 * @return True if the creature is dead
+	 */
+	public boolean isDead() {
+		return dead;
+	}
+	
+	public void setDead(boolean d) {
+		dead = d;
+	}
+	
 	/**
 	 * Sets the current dimension of this game object
 	 * @param p The new dimension for this game object

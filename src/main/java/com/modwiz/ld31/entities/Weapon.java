@@ -25,7 +25,9 @@ public class Weapon {
 		if (holder != null) {
 			if (attackCooldown < 0) {
 				attackCooldown = attackMaxCooldown;
-				// use the weapon in the direction holder is facing
+				float startPosX = (float)(holder.getX() + (holder.getWidth() / 2) + (direction.getX() * 30));
+				float startPosY = (float)(holder.getY() + (holder.getHeight() / 2) + (direction.getY() * 30));
+				// make a projectile
 			}
 		}
 	}
