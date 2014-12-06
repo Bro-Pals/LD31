@@ -1,7 +1,8 @@
 package com.modwiz.ld31.leveleditor;
 
-import javax.swing.JPanel;
-import javax.swing.JViewport;
+import com.modwiz.ld31.world.GameObject;
+
+import javax.swing.*;
 
 /**
 	Edit the properties of an object from the property panel.
@@ -20,7 +21,7 @@ public class PropertyPanel extends JPanel {
 		
 	}
 	
-	public void loadEnity(GameEntity entity) {
+	public void loadEnity(GameObject entity) {
 		this.editing = entity;
 		//Create fields
 	}
