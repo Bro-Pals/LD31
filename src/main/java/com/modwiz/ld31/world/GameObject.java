@@ -28,7 +28,7 @@ public class GameObject {
 		return y;
 	}
 	
-	public void setLocaton(float x, float y) {
+	public void setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
