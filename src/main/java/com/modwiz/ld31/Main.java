@@ -4,6 +4,7 @@ import com.modwiz.ld31.entities.*;
 import com.modwiz.ld31.entities.draw.Animation;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
+import com.modwiz.ld31.utils.math.VectorUtils;
 import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
@@ -102,7 +103,9 @@ public class Main {
 				} else if (a && !d) {
 					player.getVelocity().set(0, -3);
 				} else if (!a && !d) {
-					player.getVelocity().set(0, 0);
+					float originalY = player.getVelocity().getY();
+					VectorUtils.setVector2(player.getVelocity(), VectorUtils.multiplyScalar(.5f, player.getVelocity()));
+					player.getVelocity().set(1, originalY);
 				}
 				if (w) {
 					if (player.isGrounded()) {
