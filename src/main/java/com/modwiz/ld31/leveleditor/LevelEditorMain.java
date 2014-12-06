@@ -7,6 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.ListSelectionEvent;
+import javax.swing.ListSelectionListener;
 
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
@@ -15,11 +19,26 @@ public class LevelEditor extends JFrame {
 	
 	private Viewport viewport;
 	private PropertyPanel propertyPanel;
-	private DimensionsPanel dimensionsPanel;
-	private ObjectLibraryPanel objectLibraryPanel;
+	private JList dimensionList;
+	private JList objectList;
 	
 	public LevelEditor() {
-		
+		super("Ludum Dare 31 Level Editor");
+	}
+	
+	public void init() {
+		addWindowListener(
+			new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					
+				}
+			}
+		);
+		viewport = new Viewport(600, 400);
+		propertyPanel = new PropertyPanel();
+		dimensionList = new JList();
+		objectList = new JList();
 	}
 
 	public void onClose() {
