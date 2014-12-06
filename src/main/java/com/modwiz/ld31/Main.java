@@ -1,11 +1,15 @@
 package com.modwiz.ld31;
 
+import com.modwiz.ld31.entities.Creature;
 import com.modwiz.ld31.entities.GameBlock;
+import com.modwiz.ld31.entities.draw.Animation;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
 import com.modwiz.ld31.world.*;
+import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
-import java.awt.Graphics;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Main {
@@ -42,22 +46,34 @@ public class Main {
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 50, 100, 100);
 			firstBlock.getVelocity().set(0, 2);
 			firstBlock.getVelocity().set(1, 1);
-			firstDimension.getObjects().add(firstBlock); // our first block!!
+
+			Creature testCreature = new Creature(firstDimension, 50, 50, 100, 100, 1, new Animation(playerAnimations));
+			testCreature.getVelocity().set(0, 2);
+			testCreature.getVelocity().set(1, 1);
+
+			firstDimension.getObjects().add(testCreature); // our first block!!
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
 			world.setActiveDimension(firstDimension);
 			
 			long start = System.currentTimeMillis();
 			int millisBetweenFrames = 30;
+
+			int width = window.getRawFrame().getWidth();
+			int height = window.getRawFrame().getHeight();
+
+			window.getRawFrame().setBackground(Color.black);
 			
 			while(window.exists()) {
-				start = System.currentTimeMillis();			
+				start = System.currentTimeMillis();
 				Graphics g = window.getDrawGraphics();
 			
 				world.updateDimension();
+				g.clearRect(0, 0, width, height);
 				world.renderDimension(g);
 			
 				window.showBuffer(g);
+
 				
 				long diff = System.currentTimeMillis() - start;
 				if (diff < millisBetweenFrames) {
