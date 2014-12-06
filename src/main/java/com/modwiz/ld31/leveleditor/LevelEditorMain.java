@@ -87,7 +87,7 @@ public class LevelEditorMain extends JFrame {
 		fc = new JFileChooser();
 		viewport = new Viewport(600, 400);
 		fileManager = new FileManager();
-		propertyPanel = new PropertyPanel();
+		propertyPanel = new PropertyPanel(this);
 		rightPanel = new JPanel();
 		southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
@@ -403,6 +403,10 @@ public class LevelEditorMain extends JFrame {
 			viewport.repaint();
 		}
 	}
+	
+	public void repaintViewport() {
+			viewport.repaint();
+		}
 	
 	private void openLevel() {
 		System.out.println("Open a level");
