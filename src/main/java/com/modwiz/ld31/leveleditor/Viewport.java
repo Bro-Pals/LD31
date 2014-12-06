@@ -62,15 +62,13 @@ public class Viewport extends JComponent {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.translate(-(int)camX, -(int)camY);
 		if (this.level != null) {
-			level.renderDimension(g);
+			level.renderDimension(g, camX, camY);
 			drawCursor(g);
 		} else {
 			g.setColor(Color.RED);
 			g.drawString("No level being edited", 25, 25);
 		}
-		g.translate((int)camX, (int)camY);
 	}
 	
 	private void drawCursor(Graphics g) {
@@ -80,11 +78,6 @@ public class Viewport extends JComponent {
 		g.setColor(Color.RED);
 		g.drawLine(x-15, y, x+15, y);
 		g.drawLine(x, y-15, x, y+15);
-	}
-	
-	public void centerCameraOn(GameObject obj) {
-		camX = obj.getX() - (getWidth()/2);
-		camY = obj.getY() - (getHeight()/2);
 	}
 	
 	public void setupListeners(final LevelEditorMain frame) {
@@ -114,7 +107,7 @@ public class Viewport extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
+					cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 					frame.checkSelection(cursor);
 					repaint();
 				}
@@ -124,7 +117,7 @@ public class Viewport extends JComponent {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
+				cursor.setCursorLocation(e.getX()+camX,e.getY()+ camY);
 				frame.mouseDragged(e.getX()+camX, e.getY()+camY);
 				repaint();
 			}

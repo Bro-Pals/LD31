@@ -35,10 +35,12 @@ public class GameWorld {
 	/**
 	 * Called to render the active dimension onto the screen
 	 * @param g The graphics context to be used for rendering
+	 * @param camX The camera's X position in the world.
+	 * @param camY The camera's Y position in the world.
 	 */
-	public void renderDimension(Graphics g) {
+	public void renderDimension(Graphics g, float camX, float camY) {
 		if (activeDimension != null) {
-			activeDimension.renderObjects(g);
+			activeDimension.renderObjects(g, camX, camY);
 		}
 	}
 

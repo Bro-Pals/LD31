@@ -47,11 +47,13 @@ public class GameObject {
 	/**
 	 * Render code, called 60 times a second
 	 * @param g The graphics context to render with
+	 * @param camX The camera's X position in the world.
+	 * @param camY The camera's Y position in the world.
 	 */
-	public void render(Graphics g) {
+	public void render(Graphics g, float camX, float camY) {
 		// tell the object how to render itself
 		g.setColor(Color.BLACK);
-		g.fillRect((int)x, (int)y, 3, 3);
+		g.fillRect((int)(x-camX), (int)(y-camY), 3, 3);
 	}
 
 	/**
