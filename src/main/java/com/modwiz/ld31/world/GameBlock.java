@@ -46,14 +46,14 @@ public class GameBlock extends GameObject {
 						} else {
 							setY(bl.getY() + bl.getHeight());
 						}
-						getVelocity().setY(0);
+						getVelocity().set(1, 0);
 					} else {
 						if (this.getX() < bl.getX()) {
 							getX(bl.getX() - getWidth());
 						} else {
 							getX(bl.getX() + bl.getWidth());
 						}
-						getVelocity().setX(0);
+						getVelocity().set(0, 0);
 					}
 				}
 			}
