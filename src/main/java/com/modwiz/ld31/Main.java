@@ -69,7 +69,7 @@ public class Main {
 			int width = window.getRawFrame().getWidth();
 			int height = window.getRawFrame().getHeight();
 
-			window.getRawFrame().setBackground(Color.black);
+			window.getRawFrame().setBackground(Color.gray);
 
 			while(window.exists()) {
 				start = System.currentTimeMillis();
@@ -102,8 +102,7 @@ public class Main {
 				player.setSneaking(shift);
 				
 				world.updateDimension();
-				g.setColor(Color.WHITE);
-				g.fillRect(0, 0, width, height);
+				g.clearRect(0, 0, width, height);
 				world.renderDimension(g);
 			
 				window.showBuffer(g);
