@@ -28,6 +28,11 @@ public class Weapon {
 				float startPosX = (float)(holder.getX() + (holder.getWidth() / 2) + (direction.getX() * 30));
 				float startPosY = (float)(holder.getY() + (holder.getHeight() / 2) + (direction.getY() * 30));
 				// make a projectile
+				Projectile projectile = new Projectile(holder, holder.getParent(), startPosX, startPosY, 16, 16, 
+					null, null, (float)range);
+				projectile.getVelocity().set(0, direction.getX() * 10);
+				projectile.getVelocity().set(1, direction.getY() * 10);
+				holder.getParent().getObjects().add(projectile);
 			}
 		}
 	}

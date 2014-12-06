@@ -8,6 +8,7 @@ import java.awt.*;
 public class Player extends Creature {
 
 	private boolean sneaking;
+	private double radiationLevel;
 
     /**
      * Creates a new player instance
@@ -23,8 +24,9 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
 		sneaking = false;
+		radiationLevel = 0;
     }
-
+	
 	@Override
 	public void render(Graphics g) {
 		if (getAnimation() != null) {
@@ -59,6 +61,12 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health, anim);
     }
 
+	public void changeRadiation(double amount) {
+		this.radiationLevel += amount;
+		if (this.radiationLevel < 0) 
+			this.radiationLevel = 0;
+	}
+	
     /**
      * Set sneaking mode, this reduces enemy detection? TODO: Clarify what this does
      * @param s Whether or not the player is sneaking
