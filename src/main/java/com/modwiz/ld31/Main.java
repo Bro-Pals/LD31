@@ -21,7 +21,7 @@ public class Main {
 			// loading all the animations
 			BufferedImage playerMoving = null;
 			try {
-				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get();
+				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
 			
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
