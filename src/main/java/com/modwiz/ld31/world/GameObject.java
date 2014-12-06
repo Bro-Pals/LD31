@@ -17,7 +17,7 @@ public class GameObject {
 	private Vector2 velocity;
 	private Vector2 acceleration;
 	
-	public GameObject(ArrayList<Dimension> parent, float x, float y) {
+	public GameObject(List<Dimension> parent, float x, float y) {
 		this.parent = parent;
 		this.x = x;
 		this.y = y;

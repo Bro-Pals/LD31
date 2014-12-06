@@ -1,7 +1,7 @@
 package com.modwiz.ld31.world;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
 	The basic block with width, height, and collision
@@ -10,7 +10,7 @@ public class GameBlock extends GameObject {
 	
 	private float width, height;
 	
-	public GameBlock(ArrayList<Dimension> parent, float x, float y, float w, float h) {
+	public GameBlock(List<Dimension> parent, float x, float y, float w, float h) {
 		super(parent, x, y);
 		this.width = w;
 		this.height = height;
