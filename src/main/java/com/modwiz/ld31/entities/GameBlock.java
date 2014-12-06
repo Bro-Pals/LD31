@@ -28,7 +28,16 @@ public class GameBlock extends GameObject {
 		this.grounded = false;
 		this.staticBlock = false;
 	}
-
+	/**
+	 * Represents a {@link GameObject} with a width and height
+	 * @param parent The dimension for this object to be loaded into
+	 * @param x The initial x position of this GameBlock
+	 * @param y The initial y position of this GameBlock
+	 * @param w The width of this GameBlock
+	 * @param h The height of this GameBlock
+	 * @param staticBlock True for ground blocks
+	 * @see com.modwiz.ld31.entities.GameObject
+	 */
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock) {
 		this(parent, x, y, w, h);
 		this.staticBlock = true;

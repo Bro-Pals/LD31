@@ -63,6 +63,14 @@ public class Creature extends GameBlock {
 		}
 	}
 
+	/**
+	 * Handles logic for when a weapon is used on a specific position
+	 * Where refers to the actual attacking, not the position of the creature
+	 * Ex: A bow would be shot from one place and fire an arrow to a different place
+	 *
+	 * @param x The x coordinate where the attack was attempted
+	 * @param y The y coordinate where the attack was attempted
+	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
 		weapon.use(new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
