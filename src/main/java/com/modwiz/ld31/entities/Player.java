@@ -3,6 +3,8 @@ package com.modwiz.ld31.entities;
 import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
 
+import java.awt.*;
+
 public class Player extends Creature {
 
 	private boolean sneaking;
