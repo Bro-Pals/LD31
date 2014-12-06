@@ -1,6 +1,6 @@
 package com.modwiz.ld31.world;
 
-import lib.horsentp_math_2014.Vector2;
+import horsentpmath.Vector2;
 
 /**
 	The extreme game object for everything that is going to go in the world
