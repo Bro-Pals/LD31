@@ -447,35 +447,25 @@ public class LevelEditorMain extends JFrame {
 	
 	private void startSnappingToGrid() {
 		System.out.println("Snapping to grid");
-        if(selecting != null){
-            if(selecting.getX()%50 > 25){
-                selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
-            }else{
-                selecting.setX(selecting.getX() - selecting.getX()%50);
-            }
-            if(selecting.getY()%50 > 25){
-                selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
-            }else{
-                selecting.setY(selecting.getX() - selecting.getY()%50);
-            }
-
-        }
+		snappingToObjects = false;
+        snappingToGrid = true;
+		viewport.setGridVisible(true);
 	}
 	
 	private void stopSnappingToGrid() {
 		System.out.println("Not snapping to grid");
-        if(selecting != null){
-            selecting.setX(selecting.getX());
-            selecting.setY(selecting.getY());
-        }
+        snappingToGrid = false;
 	}
 	
 	private void startSnappingToObjects() {
 		System.out.println("Snapping to objects");
+		snappingToObjects = true;
+        snappingToGrid = false;
 	}
 	
 	private void stopSnappingToObjects() {
 		System.out.println("Not snapping to objects");
+		snappingToObjects = false;
 	}
 	
 	private void removeSelectedObject() {
@@ -517,6 +507,18 @@ public class LevelEditorMain extends JFrame {
 				cursor.startDragging(selecting);
 			} else {
 				cursor.updateDrag();
+			}
+			if (snappingToGrid) {
+				if(selecting.getX()%50 > 25){
+					selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
+				}else{
+					selecting.setX(selecting.getX() - selecting.getX()%50);
+				}
+				if(selecting.getY()%50 > 25){
+					selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
+				}else{
+					selecting.setY(selecting.getX() - selecting.getY()%50);
+				}
 			}
 		}
 	}
