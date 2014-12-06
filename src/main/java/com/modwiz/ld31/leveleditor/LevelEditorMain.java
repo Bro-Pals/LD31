@@ -6,7 +6,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.JList;
 
 import com.modwiz.ld31.entities.GameObject;
-import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.entities.GameObjectFactory;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
@@ -65,7 +64,6 @@ public class LevelEditorMain extends JFrame {
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
 	private GameObjectFactory gameObjectFactory;
-	private final float snapDistance = 7.5f;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -193,7 +191,6 @@ public class LevelEditorMain extends JFrame {
 	
 	private void makeSnapToObjects() {
 		snapToObjects = new JCheckBoxMenuItem("Snap to Object");
-		snapToObjects.setState(snappingToObjects);
 		snapToObjects.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -351,7 +348,6 @@ public class LevelEditorMain extends JFrame {
 		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
 			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
 			System.out.println("Selected a dimension");
-			viewport.repaint();
 		}
 	}
 	
@@ -361,8 +357,6 @@ public class LevelEditorMain extends JFrame {
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
 				obj = (GameObject)obj.clone();
-				obj.setX(viewport.get2DCursor().getX());
-				obj.setY(viewport.get2DCursor().getY());
 				currentLevel.getActiveDimension().addObject(obj);
 				viewport.repaint();
 			}
@@ -421,38 +415,21 @@ public class LevelEditorMain extends JFrame {
 			viewport.setSelected(selecting);
 			this.selecting = selecting;
 			propertyPanel.loadObject(selecting);
-		} else {
-			clearSelectedGameObject();
 		}
 	}
-	
+
 	private void clearSelectedGameObject() {
 		viewport.setSelected(null);
 		this.selecting = null;
 		propertyPanel.clear();
 	}
-	
+
 	public void checkSelection(Cursor2D cursor) {
 		if (currentLevel!=null) {
 			Dimension d = currentLevel.getActiveDimension();
 			if (d!=null) {
-				boolean found = false;
 				for (GameObject go : d.getObjects()) {
-					if (go instanceof GameBlock) {
-						GameBlock gb = (GameBlock)go;
-						if (gb.getX() < cursor.getX() &&
-							gb.getX() + gb.getWidth() > cursor.getY() &&
-							gb.getY() < cursor.getY() &&
-							gb.getY() + gb.getHeight() > cursor.getY()
-						) {
-							//Select the object that has the cursor in it
-							selectGameObject(gb);
-							found = true;
-						}
-					}
-				}
-				if (!found) {
-					clearSelectedGameObject();
+					
 				}
 			}
 		}
@@ -461,7 +438,6 @@ public class LevelEditorMain extends JFrame {
 	private void showGrid() {
 		System.out.println("Showing grid");
 		viewport.setGridVisible(true);
-		viewport.repaint();
 	}
 	
 	private void hideGrid() {
@@ -471,33 +447,39 @@ public class LevelEditorMain extends JFrame {
 	
 	private void startSnappingToGrid() {
 		System.out.println("Snapping to grid");
-		snappingToGrid = true;
-		viewport.setGridVisible(true);
-		snappingToObjects = false;
+        if(selecting != null){
+            if(selecting.getX()%50 > 25){
+                selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
+            }else{
+                selecting.setX(selecting.getX() - selecting.getX()%50);
+            }
+            if(selecting.getY()%50 > 25){
+                selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
+            }else{
+                selecting.setY(selecting.getX() - selecting.getY()%50);
+            }
+
+        }
 	}
 	
 	private void stopSnappingToGrid() {
 		System.out.println("Not snapping to grid");
-		snappingToGrid = false;
+        if(selecting != null){
+            selecting.setX(selecting.getX());
+            selecting.setY(selecting.getY());
+        }
 	}
 	
 	private void startSnappingToObjects() {
 		System.out.println("Snapping to objects");
-		snappingToGrid = false;
-		snappingToObjects = true;
 	}
 	
 	private void stopSnappingToObjects() {
 		System.out.println("Not snapping to objects");
-		snappingToObjects = false;
 	}
 	
 	private void removeSelectedObject() {
 		System.out.println("Removing the selected object");
-		if (currentLevel!=null && selecting!=null) {
-			currentLevel.getActiveDimension().removeObject(selecting);
-			clearSelectedGameObject();
-		}
 	}
 	
 	public void onClose() {
@@ -536,10 +518,8 @@ public class LevelEditorMain extends JFrame {
 			} else {
 				cursor.updateDrag();
 			}
-			/* Snapping code */
-			if (snappingToGrid) {
-				
-			}
 		}
 	}
+	
+
 }
