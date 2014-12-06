@@ -26,7 +26,6 @@ public class Viewport extends Canvas {
 		camSpeed = 40;
 		setPreferredSize(new java.awt.Dimension(viewPortWidth, viewPortHeight));
 		setSize(viewPortWidth, viewPortHeight);
-		selected = null;
 	}
 	
 	

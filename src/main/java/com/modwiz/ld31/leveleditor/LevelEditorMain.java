@@ -19,10 +19,9 @@ public class LevelEditorMain extends JFrame {
 	
 	private Viewport viewport;
 	private PropertyPanel propertyPanel;
-	private JList dimensionList;
-	private JList objectList;
 	private FileManager fileManager;
-	private GameWorld currentLevel;
+	private JList dimList;
+	private JList objectLib;
 	private JButton addObject;
 	private JButton removeObject;
 	private JButton dimAdd;
@@ -37,6 +36,7 @@ public class LevelEditorMain extends JFrame {
 	private JCheckBoxMenuItem snapToObjects;
 	private JCheckBoxMenuItem gridVisible;
 	private GameObject selecting;
+	private GameWorld currentLevel;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -58,8 +58,6 @@ public class LevelEditorMain extends JFrame {
 		viewport = new Viewport(600, 400);
 		fileManager = new FileManager();
 		propertyPanel = new PropertyPanel();
-		dimensionList = new JList();
-		objectList = new JList();
 	}
 	
 	private boolean confirmAction(String message) {
@@ -70,6 +68,126 @@ public class LevelEditorMain extends JFrame {
 		//Check to see if the cursor is selecting something
 	}
 
+	private void makeFileMenu() {
+		newButton = new JMenuItem("New Level");
+		if (fileManager.hasCurrent()) {
+			if (confirmAction("Save current level before overwriting with a new level?")) {
+				//Make a new level
+				fileManager.save(currentLevel);
+				fileManager.clear();
+				
+			}
+		}
+	}
+	
+	private void makeNewButton() {
+		
+	}
+	
+	private void makeSaveButton() {
+		
+	}
+	
+	private void makeSaveAsButton() {
+		
+	}
+	
+	private void makeOpenButton() {
+		
+	}
+	
+	private void makeSnapToGrid() {
+		
+	}
+	
+	private void makeSnapToObjects() {
+		
+	}
+	
+	private void makeShowGrid() {
+		
+	}
+	
+	private void makeDimList() {
+		
+	}
+	
+	private void makeObjectLib() {
+		
+	}
+	
+	private void makeAddDim() {
+		
+	}
+	
+	private void makeRemoveDim() {
+		
+	}
+	
+	private void makeAddObject() {
+		
+	}
+	
+	private void makeRemoveObject() {
+		
+	}
+	
+	private void makeEditorMenu() {
+		
+	}
+	
+	private void choseDimension() {
+	
+	}
+	
+	private void addToWorldFromObjectLib() {
+	
+	}
+	
+	private void newLevel() {
+	
+	}
+	
+	private void saveLevel() {
+	
+	}
+	
+	private void saveLevelAs() {
+	
+	}
+	
+	private void openLevel() {
+	
+	}
+	
+	private void selectGameObject(GameObject selecting) {
+	
+	}
+	
+	private void showGrid() {
+	
+	}
+	
+	private void hideGrid() {
+	
+	}
+	
+	private void startSnappingToGrid() {
+	
+	}
+	
+	private void stopSnappingToGrid() {
+	
+	}
+	
+	private void startSnappingToObjects() {
+	
+	}
+	
+	private void stopSnappingToObjects() {
+	
+	}
+	
 	public void onClose() {
 		if (fileManager.hasCurrent()) {
 			if (confirmAction("Save current work?")) {

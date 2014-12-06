@@ -21,6 +21,10 @@ public class FileManager {
 		return current != null;
 	}
 	
+	public void clear() {
+		current = null;
+	}
+	
 	public void saveAs(File file, GameWorld world) {
 		current = file;
 	}
