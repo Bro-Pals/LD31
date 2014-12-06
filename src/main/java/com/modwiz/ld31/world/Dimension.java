@@ -63,7 +63,6 @@ public class Dimension {
 	 * @param camY The camera's Y position in the world.
 	 */
 	public void renderObjects(Graphics g, float camX, float camY) {
-		System.out.println("Drawing " + objects.size());
 		for (GameObject obj : objects) {
 			obj.render(g, camX, camY);
 		}

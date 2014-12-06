@@ -82,6 +82,7 @@ public abstract class AssetLoader {
 			CREATURE = "TEUQOD",
 			BLOCK = "TEPZOW",
 			OBJECT = "LEPZOQ",
+			ENEMY = "LEPZVQ",
 			DIM_START = "TYPZOW",
 			DIM_END = "TWPZOW",
 			DIM_INITIAL_DIM = "TBPZOW"
@@ -181,6 +182,11 @@ public abstract class AssetLoader {
 				return PLAYER + SEP + p.getX() + SEP +
 					p.getY() + SEP + p.getWidth() + SEP +
 					p.getHeight() + SEP + p.getHealth();
+			} else if (object instanceof Enemy) {
+				Enemy e = (Enemy)object;
+				return ENEMY + SEP + e.getX() + SEP +
+					e.getY() + SEP + e.getWidth() + SEP +
+					e.getHeight() + SEP + e.getHealth();
 			} else if (object instanceof Creature) {
 				Creature p = (Creature)object;
 				return CREATURE + SEP + p.getX() + SEP +
@@ -208,6 +214,16 @@ public abstract class AssetLoader {
 			switch(split[0]) {
 				case PLAYER:
 					return new Player(
+						parent,
+						Float.parseFloat(split[1]),
+						Float.parseFloat(split[2]),
+						Float.parseFloat(split[3]),
+						Float.parseFloat(split[4]),
+						(int)Double.parseDouble(split[5]),
+						null
+					);
+				case ENEMY:
+					return new Enemy(
 						parent,
 						Float.parseFloat(split[1]),
 						Float.parseFloat(split[2]),
