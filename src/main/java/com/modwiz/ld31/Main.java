@@ -19,9 +19,9 @@ public class Main {
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
 			
 			// loading all the animations
-			Resource playerMoving = null;
+			BufferedImage playerMoving = null;
 			try {
-				//playerMoving = AssetLoader.getAssetLoader().getResource("assets/img/playerMove.png").get();
+				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get();
 			
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
@@ -31,8 +31,10 @@ public class Main {
 			}
 			
 			BufferedImage[][] playerAnimations = new BufferedImage[4][];
-			for (int i=0; i<3; i++) {
-				//playerAnimations[0][i] = ((BufferedImage)playerMoving.getContent()).getSubimage(i * 80, 0, 80, 120);
+			if (playerMoving != null) {
+				for (int i=0; i<3; i++) {
+					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
+				}
 			}
 			
 			Dimension firstDimension = new Dimension();
