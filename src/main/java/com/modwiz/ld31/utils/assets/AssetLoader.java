@@ -4,6 +4,13 @@ import com.google.common.base.Optional;
 import com.modwiz.ld31.world.GameWorld;
 
 public abstract class AssetLoader {
+    /**
+     * Returns the current implementation of AssetLoader
+     * @return a concrete AssetLoader implementation
+     */
+    public static AssetLoader getAssetLoader() {
+        return new Basic();
+    }
 
     /**
      * Load a generic resource object
@@ -18,4 +25,17 @@ public abstract class AssetLoader {
      * @return An object representing a game level
      */
     public abstract Optional<Resource<GameWorld>> getLevel(String levelPath);
+
+    static class Basic extends AssetLoader{
+
+        @Override
+        public Optional<Resource<?>> getResource(String resourcePath) {
+            return Optional.absent();
+        }
+
+        @Override
+        public Optional<Resource<GameWorld>> getLevel(String levelPath) {
+            return Optional.absent();
+        }
+    }
 }
