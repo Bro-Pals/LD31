@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JList;
 
 import com.modwiz.ld31.entities.GameObject;
+import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.entities.GameObjectFactory;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
@@ -357,6 +358,8 @@ public class LevelEditorMain extends JFrame {
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
 				obj = (GameObject)obj.clone();
+				obj.setX(viewport.get2DCursor().getX());
+				obj.setY(viewport.get2DCursor().getY());
 				currentLevel.getActiveDimension().addObject(obj);
 				viewport.repaint();
 			}
@@ -428,8 +431,23 @@ public class LevelEditorMain extends JFrame {
 		if (currentLevel!=null) {
 			Dimension d = currentLevel.getActiveDimension();
 			if (d!=null) {
+				boolean found = false;
 				for (GameObject go : d.getObjects()) {
-					
+					if (go instanceof GameBlock) {
+						GameBlock gb = (GameBlock)go;
+						if (
+							cursor.getX() > gb.getX() &&
+							cursor.getX() < gb.getX() + gb.getWidth() &&
+							cursor.getY() > gb.getY() &&
+							cursor.getY() < gb.getY() + gb.getHeight()
+						) {
+							selectGameObject(gb);
+							found = true;
+						}
+					}
+				}
+				if (!found) {
+					clearSelectedGameObject();
 				}
 			}
 		}
