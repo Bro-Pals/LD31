@@ -37,6 +37,5 @@ public class Enemy extends Creature {
      */
     public Enemy(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
         super(parent, x, y, w, h, health, anim);
->>>>>>> 53c1276ef31bc2217fe1b3b74d82c3cdc784d092
     }
 }
