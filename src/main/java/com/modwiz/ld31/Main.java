@@ -2,9 +2,11 @@ package com.modwiz.ld31;
 
 import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
+import com.modwiz.ld31.utils.assets.*;
 import com.modwiz.ld31.world.*;
 import horsentp.simpledrawing.DrawWindow;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class Main {
 
@@ -17,6 +19,25 @@ public class Main {
 		} else {
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
+			
+			// loading all the animations
+			BufferedImage playerMoving = null;
+			try {
+				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get();
+			
+			} catch(NullPointerException npe) {
+				System.out.println("Oh no it's a " + npe.toString());
+			} catch(Exception e) {
+				System.out.println("Problem loading images " + e.toString());
+				System.exit(0);
+			}
+			
+			BufferedImage[][] playerAnimations = new BufferedImage[4][];
+			if (playerMoving != null) {
+				for (int i=0; i<3; i++) {
+					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
+				}
+			}
 			
 			Dimension firstDimension = new Dimension();
 			firstDimension.getObjects().add(new GameBlock(firstDimension, 50, 50, 100, 100)); // our first block!!
