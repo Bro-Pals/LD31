@@ -2,7 +2,6 @@ package com.modwiz.ld31.leveleditor;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Dimensions;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -23,7 +22,7 @@ public class Viewport extends Canvas {
 		camX = 0;
 		camY = 0;
 		camSpeed = 40;
-		setPreferredSize(new Dimension(viewPortWidth, viewPortHeight));
+		setPreferredSize(new java.awt.Dimension(viewPortWidth, viewPortHeight));
 		setSize(viewPortWidth, viewPortHeight);
 	}
 	
