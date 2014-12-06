@@ -3,6 +3,8 @@ package com.modwiz.ld31.entities;
 import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
 
+import java.awt.*;
+
 public class Player extends Creature {
 
 	private boolean sneaking;
@@ -26,7 +28,7 @@ public class Player extends Creature {
 	@Override
 	public void render(Graphics g) {
 		if (getAnimation() != null) {
-			if (facingRight) { 
+			if (isFacingRight()) { 
 				getAnimation().setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
 				g.drawImage(getAnimation().getCurrentFrame(), (int)getX(), (int)getY(), null);
 			} else {

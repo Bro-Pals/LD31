@@ -12,7 +12,7 @@ import java.awt.Color;
 public class Creature extends GameBlock {
 
 	private double health;
-	private boolean facingRight;
+	protected boolean facingRight;
 	private Weapon weapon;
 	
 	// The animation for this creature
