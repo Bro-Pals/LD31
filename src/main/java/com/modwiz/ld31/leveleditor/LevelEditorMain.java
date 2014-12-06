@@ -21,6 +21,7 @@ public class LevelEditorMain extends JFrame {
 	private PropertyPanel propertyPanel;
 	private JList dimensionList;
 	private JList objectList;
+	private FileManager fileManager;
 	
 	public LevelEditor() {
 		super("Ludum Dare 31 Level Editor");
@@ -36,6 +37,7 @@ public class LevelEditorMain extends JFrame {
 			}
 		);
 		viewport = new Viewport(600, 400);
+		fileManager = new FileManager();
 		propertyPanel = new PropertyPanel();
 		dimensionList = new JList();
 		objectList = new JList();
