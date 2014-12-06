@@ -2,6 +2,7 @@ package com.modwiz.ld31.leveleditor;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.*;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;

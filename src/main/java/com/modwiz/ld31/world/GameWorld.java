@@ -1,13 +1,14 @@
 package com.modwiz.ld31.world;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 	The world that will hold references to all the dimensions and changes between it
 */
 public class GameWorld {
 	
-	private ArrayList<Dimension> dimensions;
+	private List<Dimension> dimensions;
 	
 	public GameWorld() {
 		dimensions = new ArrayList<>();
