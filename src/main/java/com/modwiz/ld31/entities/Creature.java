@@ -59,15 +59,23 @@ public class Creature extends GameBlock {
 	public void damage(double amount) {
 		health = health - amount;
 		if (health <= 0) {
-			dead = true;
+			setDead(true);
 		}
 	}
 
+	/**
+	 * Handles logic for when a weapon is used on a specific position
+	 * Where refers to the actual attacking, not the position of the creature
+	 * Ex: A bow would be shot from one place and fire an arrow to a different place
+	 *
+	 * @param x The x coordinate where the attack was attempted
+	 * @param y The y coordinate where the attack was attempted
+	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
-		weapon.use(new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
+		weapon.use((Vector2)new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
 	}
-	
+
 	/**
 	 * Set a new animation for the creature
 	 * @param a The animation to set
@@ -121,4 +129,11 @@ public class Creature extends GameBlock {
 		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 	}
 	
+	@Override
+	public Object clone() {
+		//TO DO : Copy the animation
+		Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), null);
+		c.setName(getName());
+		return c;
+	}
 }

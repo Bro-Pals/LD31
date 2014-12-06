@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JList;
 
 import com.modwiz.ld31.entities.GameObject;
+import com.modwiz.ld31.entities.GameObjectFactory;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -62,6 +63,7 @@ public class LevelEditorMain extends JFrame {
 	private JFileChooser fc;
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
+	private GameObjectFactory gameObjectFactory;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -77,6 +79,7 @@ public class LevelEditorMain extends JFrame {
 				}
 			}
 		);
+		gameObjectFactory = new GameObjectFactory();
 		snappingToGrid = false;
 		snappingToObjects = true;
 		currentLevel = null;
@@ -255,7 +258,12 @@ public class LevelEditorMain extends JFrame {
 		objectPanel.add(objectPanelRight);
 		southPanel.add(objectPanel);
 		/* Add objects into the object library  */
+		GameObject[] objects = new GameObject[1];
+		objects[0] = gameObjectFactory.createWall();
 		
+		objectLib.setListData(objects);
+		objectLibViewport.revalidate();
+		objectLibViewport.repaint();
 	}
 	
 	private void makeAddDim() {
@@ -342,6 +350,15 @@ public class LevelEditorMain extends JFrame {
 	
 	private void addToWorldFromObjectLib() {
 		System.out.println("Add to world from object lib");
+		if (currentLevel!=null && currentLevel.getActiveDimension()!=null) {
+			GameObject obj = (GameObject)objectLib.getSelectedValue();
+			if (obj!=null) {
+				obj = (GameObject)obj.clone();
+				currentLevel.getActiveDimension().addObject(obj);
+				viewport.centerCameraOn(obj);
+				viewport.repaint();
+			}
+		}
 	}
 	
 	private void newLevel() {
@@ -368,10 +385,12 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void saveLevelAs() {
-		System.out.println("Save the current level as");
-		int confirm = fc.showSaveDialog(this);
-		if (confirm == JFileChooser.APPROVE_OPTION) {
-			fileManager.saveAs(fc.getSelectedFile(), currentLevel);
+		if (currentLevel!=null) {
+			System.out.println("Save the current level as");
+			int confirm = fc.showSaveDialog(this);
+			if (confirm == JFileChooser.APPROVE_OPTION) {
+				fileManager.saveAs(fc.getSelectedFile(), currentLevel);
+			}
 		}
 	}
 	

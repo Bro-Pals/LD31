@@ -82,6 +82,11 @@ public class Viewport extends JComponent {
 		g.drawLine(x, y-15, x, y+15);
 	}
 	
+	public void centerCameraOn(GameObject obj) {
+		camX = obj.getX() - (getWidth()/2);
+		camY = obj.getY() - (getHeight()/2);
+	}
+	
 	public void setupListeners(final LevelEditorMain frame) {
 		setFocusable(true);
 		

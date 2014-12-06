@@ -15,6 +15,7 @@ public class GameObject {
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
+	private String name;
 	private boolean dead;
 
 	/**
@@ -30,6 +31,8 @@ public class GameObject {
 		dead = false;
 		velocity = new Vector2();
 		acceleration = new Vector2();
+		name = "DEFAULT_NAME";
+		this.dead = false;
 	}
 
 	/**
@@ -58,19 +61,7 @@ public class GameObject {
 	public Dimension getParent() {
 		return parent;
 	}
-	
-	/**
-	 * Check if the creature is dead
-	 * @return True if the creature is dead
-	 */
-	public boolean isDead() {
-		return dead;
-	}
-	
-	public void setDead(boolean d) {
-		dead = d;
-	}
-	
+
 	/**
 	 * Sets the current dimension of this game object
 	 * @param p The new dimension for this game object
@@ -85,6 +76,22 @@ public class GameObject {
 	 */
 	public Vector2 getVelocity() {
 		return velocity;
+	}
+	
+	/**
+	 * Gets the name of this GameObject.
+	 * @return the name of this GameObject.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Sets the name of this GameObject.
+	 * @param name The new name of this GameObject.
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -135,5 +142,33 @@ public class GameObject {
 	public void setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	@Override
+	public Object clone() {
+		GameObject obj = new GameObject(null, getX(), getY());
+		obj.setName(this.getName());
+		return obj;
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
+
+	/**
+	 * Check if the game object is dead
+	 * @return True if the game object is dead
+	 */
+	public boolean isDead() {
+		return dead;
+	}
+
+	/**
+	 * Set the game object's dead state
+	 * Dead objects are removed from the game after being updated
+	 * @param dead Whether the game object is dead
+	 */
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 }
