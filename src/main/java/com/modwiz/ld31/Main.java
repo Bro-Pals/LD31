@@ -1,18 +1,24 @@
 package com.modwiz.ld31;
 
-import com.modwiz.ld31.entities.Creature;
-import com.modwiz.ld31.entities.GameBlock;
+import com.modwiz.ld31.entities.*;
 import com.modwiz.ld31.entities.draw.Animation;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
 import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
-
+import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Main {
+
+	// Values for tracking what keys are pressed at the moment
+	private static boolean w = false;
+	private static boolean a = false;
+	private static boolean s = false;
+	private static boolean d = false;
+	private static boolean shift = false;
 
     public static void main(String[] args) {
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
@@ -41,17 +47,20 @@ public class Main {
 					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
 				}
 			}
+			Animation playerAnim = new Animation(playerAnimations, 8);
 			
 			Dimension firstDimension = new Dimension();
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 50, 100, 100);
-			firstBlock.getVelocity().set(0, 2);
-			firstBlock.getVelocity().set(1, 1);
+			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
+			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
 
-			Creature testCreature = new Creature(firstDimension, 50, 50, 100, 100, 1, new Animation(playerAnimations));
-			testCreature.getVelocity().set(0, 2);
-			testCreature.getVelocity().set(1, 1);
+			Player player = new Player(firstDimension, 60, 20, 65, 120, 8, playerAnim);
+			player.getVelocity().set(0, 2);
+			player.getAcceleration().set(1, 1); // gravity!
 
-			firstDimension.getObjects().add(testCreature); // our first block!!
+			firstDimension.getObjects().add(player); // our first block!!
+			firstDimension.getObjects().add(firstBlock); // our first block!!
+			firstDimension.getObjects().add(secondBlock);
+
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
 			world.setActiveDimension(firstDimension.getName());
@@ -62,12 +71,38 @@ public class Main {
 			int width = window.getRawFrame().getWidth();
 			int height = window.getRawFrame().getHeight();
 
-			window.getRawFrame().setBackground(Color.black);
-			
+			window.getRawFrame().setBackground(Color.gray);
+
 			while(window.exists()) {
 				start = System.currentTimeMillis();
 				Graphics g = window.getDrawGraphics();
 			
+			
+				// handle key events
+				KeyEvent keyEvent;
+				while ((keyEvent = window.nextKeyPressedEvent()) != null) {
+					changeKey(keyEvent.getKeyCode(), true);
+				}
+				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
+					changeKey(keyEvent.getKeyCode(), false);
+				}
+				
+				// moving and stuff
+				if (d && !a) {
+					player.getVelocity().set(0, 3);
+				} else if (a && !d) {
+					player.getVelocity().set(0, -3);
+				} else if (!a && !d) {
+					player.getVelocity().set(0, 0);
+				}
+				if (w) {
+					if (player.isGrounded()) {
+						System.out.println("JUMP");
+						player.getVelocity().set(1, -14); // jumping
+					}
+				}
+				player.setSneaking(shift);
+				
 				world.updateDimension();
 				g.clearRect(0, 0, width, height);
 				world.renderDimension(g);
@@ -82,4 +117,14 @@ public class Main {
 			}
 		}
     }
+	
+	private static void changeKey(int keyCode, boolean value) {
+		switch(keyCode) {
+			case KeyEvent.VK_W: w = value; break;
+			case KeyEvent.VK_A: a = value; break;
+			case KeyEvent.VK_S: s = value; break;
+			case KeyEvent.VK_D: d = value; break;
+			case KeyEvent.VK_SHIFT: shift = value; break;
+		}
+	}
 }
