@@ -25,35 +25,27 @@ public class CachedLoader extends AssetLoader {
 
 
     /**
-     * Load a generic resource object
-     *
-     * @param resourcePath The path to the generic resource object
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public Optional<Resource<?>> getResource(String resourcePath, Class resourceType) {
+    @SuppressWarnings("unchecked")
+    public <T> Optional<Resource<T>> getResource(String resourcePath, Class<T> resourceType) {
         if (resourceType == BufferedImage.class) {
-            return (Optional<Resource<?>>) getBufferedImage(resourcePath);
+            return Optional.fromNullable(new Resource<>(resourcePath, (T) bufferedImageCache.getUnchecked(resourcePath)));
         }
         return Optional.absent();
     }
 
     /**
-     * Load a BufferedImage
-     *
-     * @param imagePath The path to the image file
-     * @return A buffered image with the image loaded
+     * {@inheritDoc}
      */
     @Override
     public Optional<Resource<BufferedImage>> getBufferedImage(String imagePath) {
-        return Optional.fromNullable(new Resource<BufferedImage>(imagePath, bufferedImageCache.getUnchecked(imagePath)));
+        return Optional.fromNullable(new Resource<>(imagePath, bufferedImageCache.getUnchecked(imagePath)));
     }
 
     /**
-     * Load a level from specified path
-     *
-     * @param levelPath The path to the level
-     * @return An object representing a game level
+     * {@inheritDoc}
      */
     @Override
     public Optional<Resource<GameWorld>> getLevel(String levelPath) {
@@ -61,10 +53,7 @@ public class CachedLoader extends AssetLoader {
     }
 
     /**
-     * Load a level from specific file; for the level editor
-     *
-     * @param levelFile The file that holds the level data
-     * @return An object representing a game level
+     * {@inheritDoc}
      */
     @Override
     public Optional<Resource<GameWorld>> getLevelFromFile(File levelFile) {
@@ -72,11 +61,7 @@ public class CachedLoader extends AssetLoader {
     }
 
     /**
-     * Load a level from specific file; for the level editor
-     *
-     * @param levelFile The file that holds the level data
-     * @param world
-     * @return An object representing a game level
+     * {@inheritDoc}
      */
     @Override
     public void saveLevel(File levelFile, GameWorld world) {
@@ -84,10 +69,7 @@ public class CachedLoader extends AssetLoader {
     }
 
     /**
-     * Creates a parse string for saving a GameObject.
-     *
-     * @param object The object to be converted into a String.
-     * @return The object in String form.
+     * {@inheritDoc}
      */
     @Override
     public String writeGameObject(GameObject object) {
@@ -95,11 +77,7 @@ public class CachedLoader extends AssetLoader {
     }
 
     /**
-     * Creates a GameObject from a parse string; reverse of writeGameObject.
-     *
-     * @param parent
-     * @param string The string to be converted into a GameObject.
-     * @return The String in object form.
+     * {@inheritDoc}
      */
     @Override
     public GameObject readGameObject(Dimension parent, String string) {
