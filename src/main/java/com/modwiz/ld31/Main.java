@@ -50,8 +50,8 @@ public class Main {
 			Animation playerAnim = new Animation(playerAnimations, 8);
 			
 			Dimension firstDimension = new Dimension();
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30);
-
+			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
+			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
 
 			Player player = new Player(firstDimension, 60, 20, 65, 120, 8, playerAnim);
 			player.getVelocity().set(0, 2);
@@ -59,6 +59,8 @@ public class Main {
 
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
+			firstDimension.getObjects().add(secondBlock);
+
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
 			world.setActiveDimension(firstDimension.getName());
@@ -69,7 +71,7 @@ public class Main {
 			int width = window.getRawFrame().getWidth();
 			int height = window.getRawFrame().getHeight();
 
-			window.getRawFrame().setBackground(Color.black);
+			window.getRawFrame().setBackground(Color.gray);
 
 			while(window.exists()) {
 				start = System.currentTimeMillis();
@@ -102,8 +104,7 @@ public class Main {
 				player.setSneaking(shift);
 				
 				world.updateDimension();
-				g.setColor(Color.WHITE);
-				g.fillRect(0, 0, width, height);
+				g.clearRect(0, 0, width, height);
 				world.renderDimension(g);
 			
 				window.showBuffer(g);
