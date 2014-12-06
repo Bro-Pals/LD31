@@ -41,6 +41,8 @@ shadowJar {
     append('lib/SimpleTextParser/SimpleTextParser.jar')
 }
 
+build.dependsOn(shadowJar)
+
 artifacts {
     archives jar
 }
