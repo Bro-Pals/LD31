@@ -20,7 +20,7 @@ public abstract class AssetLoader {
      * @return a concrete AssetLoader implementation
      */
     public static AssetLoader getAssetLoader() {
-        return new Basic();
+        return new CachedLoader();
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class AssetLoader {
      * @param resourcePath The path to the generic resource object
      * @return
      */
-    public abstract Optional<Resource<?>> getResource(String resourcePath);
+    public abstract Optional<Resource<?>> getResource(String resourcePath, Class resourceType);
 
     /**
      * Load a BufferedImage
@@ -93,7 +93,7 @@ public abstract class AssetLoader {
 		}
 		
         @Override
-        public Optional<Resource<?>> getResource(String resourcePath) {
+        public Optional<Resource<?>> getResource(String resourcePath, Class resourceType) {
             return Optional.absent();
         }
 
