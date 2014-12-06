@@ -39,8 +39,8 @@ public class Main {
 			
 			Dimension firstDimension = new Dimension();
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 50, 100, 100);
-			firstBlock.getVelocity.set(0, 2);
-			firstBlock.getVelocity.set(1, 1);
+			firstBlock.getVelocity().set(0, 2);
+			firstBlock.getVelocity().set(1, 1);
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
