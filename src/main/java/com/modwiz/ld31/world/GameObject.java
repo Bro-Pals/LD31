@@ -2,7 +2,8 @@ package com.modwiz.ld31.world;
 
 import horsentpmath.Vector2;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 
 /**
 	The extreme game object for everything that is going to go in the world
