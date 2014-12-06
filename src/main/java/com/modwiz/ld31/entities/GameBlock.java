@@ -44,6 +44,11 @@ public class GameBlock extends GameObject {
 	public void update() {
 		super.update();
 		
+		// if it's not moving it can't move
+		if (getVelocity().getX() == 0 && getVelocity().getY() == 0) {
+			return;
+		}
+		
 		// collision checking
 		for (GameObject obj : getParent().getObjects()) {
 			if (obj instanceof GameBlock && obj != this) {

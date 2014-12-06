@@ -96,9 +96,10 @@ public class Main {
 				if (w) {
 					if (player.isGrounded()) {
 						System.out.println("JUMP");
-						player.getVelocity().set(1, -24); // jumping
+						player.getVelocity().set(1, -14); // jumping
 					}
 				}
+				player.setSneaking(shift);
 				
 				world.updateDimension();
 				g.setColor(Color.WHITE);

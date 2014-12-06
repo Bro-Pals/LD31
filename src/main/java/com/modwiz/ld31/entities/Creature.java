@@ -11,7 +11,7 @@ import java.awt.Color;
 public class Creature extends GameBlock {
 
 	private double health;
-	private boolean dead;
+	private boolean dead, facingRight;
 	private Weapon weapon;
 	
 	// The animation for this creature
@@ -87,12 +87,23 @@ public class Creature extends GameBlock {
 	}
 
 	/**
+	 * Get if the creature is facing rihgt
+	 * @return Return true if the player is facing right, or false
+				if the player is facing left.
+	*/
+	public boolean isFacingRight() {
+		return facingRight;
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void update() {
 		super.update(); // collision stuff from GameBlock
-		
+		if (getVelocity().getX() != 0) {
+			facingRight = getVelocity().getX() > 0;
+		}
 		animation.update(); 
 	}
 
