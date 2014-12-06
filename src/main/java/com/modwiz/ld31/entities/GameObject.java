@@ -15,6 +15,7 @@ public class GameObject {
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
+	private String name;
 
 	/**
 	 * Creates a new GameObject instance
@@ -28,6 +29,7 @@ public class GameObject {
 		this.y = y;
 		velocity = new Vector2();
 		acceleration = new Vector2();
+		name = "DEFAULT_NAME";
 	}
 
 	/**
@@ -71,6 +73,22 @@ public class GameObject {
 	 */
 	public Vector2 getVelocity() {
 		return velocity;
+	}
+	
+	/**
+	 * Gets the name of this GameObject.
+	 * @return the name of this GameObject.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Sets the name of this GameObject.
+	 * @param name The new name of this GameObject.
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -121,5 +139,17 @@ public class GameObject {
 	public void setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	@Override
+	public Object clone() {
+		GameObject obj = new GameObject(null, getX(), getY());
+		obj.setName(this.getName());
+		return obj;
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 }

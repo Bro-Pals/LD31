@@ -130,4 +130,11 @@ public class Creature extends GameBlock {
 		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 	}
 	
+	@Override
+	public Object clone() {
+		//TO DO : Copy the animation
+		Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), null);
+		c.setName(getName());
+		return c;
+	}
 }

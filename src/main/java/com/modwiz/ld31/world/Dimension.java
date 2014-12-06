@@ -68,12 +68,22 @@ public class Dimension {
 		}
 	}
 	
+	/**
+	* Adds a GameObject to this dimension.
+	* @param object the object to add to the dimension
+	*/
 	public void addObject(GameObject object) {
 		objects.add(object);
+		object.setParent(this);
 	}
 	
+	/**
+	* Removes a GameObject to this dimension.
+	* @param object the object to remove to the dimension
+	*/
 	public void removeObject(GameObject object) {
 		objects.remove(object);
+		object.setParent(null);
 	}
 	
 	@Override

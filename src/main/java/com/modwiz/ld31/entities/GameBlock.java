@@ -173,4 +173,11 @@ public class GameBlock extends GameObject {
 		this.width = w;
 		this.height = h;
 	}
+	
+	@Override
+	public Object clone() {
+		GameBlock b =new GameBlock(null, getX(), getY(), getWidth(), getHeight());
+		b.setName(getName());
+		return b;
+	}
 }
