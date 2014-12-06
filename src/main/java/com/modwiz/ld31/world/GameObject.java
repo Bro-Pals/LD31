@@ -9,17 +9,21 @@ import java.awt.*;
 */
 public class GameObject {
 	
+	private ArrayList<Dimension> parent;
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
 	
-	public GameObject(float x, float y) {
+	public GameObject(ArrayList<Dimension> parent, float x, float y) {
+		this.parent = parent;
 		this.x = x;
 		this.y = y;
 		velocity = new Vector2();
+		acceleration = new Vector2();
 	}
 	
 	public void update() {
+		velocity.add(acceleration);
 		this.x += velocity.getX();
 		this.y += velocity.getY();
 	}
@@ -30,8 +34,28 @@ public class GameObject {
 		g.fillRect((int)x, (int)y, 3, 3);
 	}
 	
+	public ArrayList<Dimension> getParent() {
+		return parent;
+	}
+	
+	public void setParent(ArrayList<Dimension> p) {
+		this.parent = p;
+	}
+	
 	public Vector2 getVelocity() {
 		return velocity;
+	}
+	
+	public Vector2 getAcceleration() {
+		return acceleration;
+	}
+	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
 	}
 	
 	public float getX() {
