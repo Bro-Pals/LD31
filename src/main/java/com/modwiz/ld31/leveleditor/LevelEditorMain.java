@@ -507,17 +507,17 @@ public class LevelEditorMain extends JFrame {
 				cursor.startDragging(selecting);
 			} else {
 				cursor.updateDrag();
-			}
-			if (snappingToGrid) {
-				if(selecting.getX()%50 > 25){
-					selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
-				}else{
-					selecting.setX(selecting.getX() - selecting.getX()%50);
-				}
-				if(selecting.getY()%50 > 25){
-					selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
-				}else{
-					selecting.setY(selecting.getX() - selecting.getY()%50);
+				if (snappingToGrid) {
+					if(selecting.getX()%50 > 25){
+							selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
+						}else{
+							selecting.setX(selecting.getX() - selecting.getX()%50);
+						}
+						if(selecting.getY()%50 > 25){
+							selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
+						}else{
+							selecting.setY(selecting.getX() - selecting.getY()%50);
+						}
 				}
 			}
 		}
