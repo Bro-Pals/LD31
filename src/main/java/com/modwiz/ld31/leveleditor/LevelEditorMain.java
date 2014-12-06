@@ -8,9 +8,26 @@ import javax.swing.JList;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JScrollPane;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListDataListener;
+import java.util.List;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import javax.swing.JFileChooser;
+import java.io.File;
+import javax.swing.JPanel;
+import javax.swing.JMenuBar;
 
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
@@ -20,8 +37,12 @@ public class LevelEditorMain extends JFrame {
 	private Viewport viewport;
 	private PropertyPanel propertyPanel;
 	private FileManager fileManager;
-	private JList dimList;
-	private JList objectLib;
+	private JScrollPane dimListViewport;
+	private JScrollPane objectLibViewport;
+	private JList<Dimension> dimList;
+	private JList<GameObject> objectLib;
+	private DimensionListSelectionModel dimListModel;
+	private ObjectLibrarySelectionModel objectLibModel;
 	private JButton addObject;
 	private JButton removeObject;
 	private JButton dimAdd;
@@ -37,11 +58,14 @@ public class LevelEditorMain extends JFrame {
 	private JCheckBoxMenuItem gridVisible;
 	private GameObject selecting;
 	private GameWorld currentLevel;
+	private JPanel rightPanel;
+	private JPanel southPanel;
+	private JFileChooser fc;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(800, 600);
 		setVisible(true);
 	}
 	
@@ -55,9 +79,32 @@ public class LevelEditorMain extends JFrame {
 			}
 		);
 		currentLevel = null;
+		fc = new JFileChooser();
 		viewport = new Viewport(600, 400);
 		fileManager = new FileManager();
 		propertyPanel = new PropertyPanel();
+		rightPanel = new JPanel();
+		southPanel = new JPanel();
+		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+		JMenuBar bar = new JMenuBar();
+		makeFileMenu();
+		makeEditorMenu();
+		bar.add(fileMenu);
+		bar.add(editorMenu);
+		setJMenuBar(bar);
+		makeEverythingElse();
+		add(rightPanel, BorderLayout.EAST);
+		add(viewport, BorderLayout.CENTER);
+		add(southPanel, BorderLayout.SOUTH);
+	}
+	
+	private void makeEverythingElse() {
+		makeDimList();
+		makeObjectLib();
+		makeAddDim();
+		makeRemoveDim();
+		makeAddObject();
+		makeRemoveObject();
 	}
 	
 	private boolean confirmAction(String message) {
@@ -69,71 +116,197 @@ public class LevelEditorMain extends JFrame {
 	}
 
 	private void makeFileMenu() {
-		newButton = new JMenuItem("New Level");
-		if (fileManager.hasCurrent()) {
-			if (confirmAction("Save current level before overwriting with a new level?")) {
-				//Make a new level
-				fileManager.save(currentLevel);
-				fileManager.clear();
-				
-			}
-		}
+		fileMenu = new JMenu("File");
+		makeNewButton();
+		makeSaveAsButton();
+		makeSaveButton();
+		makeOpenButton();
+		fileMenu.add(newButton);
+		fileMenu.add(saveAsButton);
+		fileMenu.add(saveButton);
+		fileMenu.add(openButton);
 	}
 	
 	private void makeNewButton() {
-		
+		newButton = new JMenuItem("New Level");
+		newButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fileManager.hasCurrent()) {
+					if (confirmAction("Save current level before overwriting with a new level?")) {
+						//Make a new level
+						fileManager.save(currentLevel);
+						fileManager.clear();
+						currentLevel = new GameWorld();
+						dimListModel.clear();
+						dimList.revalidate();
+						viewport.setLevel(currentLevel);
+					}
+				}
+			}
+		});
 	}
 	
 	private void makeSaveButton() {
-		
+		saveButton = new JMenuItem("Save");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fileManager.hasCurrent()) {
+					
+				} else {
+					
+				}
+			}
+		});
 	}
 	
 	private void makeSaveAsButton() {
-		
+		saveAsButton = new JMenuItem("Save As...");
+		saveAsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 	
 	private void makeOpenButton() {
-		
+		openButton = new JMenuItem("Open...");
+		openButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 	
 	private void makeSnapToGrid() {
-		
+		snapToGrid = new JCheckBoxMenuItem("Snap to Grid");
+		snapToGrid.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (snapToGrid.getState()) {
+					startSnappingToGrid();
+				} else {
+					stopSnappingToGrid();
+				}
+			}
+		});
 	}
 	
 	private void makeSnapToObjects() {
-		
+		snapToObjects = new JCheckBoxMenuItem("Snap to Object");
+		snapToObjects.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (snapToObjects.getState()) {
+					startSnappingToObjects();
+				} else {
+					stopSnappingToObjects();
+				}
+			}
+		});
 	}
 	
 	private void makeShowGrid() {
-		
+		gridVisible = new JCheckBoxMenuItem("Grid visible");
+		gridVisible.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gridVisible.getState()) {
+					showGrid();
+				} else {
+					hideGrid();
+				}
+			}
+		});
 	}
 	
 	private void makeDimList() {
-		
+		dimListModel = new DimensionListSelectionModel();
+		dimList = new JList(dimListModel);
+		dimListViewport = new JScrollPane(
+			dimList,
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+		);
+		dimList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				choseDimension();
+			}
+		});
+		southPanel.add(dimListViewport);
 	}
 	
 	private void makeObjectLib() {
-		
+		objectLibModel = new ObjectLibrarySelectionModel();
+		objectLib = new JList(objectLibModel);
+		objectLibViewport = new JScrollPane(
+			objectLib,
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+		);
+		southPanel.add(objectLibViewport);
 	}
 	
 	private void makeAddDim() {
-		
+		dimAdd = new JButton("Add");
+		dimAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addNewDimension();
+			}
+		});
 	}
 	
 	private void makeRemoveDim() {
-		
+		dimRemove = new JButton("Remove");
+		dimRemove.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeSelectedDimension();
+			}
+		});
 	}
 	
 	private void makeAddObject() {
-		
+		addObject = new JButton("Insert into world");
+		addObject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addToWorldFromObjectLib();
+			}
+		});
 	}
 	
 	private void makeRemoveObject() {
+		removeObject = new JButton("Remove object");
+		removeObject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeSelectedObject();
+			}
+		});
+	}
+	
+	private void removeSelectedDimension() {
+		
+	}
+	
+	private void addNewDimension() {
 		
 	}
 	
 	private void makeEditorMenu() {
-		
+		editorMenu = new JMenu("Editor");
+		makeSnapToGrid();
+		editorMenu.add(snapToGrid);
+		makeSnapToObjects();
+		editorMenu.add(snapToObjects);
+		makeShowGrid();
+		editorMenu.add(gridVisible);
 	}
 	
 	private void choseDimension() {
@@ -188,12 +361,89 @@ public class LevelEditorMain extends JFrame {
 	
 	}
 	
+	private void removeSelectedObject() {
+		
+	}
+	
 	public void onClose() {
 		if (fileManager.hasCurrent()) {
 			if (confirmAction("Save current work?")) {
 				fileManager.save(currentLevel);
 				dispose();
 			}
+		}
+	}
+	
+	/*
+		List models
+	*/
+	class DimensionListSelectionModel implements ListModel<Dimension> {
+		
+		private List<Dimension> list;
+		private List<ListDataListener> dataListeners;
+		
+		public DimensionListSelectionModel() {
+			list = new ArrayList<Dimension>();
+			dataListeners = new ArrayList<ListDataListener>();
+		}
+
+		@Override
+		public int getSize() {
+			return list.size();
+		}
+		
+		@Override
+		public Dimension getElementAt(int index) {
+			return list.get(index);
+		}
+		
+		@Override
+		public void addListDataListener(ListDataListener l) {
+			dataListeners.add(l);
+		}
+		
+		@Override
+		public void removeListDataListener(ListDataListener l) {
+			dataListeners.remove(l);
+		}
+		
+		public void clear() {
+			list.clear();
+		}
+	}
+	
+	class ObjectLibrarySelectionModel implements ListModel<GameObject> {
+		
+		private List<ListDataListener> dataListeners;
+		private List<GameObject> list;
+		
+		public ObjectLibrarySelectionModel() {
+			list = new ArrayList<GameObject>();
+			dataListeners = new ArrayList<ListDataListener>();
+		}
+		
+		@Override
+		public void addListDataListener(ListDataListener l) {
+			dataListeners.add(l);
+		}
+		
+		@Override
+		public void removeListDataListener(ListDataListener l) {
+			dataListeners.remove(l);
+		}
+		
+		@Override
+		public int getSize() {
+			return list.size();
+		}
+		
+		@Override
+		public GameObject getElementAt(int index) {
+			return list.get(index);
+		}
+		
+		public void clear() {
+			list.clear();
 		}
 	}
 }

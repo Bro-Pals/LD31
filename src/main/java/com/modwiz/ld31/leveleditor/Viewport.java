@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.KeyAdapter;
 import com.modwiz.ld31.world.GameObject;
+import com.modwiz.ld31.world.GameWorld;
 
 /**
 	Provides a view to the level that is being edited.
@@ -18,6 +19,7 @@ public class Viewport extends Canvas {
 	private Cursor2D cursor;
 	private float camX, camY;
 	private final float camSpeed;
+	private GameWorld level;
 	
 	public Viewport(int viewPortWidth, int viewPortHeight) {
 		cursor = new Cursor2D();
@@ -37,8 +39,8 @@ public class Viewport extends Canvas {
 		
 	}
 	
-	private void checkSelection() {
-		//Go through all the game objects in the current world and see if 
+	public void setLevel(GameWorld level) {
+		this.level = level;
 	}
 	
 	public void setupListeners(final LevelEditorMain frame) {
