@@ -92,4 +92,29 @@ public class GameObjectFactory {
 		return new Enemy(parent, x, y, w, h, health, anim);
 	}
 	
+	
+	/**
+		Make a default DNARepairCell
+		@return A default DNARepairCell
+	*/
+	public DNARepairCell createDNARepairCell() {
+		return new DNARepairCell(null, 0, 0);
+	}
+	
+	public DNARepairCell createDNARepairCell(Dimension parent, float x, float y) {
+		return new DNARepairCell(parent, x, y);
+	}
+	
+	/**
+		Make a default DNARepairCell
+		@return A default DNARepairCell
+	*/
+	public RadiationSucker createRadiationSucker() {
+		return new RadiationSucker(null, 0, 0);
+	}
+	
+	public RadiationSucker createRadiationSucker(Dimension parent, float x, float y) {
+		return new RadiationSucker(parent, x, y);
+	}
+	
 }

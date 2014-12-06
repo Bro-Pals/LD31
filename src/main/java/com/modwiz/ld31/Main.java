@@ -41,7 +41,9 @@ public class Main {
 			
 			// loading all the animations
 			BufferedImage playerMoving = null;
+			BufferedImage projectileImage = null;
 			try {
+				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
@@ -62,8 +64,6 @@ public class Main {
 			Dimension firstDimension = new Dimension();
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
 			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
-			Projectile projectile = new Projectile(firstDimension, 70, 300, 16, 16);
-			projectile.getVelocity().set(0, 1);
 
 			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
 			player.getVelocity().set(0, 2);
@@ -72,7 +72,6 @@ public class Main {
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			firstDimension.getObjects().add(secondBlock);
-			firstDimension.getObjects().add(projectile);
 
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
@@ -99,21 +98,14 @@ public class Main {
 				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
 					changeKey(keyEvent.getKeyCode(), false);
 				}
-				
+				player.useWeapon(0, 0);
 				// moving and stuff
 				if (d && !a) {
 					player.getVelocity().set(0, 4);
 				} else if (a && !d) {
 					player.getVelocity().set(0, -4);
 				} 
-				/*
-				else if (!a && !d) {
-					float originalY = player.getVelocity().getY();
-					VectorUtils.setVector2(player.getVelocity(), VectorUtils.multiplyScalar(.5f, player.getVelocity()));
-					player.getVelocity().set(1, originalY);
->>>>>>> 9f535081c3bd34b9664eef097a2522b96b08ea98
-				}
-				*/
+
 				if (w) {
 					if (player.isGrounded()) {
 						System.out.println("JUMP");

@@ -10,7 +10,7 @@ import com.modwiz.ld31.world.Dimension;
 public class GameBlock extends GameObject {
 	
 	private float width, height;
-	private boolean grounded; // has this object collided with something below it?
+	private boolean grounded, canCollide; // has this object collided with something below it?
 	private boolean staticBlock; // Platform
 	private BufferedImage image;
 
@@ -30,6 +30,7 @@ public class GameBlock extends GameObject {
 		this.grounded = false;
 		this.staticBlock = false;
 		image = null;
+		this.canCollide = true;
 	}
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -71,16 +72,16 @@ public class GameBlock extends GameObject {
 	 */
 	@Override
 	public void update() {
+		super.update();
 		if (grounded) {
-			getAcceleration().set(0, -getVelocity().getX() / 10);
-			if (Math.abs(getVelocity().getX()) < 0.05) {
+			getAcceleration().set(0, -getVelocity().getX() / 8);
+			if (Math.abs(getVelocity().getX()) < 0.25) {
 				getVelocity().set(0, 0);
 			}
 		} else {
 			getAcceleration().set(0, 0);
 		}
-		super.update();
-		
+
 		// if it's not moving it can't move
 		if (getVelocity().getX() == 0 && getVelocity().getY() == 0) {
 			return;
@@ -104,25 +105,28 @@ public class GameBlock extends GameObject {
 				float penY = largestMinY - smallestMaxY;
 
 				if (penX < 0 && penY < 0) {
-					if (Math.abs(penY) < Math.abs(penX)) {
-						if (this.getY() < bl.getY()) {
-							setY(bl.getY() - getHeight());
-							// NOTE: This prevents jumping off entities
-							//if (bl.staticBlock) {
-								grounded = true;
-							//}
+					if (bl.getCanCollide() && canCollide) {
+						if (Math.abs(penY) < Math.abs(penX)) {
+							if (this.getY() < bl.getY()) {
+								setY(bl.getY() - getHeight());
+								// NOTE: This prevents jumping off entities
+								//if (bl.staticBlock) {
+									grounded = true;
+								//}
+							} else {
+								setY(bl.getY() + bl.getHeight());
+							}
+							getVelocity().set(1, 0);
 						} else {
-							setY(bl.getY() + bl.getHeight());
+							if (this.getX() < bl.getX()) {
+								setX(bl.getX() - getWidth());
+							} else {
+								setX(bl.getX() + bl.getWidth());
+							}
+							getVelocity().set(0, 0);
 						}
-						getVelocity().set(1, 0);
-					} else {
-						if (this.getX() < bl.getX()) {
-							setX(bl.getX() - getWidth());
-						} else {
-							setX(bl.getX() + bl.getWidth());
-						}
-						getVelocity().set(0, 0);
 					}
+					
 					onCollide(bl); // collide with other blocks
 					bl.onCollide(this);
 				}
@@ -130,6 +134,14 @@ public class GameBlock extends GameObject {
 		}
 	}
 
+	public boolean getCanCollide() {
+		return canCollide;
+	}
+	
+	public void setCanCollide(boolean cc) {
+		this.canCollide = cc;
+	}	
+	
 	/**
 	 * {@inheritDoc}
 	 */
