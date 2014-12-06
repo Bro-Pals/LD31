@@ -3,8 +3,9 @@ package com.modwiz.ld31.leveleditor;
 import javax.swing.JFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.MouseEvent;
 import javax.swing.JList;
+
+import com.modwiz.ld31.entities.GameObject;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;

@@ -1,5 +1,6 @@
-package com.modwiz.ld31.world;
+package com.modwiz.ld31.entities;
 
+import com.modwiz.ld31.world.Dimension;
 import horsentpmath.Vector2;
 
 import java.awt.Graphics;
