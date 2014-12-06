@@ -89,15 +89,19 @@ public class Viewport extends JComponent {
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_W:
 						camY -= camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_A:
 						camX -= camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_S:
 						camY += camSpeed;
+						System.out.println("Moved camera");
 						break;
 					case KeyEvent.VK_D:
 						camX += camSpeed;
+						System.out.println("Moved camera");
 						break;
 				}
 			}

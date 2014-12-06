@@ -345,9 +345,9 @@ public class LevelEditorMain extends JFrame {
 	
 	private void choseDimension() {
 		//Set the current dimension to the chosen one
-		System.out.println("Selected a dimension");
-		if (currentLevel!=null) {
+		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
 			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
+			System.out.println("Selected a dimension");
 		}
 	}
 	
