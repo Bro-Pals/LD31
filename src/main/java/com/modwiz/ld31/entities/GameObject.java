@@ -16,6 +16,7 @@ public class GameObject {
 	private Vector2 velocity;
 	private Vector2 acceleration;
 	private String name;
+	private boolean dead;
 
 	/**
 	 * Creates a new GameObject instance
@@ -27,9 +28,11 @@ public class GameObject {
 		this.parent = parent;
 		this.x = x;
 		this.y = y;
+		dead = false;
 		velocity = new Vector2();
 		acceleration = new Vector2();
 		name = "DEFAULT_NAME";
+		this.dead = false;
 	}
 
 	/**
@@ -151,5 +154,21 @@ public class GameObject {
 	@Override
 	public String toString() {
 		return getName();
+
+	/**
+	 * Check if the game object is dead
+	 * @return True if the game object is dead
+	 */
+	public boolean isDead() {
+		return dead;
+	}
+
+	/**
+	 * Set the game object's dead state
+	 * Dead objects are removed from the game after being updated
+	 * @param dead Whether the game object is dead
+	 */
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 }

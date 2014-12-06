@@ -12,7 +12,7 @@ import java.awt.Color;
 public class Creature extends GameBlock {
 
 	private double health;
-	private boolean dead, facingRight;
+	private boolean facingRight;
 	private Weapon weapon;
 	
 	// The animation for this creature
@@ -32,7 +32,6 @@ public class Creature extends GameBlock {
 		super(parent, x, y, w, h);
 		animation = null; // no animation :(
 		this.health = health;
-		dead = false;
 		weapon = new Weapon(this, 15, 3, 12); // default weapon
 	}
 
@@ -60,21 +59,21 @@ public class Creature extends GameBlock {
 	public void damage(double amount) {
 		health = health - amount;
 		if (health <= 0) {
-			dead = true;
+			setDead(true);
 		}
 	}
 
+	/**
+	 * Handles logic for when a weapon is used on a specific position
+	 * Where refers to the actual attacking, not the position of the creature
+	 * Ex: A bow would be shot from one place and fire an arrow to a different place
+	 *
+	 * @param x The x coordinate where the attack was attempted
+	 * @param y The y coordinate where the attack was attempted
+	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
-		weapon.use(new Vector2(getX() - x, getY() - y)); // use the weapon if it's within range;
-	}
-	
-	/**
-	 * Check if the creature is dead
-	 * @return True if the creature is dead
-	 */
-	public boolean isDead() {
-		return dead;
+		weapon.use((Vector2)new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
 	}
 
 	/**
