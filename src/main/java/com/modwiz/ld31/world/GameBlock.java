@@ -59,6 +59,7 @@ public class GameBlock extends GameObject {
 						}
 						getVelocity().set(0, 0);
 					}
+					onCollide(bl); // collide with other blocks
 				}
 			}
 		}
