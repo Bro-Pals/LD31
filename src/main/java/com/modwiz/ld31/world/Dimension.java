@@ -13,10 +13,18 @@ import java.awt.Graphics;
 public class Dimension {
 	
 	private List<GameObject> objects;
+	private String name;
 	
 	public Dimension() {
 		objects = new ArrayList<>();
+		name = "";
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() { return name; }
 	
 	public List<GameObject> getObjects() {
 		return objects;

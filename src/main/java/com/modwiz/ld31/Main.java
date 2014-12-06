@@ -63,7 +63,7 @@ public class Main {
 			firstDimension.getObjects().add(testCreature); // our first block!!
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
-			world.setActiveDimension(firstDimension);
+			world.setActiveDimension(firstDimension.getName());
 			
 			long start = System.currentTimeMillis();
 			int millisBetweenFrames = 30;
@@ -72,8 +72,7 @@ public class Main {
 			int height = window.getRawFrame().getHeight();
 
 			window.getRawFrame().setBackground(Color.black);
-		
-			
+
 			while(window.exists()) {
 				start = System.currentTimeMillis();
 				Graphics g = window.getDrawGraphics();

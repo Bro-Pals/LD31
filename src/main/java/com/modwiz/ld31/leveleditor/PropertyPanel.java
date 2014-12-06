@@ -21,7 +21,7 @@ public class PropertyPanel extends JPanel {
 		
 	}
 	
-	public void loadEnity(GameObject entity) {
+	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Create fields
 	}

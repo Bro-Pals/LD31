@@ -114,10 +114,6 @@ public class LevelEditorMain extends JFrame {
 	private boolean confirmAction(String message) {
 		return JOptionPane.showConfirmDialog(this, message) == JOptionPane.YES_OPTION;
 	}
-	
-	public void checkSelection(Cursor2D cursor) {
-		//Check to see if the cursor is selecting something
-	}
 
 	private void makeFileMenu() {
 		fileMenu = new JMenu("File");
@@ -302,16 +298,11 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void removeSelectedDimension() {
-		
+		System.out.println("Removing selected dimension");
 	}
 	
 	private void addNewDimension() {
-		if (currentLevel!=null) {
-			Dimension d = new Dimension();
-			currentLevel.addDimension(d);
-			dimListModel.add(d);
-			dimList.validate();
-		}
+		System.out.println("Adding a  new dimension");
 	}
 	
 	private void makeEditorMenu() {
@@ -326,77 +317,70 @@ public class LevelEditorMain extends JFrame {
 	
 	private void choseDimension() {
 		//Set the current dimension to the chosen one
+		System.out.println("Selected a dimension");
 	}
 	
 	private void addToWorldFromObjectLib() {
-		
+		System.out.println("Add to world from object lib");
 	}
 	
 	private void newLevel() {
-		if (fileManager.hasCurrent() && confirmAction("Save current level before overwriting with a new level?")) {
-			fileManager.save(currentLevel);
-			fileManager.clear();
-		}
-		currentLevel = new GameWorld();
-		dimListModel.clear();
-		dimList.revalidate();
-		viewport.setLevel(currentLevel);
+		System.out.println("Create a new level");
 	}
 	
 	private void saveLevel() {
-		fileManager.save(currentLevel);
+		System.out.println("Save the current level");
 	}
 	
 	private void saveLevelAs() {
-		if (fileManager.hasCurrent()) {
-			fc.setSelectedFile(fileManager.getCurrent());
-		}
-		int chooser = fc.showSaveDialog(this);
-		if (chooser == JFileChooser.APPROVE_OPTION) {
-			fileManager.saveAs(fc.getSelectedFile(), currentLevel);
-		}
+		System.out.println("Save the current level as");
 	}
 	
 	private void openLevel() {
-		if (fileManager.hasCurrent()) {
-			fc.setSelectedFile(fileManager.getCurrent());
-		}
-		int chooser = fc.showOpenDialog(this);
-		if (chooser == JFileChooser.APPROVE_OPTION) {
-			currentLevel = fileManager.open(fc.getSelectedFile());
-		}
+		System.out.println("Open a level");
 	}
 	
 	private void selectGameObject(GameObject selecting) {
-		
+		viewport.setSelected(selecting);
+		this.selecting = selecting;
+		propertyPanel.loadObject(selecting);
+	}
+	
+	public void checkSelection(Cursor2D cursor) {
+		Dimension d = currentLevel.getActiveDimension();
+		for (GameObject go : d.getObjects()) {
+			
+		}
 	}
 	
 	private void showGrid() {
+		System.out.println("Showing grid");
 		viewport.setGridVisible(true);
 	}
 	
 	private void hideGrid() {
+		System.out.println("Hiding grid");
 		viewport.setGridVisible(true);
 	}
 	
 	private void startSnappingToGrid() {
-		
+		System.out.println("Snapping to grid");
 	}
 	
 	private void stopSnappingToGrid() {
-		
+		System.out.println("Not snapping to grid");
 	}
 	
 	private void startSnappingToObjects() {
-		
+		System.out.println("Snapping to objects");
 	}
 	
 	private void stopSnappingToObjects() {
-		
+		System.out.println("Not snapping to objects");
 	}
 	
 	private void removeSelectedObject() {
-		
+		System.out.println("Removing the selected object");
 	}
 	
 	public void onClose() {

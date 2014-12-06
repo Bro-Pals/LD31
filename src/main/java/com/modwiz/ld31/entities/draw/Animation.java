@@ -25,10 +25,10 @@ public class Animation {
 		this(t);
 		frameDelay = fDelay;
 	}
-	
+
 	/**
-		Update the frameOn
-	*/
+	 * Tick the animation
+	 */
 	public void update() {
 		frameDelayOn++;
 		if (frameDelayOn >= frameDelay) {
@@ -38,14 +38,23 @@ public class Animation {
 				frameOn = 0;
 		}
 	}
-	
+
+	/**
+	 * If multiple animation tracks are used this switches between them
+	 * Ex. Running track, Jumping track, etc
+	 * @param track The track number to switch to
+	 */
 	public void setTrack(int track) {
 		if (track >= 0 && track < tracks.length) {
 			frameOn = 0;
 			trackOn = track;
 		}	
 	}
-	
+
+	/**
+	 * Returns the current image for the animation
+	 * @return Image to display by the object that is being animated
+	 */
 	public BufferedImage getCurrentFrame() {
 		return tracks[trackOn][frameOn];
 	}

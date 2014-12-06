@@ -1,6 +1,7 @@
 package com.modwiz.ld31.world;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.awt.Graphics;
 
@@ -9,11 +10,11 @@ import java.awt.Graphics;
 */
 public class GameWorld {
 	
-	private List<Dimension> dimensions;
+	private HashMap<String, Dimension> dimensions;
 	private Dimension activeDimension;
 	
 	public GameWorld() {
-		dimensions = new ArrayList<>();
+		dimensions = new HashMap<>();
 		activeDimension = null;
 	}
 	
@@ -29,9 +30,9 @@ public class GameWorld {
 		}
 	}
 	
-	public void setActiveDimension(Dimension dim) {
-		if (dimensions.contains(dim)) {
-			activeDimension = dim;
+	public void setActiveDimension(String dimensionName) {
+		if (dimensions.get(dimensionName)!=null) {
+			activeDimension = dimensions.get(dimensionName);
 		} else {
 			System.out.println("Dimension can't be made active: That Dimension is " +
 				"not in the game world");
@@ -39,11 +40,19 @@ public class GameWorld {
 	}
 	
 	public void addDimension(Dimension dim) {
-		dimensions.add(dim);
+		dimensions.put(dim.getName(), dim);
+	}
+	
+	public Dimension[] getDimensions() {
+		return (Dimension[])dimensions.values().toArray(new Dimension[0]);
 	}
 	
 	public void removeDimension(Dimension dim) {
-		dimensions.remove(dim);
+		dimensions.remove(dim.getName());
+	}
+	
+	public Dimension getActiveDimension() {
+		return activeDimension;
 	}
 	
 	public int dimensionCount() {
