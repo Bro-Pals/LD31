@@ -65,4 +65,17 @@ public class Dimension {
 			obj.render(g);
 		}
 	}
+	
+	public void addObject(GameObject object) {
+		objects.add(object);
+	}
+	
+	public void removeObject(GameObject object) {
+		objects.remove(object);
+	}
+	
+	@Override
+	public String toString() {
+		return getName(); //For the level editor
+	}
 }

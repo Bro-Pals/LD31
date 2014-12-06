@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.regex.Pattern;
 
 public abstract class AssetLoader {
@@ -72,11 +75,16 @@ public abstract class AssetLoader {
     static class Basic extends AssetLoader{		
 		
 		private final char SEP;
-		private final String
+		private final String 
+		/* Like this so that the level files 
+			can't be changed by humans */
 			PLAYER = "TEUZOD",
 			CREATURE = "TEUQOD",
 			BLOCK = "TEPZOW",
-			OBJECT = "LEPZOQ"
+			OBJECT = "LEPZOQ",
+			DIM_START = "TYPZOW",
+			DIM_END = "TWPZOW",
+			DIM_INITIAL_DIM = "TBPZOW"
 		;
 		
 		public Basic() {
@@ -101,17 +109,69 @@ public abstract class AssetLoader {
 
         @Override
         public Optional<Resource<GameWorld>> getLevel(String levelPath) {
-            return Optional.absent();
+            return getLevelFromFile(new File(levelPath));
         }
 		
 		@Override
         public Optional<Resource<GameWorld>> getLevelFromFile(File levelFile) {
-            return Optional.absent();
+            try {
+				GameWorld dieWelt = new GameWorld();
+				BufferedReader rdr = new BufferedReader(new FileReader(levelFile));
+				String currentLine;
+				boolean readingDimension = false;
+				Dimension current = null;
+				while ( (currentLine = rdr.readLine()) != null) {
+					//Initial processing
+					String[] ln = splitLine(currentLine);
+					if (ln[0].equals(DIM_START)) {
+						readingDimension = true;
+						current = new Dimension();
+						current.setName(ln[1]);
+					} else if (ln[0].equals(DIM_END)) {
+						readingDimension = false;
+						dieWelt.addDimension(current);
+						current = null;
+					} else {
+						//Next step processing
+						if (readingDimension) {
+							//Parse a game object
+							current.addObject(readGameObject(current, currentLine));
+							System.out.println("Read " + currentLine);
+						}
+					}
+				}
+				rdr.close();
+				System.out.println("Successfully loaded level: " + levelFile.getPath());
+				return Optional.of(new Resource<GameWorld>(levelFile.getPath(), dieWelt));
+			} catch(Exception e) {
+				System.err.println("Could not load level "  + levelFile.getPath() + ": " + e.toString());
+				return Optional.absent();
+			}
         }
 		
 		@Override
 		public void saveLevel(File file, GameWorld level) {
-			
+			//Write stuff
+			try {
+				if (level==null) {
+					System.err.println("ERROR: Attempting to save a null level (Should never happen)");
+				}
+				PrintWriter writer = new PrintWriter(file);
+				/* Go through the dimensions and write each one */
+				Dimension[] dimensions = level.getDimensions();
+				for (Dimension dim : dimensions) {
+					writer.println(DIM_START + SEP + dim.getName());
+					for (GameObject obj : dim.getObjects()) {
+						writer.println(writeGameObject(obj));
+					}
+					writer.println(DIM_END);
+				}
+				writer.flush();
+				writer.close();
+				System.out.println("Successfully saved level: " + file.getPath());
+			} catch(Exception e) {
+				System.err.println("Could not save level " + file.getPath());
+			}
 		}
 		
 		@Override
@@ -138,19 +198,42 @@ public abstract class AssetLoader {
 			}
 		}
 		
+		private String[] splitLine(String line) {
+			return line.split(Pattern.quote("" + SEP));
+		}
+		
 		@Override
 		public GameObject readGameObject(Dimension parent, String string) {
-			String[] split = string.split(Pattern.quote("" + SEP));
+			String[] split = splitLine(string);
 			switch(split[0]) {
 				case PLAYER:
-					
-					break;
+					return new Player(
+						parent,
+						Float.parseFloat(split[1]),
+						Float.parseFloat(split[2]),
+						Float.parseFloat(split[3]),
+						Float.parseFloat(split[4]),
+						(int)Double.parseDouble(split[5]),
+						null
+					);
 				case CREATURE:
-					
-					break;
+					return new Creature(
+						parent,
+						Float.parseFloat(split[1]),
+						Float.parseFloat(split[2]),
+						Float.parseFloat(split[3]),
+						Float.parseFloat(split[4]),
+						(int)Double.parseDouble(split[5]),
+						null
+					);
 				case BLOCK:
-					
-					break;
+					return new GameBlock(
+						parent,
+						Float.parseFloat(split[1]),
+						Float.parseFloat(split[2]),
+						Float.parseFloat(split[3]),
+						Float.parseFloat(split[4])
+					);
 				case OBJECT:
 					return new GameObject(
 						parent,
