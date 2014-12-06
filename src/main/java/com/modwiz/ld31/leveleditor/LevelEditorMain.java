@@ -306,7 +306,12 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void addNewDimension() {
-		
+		if (currentLevel!=null) {
+			Dimension d = new Dimension();
+			currentLevel.addDimension(d);
+			dimListModel.add(d);
+			dimList.validate();
+		}
 	}
 	
 	private void makeEditorMenu() {
@@ -320,25 +325,22 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void choseDimension() {
-	
+		//Set the current dimension to the chosen one
 	}
 	
 	private void addToWorldFromObjectLib() {
-	
+		
 	}
 	
 	private void newLevel() {
-		if (fileManager.hasCurrent()) {
-			if (confirmAction("Save current level before overwriting with a new level?")) {
-				//Make a new level
-				fileManager.save(currentLevel);
-				fileManager.clear();
-				currentLevel = new GameWorld();
-				dimListModel.clear();
-				dimList.revalidate();
-				viewport.setLevel(currentLevel);
-			}
+		if (fileManager.hasCurrent() && confirmAction("Save current level before overwriting with a new level?")) {
+			fileManager.save(currentLevel);
+			fileManager.clear();
 		}
+		currentLevel = new GameWorld();
+		dimListModel.clear();
+		dimList.revalidate();
+		viewport.setLevel(currentLevel);
 	}
 	
 	private void saveLevel() {
@@ -419,6 +421,14 @@ public class LevelEditorMain extends JFrame {
 			dataListeners = new ArrayList<ListDataListener>();
 		}
 
+		public void add(Dimension d) {
+			list.add(d);
+		}
+		
+		public void remove(Dimension d) {
+			list.remove(d);
+		}
+		
 		@Override
 		public int getSize() {
 			return list.size();
@@ -452,6 +462,14 @@ public class LevelEditorMain extends JFrame {
 		public ObjectLibrarySelectionModel() {
 			list = new ArrayList<GameObject>();
 			dataListeners = new ArrayList<ListDataListener>();
+		}
+		
+		public void add(GameObject d) {
+			list.add(d);
+		}
+		
+		public void remove(GameObject d) {
+			list.remove(d);
 		}
 		
 		@Override
