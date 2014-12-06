@@ -14,7 +14,7 @@ public class FileManager {
 	
 	public void save(GameWorld world) {
 		if (current!=null) {
-			//Save the file
+			AssetLoader.getAssetLoader().saveLevel(current, world);
 		}
 	}
 	
@@ -31,12 +31,12 @@ public class FileManager {
 	}
 	
 	public void saveAs(File file, GameWorld world) {
-		current = file;
+		current = file.getAbsoluteFile();
+		save(world);
 	}
 	
 	public GameWorld open(File file) {
-		current = file;
-		//Load the game world here
-		return null;
+		current = file.getAbsoluteFile();
+		return AssetLoader.getAssetLoader().getLevelFromFile(current).get().getContent();
 	}
 }

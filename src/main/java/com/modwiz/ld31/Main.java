@@ -45,7 +45,7 @@ public class Main {
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
-			world.setActiveDimension(firstDimension);
+			world.setActiveDimension(firstDimension.getName());
 			
 			long start = System.currentTimeMillis();
 			int millisBetweenFrames = 30;

@@ -37,6 +37,20 @@ public abstract class AssetLoader {
      * @return An object representing a game level
      */
     public abstract Optional<Resource<GameWorld>> getLevel(String levelPath);
+	
+	 /**
+     * Load a level from specific file; for the level editor
+     * @param levelFile The file that holds the level data
+     * @return An object representing a game level
+     */
+    public abstract Optional<Resource<GameWorld>> getLevelFromFile(File levelFile);
+	
+	 /**
+     * Load a level from specific file; for the level editor
+     * @param levelFile The file that holds the level data
+     * @return An object representing a game level
+     */
+    public abstract void saveLevel(File levelFile, GameWorld world);
 
     static class Basic extends AssetLoader{
 		
@@ -66,5 +80,15 @@ public abstract class AssetLoader {
         public Optional<Resource<GameWorld>> getLevel(String levelPath) {
             return Optional.absent();
         }
+		
+		@Override
+        public Optional<Resource<GameWorld>> getLevelFromFile(File levelFile) {
+            return Optional.absent();
+        }
+		
+		@Override
+		public void saveLevel(File file, GameWorld level) {
+			
+		}
     }
 }

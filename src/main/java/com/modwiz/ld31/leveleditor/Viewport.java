@@ -19,6 +19,7 @@ public class Viewport extends Canvas {
 	private float camX, camY;
 	private final float camSpeed;
 	private GameWorld level;
+	private GameObject selecting;
 	private int gridSpacing;
 	private boolean gridVisible;
 	
@@ -30,6 +31,8 @@ public class Viewport extends Canvas {
 		setPreferredSize(new java.awt.Dimension(viewPortWidth, viewPortHeight));
 		setSize(viewPortWidth, viewPortHeight);
 		gridVisible = false;
+		selecting = null;
+		level = null;
 		gridSpacing = 25;
 	}
 	
@@ -43,6 +46,10 @@ public class Viewport extends Canvas {
 	
 	public void setGridVisible(boolean gridVisible) {
 		this.gridVisible = gridVisible;
+	}
+	
+	public void setSelected(GameObject object) {
+		selecting = object;
 	}
 	
 	@Override
