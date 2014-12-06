@@ -13,13 +13,13 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h) {
 		super(parent, x, y);
 		this.width = w;
-		this.height = height;
+		this.height = h;
 	}
 	
 	public void onCollide(GameBlock other) {
 		// what happens when there is a collision with the other block
 		
-		System.out.println("I have ran into another blcok!");
+		System.out.println("I have ran into another block!");
 	}
 	
 	@Override
