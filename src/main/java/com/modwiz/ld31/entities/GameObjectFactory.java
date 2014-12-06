@@ -26,6 +26,18 @@ public class GameObjectFactory {
 		return new GameBlock(null, 0, 0, 100, 100);
 	}
 	
+	/**
+		Make a Wall object
+		@return A default wall
+	*/
+	public GameBlock createWall() {
+		GameBlock wall = createGameBlock();
+		wall.setWidth(50);
+		wall.setHeight(50);
+		wall.setName("Wall");
+		return wall;
+	}
+	
 	public GameBlock createGameBlock(Dimension parent, float x, float y, float w, float h) {
 		return new GameBlock(parent, x, y, w, h);
 	}

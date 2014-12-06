@@ -72,4 +72,12 @@ public class Player extends Creature {
 	public boolean isSneaking() {
 		return sneaking;
 	}
+	
+	@Override
+	public Object clone() {
+		//TO DO : Copy the animation
+		Player p = new Player(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), null);
+		p.setName(getName());
+		return p;
+	}
 }

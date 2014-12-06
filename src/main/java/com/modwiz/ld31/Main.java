@@ -20,6 +20,11 @@ public class Main {
 	private static boolean d = false;
 	private static boolean shift = false;
 
+	// Ratio of our 1 to real 9.8
+	private static final double GRAVITY_RATIO = 0.1020408163265306;
+
+	// Projectile speed ratio, gravity -> speed for projectiles is important
+
     public static void main(String[] args) {
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
@@ -53,14 +58,17 @@ public class Main {
 			Dimension firstDimension = new Dimension();
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
 			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
+			Projectile projectile = new Projectile(firstDimension, 70, 300, 16, 16);
+			projectile.getVelocity().set(0, 1);
 
-			Player player = new Player(firstDimension, 60, 20, 65, 120, 8, playerAnim);
+			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			firstDimension.getObjects().add(secondBlock);
+			firstDimension.getObjects().add(projectile);
 
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
