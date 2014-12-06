@@ -23,6 +23,24 @@ public class Player extends Creature {
 		sneaking = false;
     }
 
+	@Override
+	public void render(Graphics g) {
+		if (getAnimation() != null) {
+			if (facingRight) { 
+				getAnimation().setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
+				g.drawImage(getAnimation().getCurrentFrame(), (int)getX(), (int)getY(), null);
+			} else {
+				getAnimation().setTrack(1);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)getX() - 15, (int)getY(), null);
+			}
+		} else {
+			super.render(g);
+		}
+		// bounding box
+		g.setColor(Color.BLACK);
+		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+	}
+	
     /**
      * Creates a new player with an {@link com.modwiz.ld31.entities.draw.Animation}
      *
