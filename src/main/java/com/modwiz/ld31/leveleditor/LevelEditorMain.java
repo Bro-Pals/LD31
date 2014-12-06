@@ -329,6 +329,7 @@ public class LevelEditorMain extends JFrame {
 				dimList.setListData(dimensions);
 				dimListViewport.revalidate();
 				dimList.repaint();
+				viewport.repaint();
 				System.out.println("Added a dimension (" + dimList.getModel().getSize() + " dimensions)");
 			}
 		}
@@ -349,6 +350,7 @@ public class LevelEditorMain extends JFrame {
 		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
 			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
 			System.out.println("Selected a dimension");
+			viewport.repaint();
 		}
 	}
 	
@@ -375,6 +377,7 @@ public class LevelEditorMain extends JFrame {
 		}
 		currentLevel = new GameWorld();
 		viewport.setLevel(currentLevel);
+		viewport.repaint();
 		System.out.println("Create a new level");
 	}
 	
@@ -386,6 +389,7 @@ public class LevelEditorMain extends JFrame {
 			} else {
 				saveLevelAs();
 			}
+			viewport.repaint();
 		}
 	}
 	
@@ -396,6 +400,7 @@ public class LevelEditorMain extends JFrame {
 			if (confirm == JFileChooser.APPROVE_OPTION) {
 				fileManager.saveAs(fc.getSelectedFile(), currentLevel);
 			}
+			viewport.repaint();
 		}
 	}
 	
@@ -411,6 +416,7 @@ public class LevelEditorMain extends JFrame {
 		if (confirm == JFileChooser.APPROVE_OPTION) {
 			setLevel(fileManager.open(fc.getSelectedFile()));
 		}
+		viewport.repaint();
 	}
 	
 	private void selectGameObject(GameObject selecting) {
@@ -418,6 +424,7 @@ public class LevelEditorMain extends JFrame {
 			viewport.setSelected(selecting);
 			this.selecting = selecting;
 			propertyPanel.loadObject(selecting);
+			viewport.repaint();
 		}
 	}
 
@@ -425,6 +432,7 @@ public class LevelEditorMain extends JFrame {
 		viewport.setSelected(null);
 		this.selecting = null;
 		propertyPanel.clear();
+		viewport.repaint();
 	}
 
 	public void checkSelection(Cursor2D cursor) {
@@ -450,17 +458,20 @@ public class LevelEditorMain extends JFrame {
 					clearSelectedGameObject();
 				}
 			}
+			viewport.repaint();
 		}
 	}
 	
 	private void showGrid() {
 		System.out.println("Showing grid");
 		viewport.setGridVisible(true);
+		viewport.repaint();
 	}
 	
 	private void hideGrid() {
 		System.out.println("Hiding grid");
 		viewport.setGridVisible(false);
+		viewport.repaint();
 	}
 	
 	private void startSnappingToGrid() {
@@ -468,6 +479,7 @@ public class LevelEditorMain extends JFrame {
 		snappingToObjects = false;
         snappingToGrid = true;
 		viewport.setGridVisible(true);
+		viewport.repaint();
 	}
 	
 	private void stopSnappingToGrid() {
@@ -527,15 +539,15 @@ public class LevelEditorMain extends JFrame {
 				cursor.updateDrag();
 				if (snappingToGrid) {
 					if(selecting.getX()%50 > 25){
-							selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
-						}else{
-							selecting.setX(selecting.getX() - selecting.getX()%50);
-						}
-						if(selecting.getY()%50 > 25){
-							selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
-						}else{
-							selecting.setY(selecting.getX() - selecting.getY()%50);
-						}
+						selecting.setX(selecting.getX() - selecting.getX()%50 + 50);
+					}else{
+						selecting.setX(selecting.getX() - selecting.getX()%50);
+					}
+					if(selecting.getY()%50 > 25){
+						selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
+					}else{
+						selecting.setY(selecting.getX() - selecting.getY()%50);
+					}
 				}
 			}
 		}
