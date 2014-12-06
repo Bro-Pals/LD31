@@ -7,6 +7,10 @@ public class Cursor2D {
 	
 	private float x;
 	private float y;
+	private float initialLeftX;
+	private float initialRightX;
+	private float initialTopY;
+	private float initialBottomY;
 	private float offsetFromObjectX;
 	private float offsetFromObjectY;
 	private GameObject dragging;
@@ -14,6 +18,10 @@ public class Cursor2D {
 	
 	public Cursor2D() {
 		x = 0;
+		initialLeftX = 0;
+		initialRightX = 0;
+		initialTopY = 0;
+		initialBottomY = 0;
 		offsetFromObjectX = 0;
 		y = 0;
 		offsetFromObjectY = 0;
@@ -39,24 +47,45 @@ public class Cursor2D {
 				dragging.setY(getY() - offsetFromObjectY);
 				break;
 			case RESIZE_LEFT:
-				
+				if (dragging instanceof GameBlock) {
+					GameBlock gb = (GameBlock)dragging;
+					gb.setX(getX());
+					gb.setWidth(initialRightX - getX());
+				}
 				break;
 			case RESIZE_UP:
-				
+				if (dragging instanceof GameBlock) {
+					GameBlock gb = (GameBlock)dragging;
+					gb.setY(getY());
+					gb.setHeight(initialBottomY - getY());
+				}
 				break;
 			case RESIZE_RIGHT:
-				
+				if (dragging instanceof GameBlock) {
+					GameBlock gb = (GameBlock)dragging;
+					gb.setWidth(-initialLeftX + getX());
+				}
 				break;
 			case RESIZE_DOWN:
-				
+				if (dragging instanceof GameBlock) {
+					GameBlock gb = (GameBlock)dragging;
+					gb.setHeight(-initialTopY + getY());
+				}
 				break;
 		}
 	}
 	
 	public void startDragging(GameObject dragging) {
 		this.dragging = dragging;
-		offsetFromObjectX = getX() - dragging.getX();
-		offsetFromObjectY = getY() - dragging.getY();
+		if (dragging instanceof GameBlock) {
+			GameBlock gb = (GameBlock)dragging;
+			initialLeftX = gb.getX();
+			initialRightX = gb.getX()+gb.getWidth();
+			initialTopY = gb.getY();
+			initialBottomY = gb.getY()+gb.getHeight();
+			offsetFromObjectX = getX() - gb.getX();
+			offsetFromObjectY = getY() - gb.getY();
+		}
 		type = DragType.MOVE;
 		//Check to see
 		if (dragging instanceof GameBlock) {
@@ -67,13 +96,13 @@ public class Cursor2D {
 			int topBounds = Math.abs((int)(getY() - gb.getY()));
 			int bottomBounds = Math.abs((int)(getY() - (gb.getY()+gb.getHeight())));
 			
-			if (topBounds < 3) {
+			if (topBounds < 6) {
 				type = DragType.RESIZE_UP;
-			} else if (bottomBounds < 3) {
+			} else if (bottomBounds < 6) {
 				type = DragType.RESIZE_DOWN;
-			} else if (leftBounds < 3) {
+			} else if (leftBounds < 6) {
 				type = DragType.RESIZE_LEFT;
-			} else if (rightBounds < 3) {
+			} else if (rightBounds < 6) {
 				type = DragType.RESIZE_RIGHT;
 			}
 		}
