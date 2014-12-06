@@ -63,7 +63,7 @@ public class Main {
 			int height = window.getRawFrame().getHeight();
 
 			window.getRawFrame().setBackground(Color.black);
-			
+
 			while(window.exists()) {
 				start = System.currentTimeMillis();
 				Graphics g = window.getDrawGraphics();
