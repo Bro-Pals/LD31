@@ -16,6 +16,7 @@ public class Player extends Creature {
      * @param w      The bounding width of the player
      * @param h      The bounding height of the player
      * @param health The initial health value for the player
+     * @see com.modwiz.ld31.entities.Creature
      */
     public Player(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
@@ -32,6 +33,7 @@ public class Player extends Creature {
      * @param h      The bounding height of the player
      * @param health The initial health value for the player
      * @param anim   The animation for the player
+     * @see com.modwiz.ld31.entities.Creature
      */
     public Player(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
         super(parent, x, y, w, h, health, anim);

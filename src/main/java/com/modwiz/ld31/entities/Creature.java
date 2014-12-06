@@ -24,6 +24,7 @@ public class Creature extends GameBlock {
 	 * @param w The bounding width of the creature
 	 * @param h The bounding height of the creature
 	 * @param health The initial health value for the creature
+	 * @see com.modwiz.ld31.entities.GameBlock
 	 */
 	public Creature(Dimension parent, float x, float y, float w, float h, double health) {
 		super(parent, x, y, w, h);
@@ -41,6 +42,7 @@ public class Creature extends GameBlock {
 	 * @param h The bounding height of the creature
 	 * @param health The initial health value for the creature
 	 * @param anim The animation for the creature
+	 * @see com.modwiz.ld31.entities.GameBlock
 	 */
 	public Creature(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
 		this(parent, x, y, w, h, health);
