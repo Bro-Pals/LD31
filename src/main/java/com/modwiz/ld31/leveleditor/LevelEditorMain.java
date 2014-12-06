@@ -345,7 +345,10 @@ public class LevelEditorMain extends JFrame {
 	
 	private void choseDimension() {
 		//Set the current dimension to the chosen one
-		System.out.println("Selected a dimension");
+		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
+			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
+			System.out.println("Selected a dimension");
+		}
 	}
 	
 	private void addToWorldFromObjectLib() {
@@ -355,7 +358,6 @@ public class LevelEditorMain extends JFrame {
 			if (obj!=null) {
 				obj = (GameObject)obj.clone();
 				currentLevel.getActiveDimension().addObject(obj);
-				viewport.centerCameraOn(obj);
 				viewport.repaint();
 			}
 		}
@@ -468,8 +470,8 @@ public class LevelEditorMain extends JFrame {
 	
 	public void setLevel(GameWorld level) {
 		System.out.println("Set level");
-		viewport.setLevel(level);
-		currentLevel = level;
+		this.currentLevel = level;
+		viewport.setLevel(this.currentLevel);
 		propertyPanel.clear();
 		dimList.setListData(level.getDimensions());
 		dimListViewport.repaint();

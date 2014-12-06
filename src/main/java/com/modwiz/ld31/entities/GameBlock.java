@@ -74,7 +74,7 @@ public class GameBlock extends GameObject {
 		if (grounded) {
 			getAcceleration().set(0, -getVelocity().getX() / 10);
 			if (Math.abs(getVelocity().getX()) < 0.05) {
-				getVelocity.set(0, 0);
+				getVelocity().set(0, 0);
 			}
 		} else {
 			getAcceleration().set(0, 0);
@@ -134,10 +134,10 @@ public class GameBlock extends GameObject {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, float camX, float camY) {
 		//if (image == null) {
 			g.setColor(Color.BLACK);
-			g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
+			g.fillRect((int)(getX()-camX), (int)(getY()-camY), (int)width, (int)height);
 		//} else {
 			
 		//}
