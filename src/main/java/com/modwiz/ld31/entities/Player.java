@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Player extends Creature {
 
-	private boolean sneaking;
+	private boolean sneaking, stabbing;
 	private double radiationLevel;
 
     /**
@@ -24,26 +24,9 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
 		sneaking = false;
+		stabbing = false;
 		radiationLevel = 0;
     }
-	
-	@Override
-	public void render(Graphics g, float camX, float camY) {
-		if (getAnimation() != null) {
-			if (isFacingRight()) { 
-				getAnimation().setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
-					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
-			} else {
-				getAnimation().setTrack(1);
-				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
-			}
-		} else {
-			super.render(g, camX, camY);
-		}
-		// bounding box
-		g.setColor(Color.BLACK);
-		g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
-	}
 	
     /**
      * Creates a new player with an {@link com.modwiz.ld31.entities.draw.Animation}
@@ -61,6 +44,31 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health, anim);
     }
 
+	@Override
+	public void render(Graphics g, float camX, float camY) {
+		if (getAnimation() != null) {
+			int rightAnim = stabbing ? 2 : 0;
+			int leftAnim = stabbing ? 3 : 1;
+			if (stabbing && getAnimation().getFrameOn() == 6) {
+				rightAnim = 0;
+				leftAnim = 1;
+				stabbing = false;
+			}
+			if (isFacingRight()) { 
+				getAnimation().setTrack(rightAnim); // won't reset the frame if the track it's changing to is the same as it already was
+					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
+			} else {
+				getAnimation().setTrack(leftAnim);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
+			}
+		} else {
+			super.render(g, camX, camY);
+		}
+		// bounding box
+		g.setColor(Color.BLACK);
+		g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
+	}
+	
 	public void changeRadiation(double amount) {
 		this.radiationLevel += amount;
 		if (this.radiationLevel < 0) 
@@ -75,6 +83,12 @@ public class Player extends Creature {
 		this.sneaking = s;
 	}
 
+	@Override
+	public void useWeapon(int x, int y) {
+		super.useWeapon(x, y);
+		stabbing = true;
+	}
+	
     /**
      * Gets whether or not the player is in sneaking mode
      * @return Whether this player is sneaking

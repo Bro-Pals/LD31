@@ -41,10 +41,12 @@ public class Main {
 			
 			// loading all the animations
 			BufferedImage playerMoving = null;
+			BufferedImage playerStab = null;
 			BufferedImage projectileImage = null;
 			try {
 				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
+				playerStab = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerStab.png").get().getContent();
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -52,11 +54,28 @@ public class Main {
 				System.exit(0);
 			}
 			
-			BufferedImage[][] playerAnimations = new BufferedImage[4][3];
+			BufferedImage[][] playerAnimations = new BufferedImage[4][];
+			/*
+				track | description
+				0     | walk right
+				1     | walk left
+				2     | stab right
+				3     | stab left
+			*/
+			playerAnimations[0] = new BufferedImage[3];
+			playerAnimations[1] = new BufferedImage[3];
+			playerAnimations[2] = new BufferedImage[6];
+			playerAnimations[3] = new BufferedImage[6];
 			if (playerMoving != null) {
 				for (int i=0; i<3; i++) {
 					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
 					playerAnimations[1][i] = flipImage(playerAnimations[0][i], true);
+				}
+			}
+			if (playerStab != null) {
+				for (int i=0; i<5; i++) {
+					playerAnimations[2][i] = playerStab.getSubimage(i * 80, 0, 80, 120);
+					playerAnimations[3][i] = flipImage(playerAnimations[2][i], true);
 				}
 			}
 			Animation playerAnim = new Animation(playerAnimations, 8);
