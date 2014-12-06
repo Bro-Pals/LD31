@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 */
 public class Creature extends GameBlock {
 
-	private int health;
+	private double health;
 	private boolean dead;
 	/**
 		The animation for this creature
@@ -19,7 +19,7 @@ public class Creature extends GameBlock {
 	
 	public Creature(List<Dimension> parent, float x, float y, float w, float h) {
 		super(parent, x, y, w, h);
-		health = 1; // hahahah
+		health = 1.0; // hahahah
 		animation = null; // no animation :(
 		dead = false;
 	}
