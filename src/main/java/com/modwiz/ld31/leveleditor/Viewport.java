@@ -70,8 +70,8 @@ public class Viewport extends Canvas {
 					cursor.setCursorLocation(
 						e.getX() + camX,
 						e.getY() + camY
-						frame.checkSelection(cursor);
 					);
+					frame.checkSelection(cursor);
 				}
 			}
 		});
