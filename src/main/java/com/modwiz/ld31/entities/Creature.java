@@ -59,7 +59,7 @@ public class Creature extends GameBlock {
 	public void damage(double amount) {
 		health = health - amount;
 		if (health <= 0) {
-			dead = true;
+			setDead(true);
 		}
 	}
 
@@ -73,9 +73,9 @@ public class Creature extends GameBlock {
 	 */
 	public void useWeapon(int x, int y) {
 		facingRight = x > getX();
-		weapon.use(new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
+		weapon.use((Vector2)new Vector2(getX() - x, getY() - y).normalize()); // use the weapon if it's within range;
 	}
-	
+
 	/**
 	 * Set a new animation for the creature
 	 * @param a The animation to set

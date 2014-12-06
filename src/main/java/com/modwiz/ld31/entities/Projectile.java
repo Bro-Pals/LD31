@@ -1,8 +1,14 @@
 package com.modwiz.ld31.entities;
 
+import com.modwiz.ld31.utils.assets.AssetLoader;
 import com.modwiz.ld31.world.Dimension;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Projectile extends GameBlock {
+
+    BufferedImage projectileImage;
 
     /**
      * Represents a projectile
@@ -16,6 +22,12 @@ public class Projectile extends GameBlock {
      */
     public Projectile(Dimension parent, float x, float y, float w, float h) {
         super(parent, x, y, w, h);
+        try {
+            projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
+        } catch (IllegalStateException e) {
+            System.err.println("Projectile image not found!");
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -24,9 +36,36 @@ public class Projectile extends GameBlock {
     @Override
     public void update() {
         super.update(); // collision stuff from GameBlock
-        if (getVelocity().getX() != 0) {
+       // System.out.println(isDead());
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCollide(GameBlock other) {
+        // what happens when there is a collision with the other block
+        if (other instanceof Player) {
+            Player player = (Player) other;
+            player.damage(15);
+            setDead(true);
+            System.out.println(isDead());
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void render(Graphics g) {
+        if (projectileImage != null) {
+            g.drawImage(projectileImage, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight(), null);
+        } else {
+            super.render(g);
+        }
+        // bounding box
+        g.setColor(Color.BLACK);
+        g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+    }
 }

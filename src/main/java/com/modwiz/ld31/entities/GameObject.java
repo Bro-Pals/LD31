@@ -30,6 +30,7 @@ public class GameObject {
 		dead = false;
 		velocity = new Vector2();
 		acceleration = new Vector2();
+		this.dead = false;
 	}
 
 	/**
@@ -58,19 +59,7 @@ public class GameObject {
 	public Dimension getParent() {
 		return parent;
 	}
-	
-	/**
-	 * Check if the creature is dead
-	 * @return True if the creature is dead
-	 */
-	public boolean isDead() {
-		return dead;
-	}
-	
-	public void setDead(boolean d) {
-		dead = d;
-	}
-	
+
 	/**
 	 * Sets the current dimension of this game object
 	 * @param p The new dimension for this game object
@@ -135,5 +124,22 @@ public class GameObject {
 	public void setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	/**
+	 * Check if the game object is dead
+	 * @return True if the game object is dead
+	 */
+	public boolean isDead() {
+		return dead;
+	}
+
+	/**
+	 * Set the game object's dead state
+	 * Dead objects are removed from the game after being updated
+	 * @param dead Whether the game object is dead
+	 */
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 }

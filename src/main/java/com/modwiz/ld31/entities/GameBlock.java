@@ -49,7 +49,7 @@ public class GameBlock extends GameObject {
 	 */
 	public void onCollide(GameBlock other) {
 		// what happens when there is a collision with the other block
-		
+
 		//System.out.println("I have ran into another block!");
 	}
 
@@ -87,9 +87,9 @@ public class GameBlock extends GameObject {
 						if (this.getY() < bl.getY()) {
 							setY(bl.getY() - getHeight());
 							// NOTE: This prevents jumping off entities
-							if (bl.staticBlock) {
+							//if (bl.staticBlock) {
 								grounded = true;
-							}
+							//}
 						} else {
 							setY(bl.getY() + bl.getHeight());
 						}
@@ -103,6 +103,7 @@ public class GameBlock extends GameObject {
 						getVelocity().set(0, 0);
 					}
 					onCollide(bl); // collide with other blocks
+					bl.onCollide(this);
 				}
 			}
 		}
