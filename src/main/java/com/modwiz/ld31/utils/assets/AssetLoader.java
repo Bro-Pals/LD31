@@ -42,7 +42,7 @@ public abstract class AssetLoader {
 
         @Override
         public Optional<Resource<?>> getResource(String resourcePath) {
-            Optional.absent();
+            return Optional.absent();
         }
 
         @Override
