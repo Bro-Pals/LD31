@@ -5,10 +5,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.ListSelectionEvent;
-import javax.swing.ListSelectionListener;
-import java.awt.*;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -37,7 +33,7 @@ public class LevelEditorMain extends JFrame {
 	private JMenuItem saveAsButton;
 	private JMenuItem openButton;
 	
-	public LevelEditor() {
+	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
 	}
 	
