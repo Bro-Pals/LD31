@@ -67,10 +67,7 @@ public class Viewport extends Canvas {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					cursor.setCursorLocation(
-						e.getX() + camX,
-						e.getY() + camY
-					);
+					cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
 					frame.checkSelection(cursor);
 				}
 			}
