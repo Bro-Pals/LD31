@@ -5,7 +5,7 @@ package com.modwiz.ld31.world;
 */
 public class GameBlock extends GameObject {
 	
-	float width, height;
+	private float width, height;
 	
 	public GameBlock(float x, float y, float w, float h) {
 		super(x, y);

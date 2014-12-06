@@ -8,6 +8,8 @@ import java.awt.Graphics;
 */
 public class Viewport extends Canvas {
 
+	private Cursor2D cursor;
+
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.BLACK);

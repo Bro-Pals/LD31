@@ -7,9 +7,9 @@ import horsentpmath.Vector2;
 */
 public class GameObject {
 	
-	float x, y;
-	Vector2 velocity;
-	Vector2 acceleration;
+	private float x, y;
+	private Vector2 velocity;
+	private Vector2 acceleration;
 	
 	public GameObject(float x, float y) {
 		this.x = x;
