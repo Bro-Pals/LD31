@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 public class Creature extends GameBlock {
 
 	private int health;
+	private boolean dead;
 	/**
 		The animation for this creature
 	*/
@@ -20,6 +21,18 @@ public class Creature extends GameBlock {
 		super(parent, x, y, w, h);
 		health = 1; // hahahah
 		animation = null; // no animation :(
+		dead = false;
+	}
+	
+	public void damage(int amount) {
+		health = health - amount;
+		if (health <= 0) {
+			dead = true;
+		}
+	}
+	
+	public boolean isDead() {
+		return dead;
 	}
 	
 	public void setAnimation(Animation a) {

@@ -13,5 +13,11 @@ public class Dimension {
 		objects = new ArrayList<>();
 	}
 	
+	public List<GameObject> getObjects() {
+		return objects;
+	}
 	
+	public void updateObjects() {
+	
+	}
 }
