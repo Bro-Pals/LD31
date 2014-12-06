@@ -43,6 +43,10 @@ public class Creature extends GameBlock {
 		this.animation = a;
 	}
 	
+	public double getHealth() {
+		return health;
+	}
+	
 	@Override
 	public void update() {
 		super.update(); // collision stuff from GameBlock

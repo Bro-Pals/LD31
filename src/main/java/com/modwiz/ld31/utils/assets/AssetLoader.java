@@ -2,6 +2,8 @@ package com.modwiz.ld31.utils.assets;
 
 import com.google.common.base.Optional;
 import com.modwiz.ld31.world.GameWorld;
+import com.modwiz.ld31.world.Dimension;
+import com.modwiz.ld31.entities.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -65,7 +67,7 @@ public abstract class AssetLoader {
 	* @param string The string to be converted into a GameObject.
 	* @return The String in object form.
 	*/
-	public abstract GameObject readGameObject(String string);
+	public abstract GameObject readGameObject(Dimension parent, String string);
 
     static class Basic extends AssetLoader{		
 		
@@ -113,7 +115,7 @@ public abstract class AssetLoader {
 		}
 		
 		@Override
-		public abstract String writeGameObject(GameObject object) {
+		public String writeGameObject(GameObject object) {
 			if (object instanceof Player) {
 				Player p = (Player)object;
 				return PLAYER + SEP + p.getX() + SEP +
@@ -128,7 +130,7 @@ public abstract class AssetLoader {
 				GameBlock p = (GameBlock)object;
 				return BLOCK + SEP + p.getX() + SEP +
 					p.getY() + SEP + p.getWidth() + SEP +
-					p.getHeight() + SEP + p.getHealth();
+					p.getHeight();
 			} else {
 				//Must be a game object then
 				return OBJECT + SEP + object.getX() +
@@ -137,8 +139,8 @@ public abstract class AssetLoader {
 		}
 		
 		@Override
-		public abstract GameObject readGameObject(String string) {
-			String[] split = string.split(Pattern.quote(SEP));
+		public GameObject readGameObject(Dimension parent, String string) {
+			String[] split = string.split(Pattern.quote("" + SEP));
 			switch(split[0]) {
 				case PLAYER:
 					
@@ -150,9 +152,15 @@ public abstract class AssetLoader {
 					
 					break;
 				case OBJECT:
-					
-					break;
+					return new GameObject(
+						parent,
+						Float.parseFloat(split[1]),
+						Float.parseFloat(split[2])
+					);
+				default:
+					System.err.println("Unrecognisable entity type: " + split[0]);
 			}
+			return null;
 		}
     }
 }
