@@ -24,7 +24,6 @@ public class Main {
 			BufferedImage playerMoving = null;
 			try {
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
-			
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -32,7 +31,7 @@ public class Main {
 				System.exit(0);
 			}
 			
-			BufferedImage[][] playerAnimations = new BufferedImage[4][];
+			BufferedImage[][] playerAnimations = new BufferedImage[4][3];
 			if (playerMoving != null) {
 				for (int i=0; i<3; i++) {
 					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
