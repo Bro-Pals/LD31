@@ -1,5 +1,6 @@
 package com.modwiz.ld31;
 
+import com.modwiz.ld31.entities.GameBlock;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
 import com.modwiz.ld31.world.*;

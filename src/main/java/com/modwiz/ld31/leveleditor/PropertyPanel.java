@@ -1,6 +1,6 @@
 package com.modwiz.ld31.leveleditor;
 
-import com.modwiz.ld31.world.GameObject;
+import com.modwiz.ld31.entities.GameObject;
 
 import javax.swing.*;
 
