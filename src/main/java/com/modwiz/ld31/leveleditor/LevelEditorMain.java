@@ -466,7 +466,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void hideGrid() {
 		System.out.println("Hiding grid");
-		viewport.setGridVisible(true);
+		viewport.setGridVisible(false);
 	}
 	
 	private void startSnappingToGrid() {
