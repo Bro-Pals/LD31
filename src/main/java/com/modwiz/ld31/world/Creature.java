@@ -24,6 +24,12 @@ public class Creature extends GameBlock {
 		dead = false;
 	}
 	
+	public Creature(List<Dimension> parent, float x, float y, float w, float h, int hp, Animation anim) {
+		super(parent, x, y, w, h);
+		health = hp;
+		animation = anim;
+	}
+	
 	public void damage(int amount) {
 		health = health - amount;
 		if (health <= 0) {
