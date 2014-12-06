@@ -26,6 +26,10 @@ public class Animation {
 		frameDelay = fDelay;
 	}
 
+	public int getFrameOn() {
+		return frameOn;
+	}
+	
 	/**
 	 * Tick the animation
 	 */
