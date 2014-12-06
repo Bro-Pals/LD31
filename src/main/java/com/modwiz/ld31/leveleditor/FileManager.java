@@ -2,6 +2,7 @@ package com.modwiz.ld31.leveleditor;
 
 import java.io.File;
 import com.modwiz.ld31.world.GameWorld;
+import com.modwiz.ld31.utils.assets.AssetLoader;
 
 public class FileManager {
 	
