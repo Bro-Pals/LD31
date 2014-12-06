@@ -1,11 +1,10 @@
 package com.modwiz.ld31.world;
 
-import com.modwiz.ld31.entities.Creature;
 import com.modwiz.ld31.entities.GameObject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Graphics;
 
 /**
  * The world that will hold references to all the GameObjects in the game in the current dimension
