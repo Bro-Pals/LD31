@@ -544,9 +544,9 @@ public class LevelEditorMain extends JFrame {
 						selecting.setX(selecting.getX() - selecting.getX()%50);
 					}
 					if(selecting.getY()%50 > 25){
-						selecting.setY(selecting.getX() - selecting.getY()%50 + 50);
+						selecting.setY(selecting.getY() - selecting.getY()%50 + 50);
 					}else{
-						selecting.setY(selecting.getX() - selecting.getY()%50);
+						selecting.setY(selecting.getY() - selecting.getY()%50);
 					}
 				}
 			}
