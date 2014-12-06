@@ -1,4 +1,4 @@
-package com.modwiz.ld31.world.draw;
+package com.modwiz.ld31.entities.draw;
 
 import java.awt.image.BufferedImage;
 

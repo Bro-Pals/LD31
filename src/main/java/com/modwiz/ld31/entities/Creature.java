@@ -1,7 +1,7 @@
 package com.modwiz.ld31.entities;
 
 import com.modwiz.ld31.world.Dimension;
-import com.modwiz.ld31.world.draw.Animation;
+import com.modwiz.ld31.entities.draw.Animation;
 import java.awt.Graphics;
 
 /**
