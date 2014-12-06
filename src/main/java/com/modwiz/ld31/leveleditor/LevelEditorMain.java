@@ -42,8 +42,6 @@ public class LevelEditorMain extends JFrame {
 	private JScrollPane objectLibViewport;
 	private JList<Dimension> dimList;
 	private JList<GameObject> objectLib;
-	private DimensionListSelectionModel dimListModel;
-	private ObjectLibrarySelectionModel objectLibModel;
 	private JButton addObject;
 	private JButton removeObject;
 	private JButton dimAdd;
@@ -68,7 +66,6 @@ public class LevelEditorMain extends JFrame {
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
 	}
 	
 	public void init() {
@@ -100,6 +97,10 @@ public class LevelEditorMain extends JFrame {
 		add(rightPanel, BorderLayout.EAST);
 		add(viewport, BorderLayout.CENTER);
 		add(southPanel, BorderLayout.SOUTH);
+		setJMenuBar(bar);
+		pack();
+		viewport.setupListeners(this);
+		setLocationRelativeTo(null);
 	}
 	
 	private void makeEverythingElse() {
@@ -214,8 +215,7 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void makeDimList() {
-		dimListModel = new DimensionListSelectionModel();
-		dimList = new JList(dimListModel);
+		dimList = new JList();
 		dimListViewport = new JScrollPane(
 			dimList,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -239,8 +239,7 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void makeObjectLib() {
-		objectLibModel = new ObjectLibrarySelectionModel();
-		objectLib = new JList(objectLibModel);
+		objectLib = new JList();
 		objectLibViewport = new JScrollPane(
 			objectLib,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -255,6 +254,8 @@ public class LevelEditorMain extends JFrame {
 		objectPanel.add(objectLibViewport);
 		objectPanel.add(objectPanelRight);
 		southPanel.add(objectPanel);
+		/* Add objects into the object library  */
+		
 	}
 	
 	private void makeAddDim() {
@@ -299,10 +300,29 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedDimension() {
 		System.out.println("Removing selected dimension");
+		if (this.currentLevel!=null && dimList.getSelectedValue()!=null) {
+			currentLevel.removeDimension(dimList.getSelectedValue());
+			dimList.setListData(currentLevel.getDimensions());
+			dimListViewport.revalidate();
+			dimList.repaint();
+		}
 	}
 	
 	private void addNewDimension() {
-		System.out.println("Adding a  new dimension");
+		String dimName;
+		if (this.currentLevel!= null) {
+			dimName = JOptionPane.showInputDialog(this, "Enter the name of the new dimension");
+			if (dimName!=null && !dimName.equals("")) {
+				Dimension dim = new Dimension();
+				dim.setName(dimName);
+				currentLevel.addDimension(dim);
+				Dimension[] dimensions = currentLevel.getDimensions();
+				dimList.setListData(dimensions);
+				dimListViewport.revalidate();
+				dimList.repaint();
+				System.out.println("Added a dimension (" + dimList.getModel().getSize() + " dimensions)");
+			}
+		}
 	}
 	
 	private void makeEditorMenu() {
@@ -325,31 +345,66 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void newLevel() {
+		if (currentLevel!=null) {
+			if (confirmAction("Save current level?")) {
+				saveLevel();
+			}
+			clearLevel();
+		}
+		currentLevel = new GameWorld();
+		viewport.setLevel(currentLevel);
 		System.out.println("Create a new level");
 	}
 	
 	private void saveLevel() {
-		System.out.println("Save the current level");
+		if (currentLevel!=null) {
+			System.out.println("Save the current level");
+			if (fileManager.hasCurrent()) {
+				fileManager.save(currentLevel);
+			} else {
+				saveLevelAs();
+			}
+		}
 	}
 	
 	private void saveLevelAs() {
 		System.out.println("Save the current level as");
+		int confirm = fc.showSaveDialog(this);
+		if (confirm == JFileChooser.APPROVE_OPTION) {
+			fileManager.saveAs(fc.getSelectedFile(), currentLevel);
+		}
 	}
 	
 	private void openLevel() {
 		System.out.println("Open a level");
+		if (currentLevel!=null) {
+			if (confirmAction("Save current level?")) {
+				saveLevel();
+			}
+			clearLevel();
+		}
+		int confirm = fc.showOpenDialog(this);
+		if (confirm == JFileChooser.APPROVE_OPTION) {
+			setLevel(fileManager.open(fc.getSelectedFile()));
+		}
 	}
 	
 	private void selectGameObject(GameObject selecting) {
-		viewport.setSelected(selecting);
-		this.selecting = selecting;
-		propertyPanel.loadObject(selecting);
+		if (selecting!=null) {
+			viewport.setSelected(selecting);
+			this.selecting = selecting;
+			propertyPanel.loadObject(selecting);
+		}
 	}
 	
 	public void checkSelection(Cursor2D cursor) {
-		Dimension d = currentLevel.getActiveDimension();
-		for (GameObject go : d.getObjects()) {
-			
+		if (currentLevel!=null) {
+			Dimension d = currentLevel.getActiveDimension();
+			if (d!=null) {
+				for (GameObject go : d.getObjects()) {
+					
+				}
+			}
 		}
 	}
 	
@@ -392,9 +447,36 @@ public class LevelEditorMain extends JFrame {
 		}
 	}
 	
+	public void setLevel(GameWorld level) {
+		System.out.println("Set level");
+		viewport.setLevel(level);
+		currentLevel = level;
+		propertyPanel.clear();
+		dimList.setListData(level.getDimensions());
+		dimListViewport.repaint();
+		viewport.repaint();
+	}	
+	
+	public void clearLevel() {
+		viewport.setLevel(null);
+		currentLevel = null;
+		propertyPanel.clear();
+		//Remove all dimensions in list
+		dimList.setListData(new Dimension[0]);
+		dimListViewport.repaint();
+		viewport.repaint();
+	}	
+	
+	public void mouseDragged(float x, float y) {
+		if (currentLevel!=null) {
+			
+		}
+	}
+	
 	/*
 		List models
 	*/
+	/*
 	class DimensionListSelectionModel implements ListModel<Dimension> {
 		
 		private List<Dimension> list;
@@ -480,4 +562,5 @@ public class LevelEditorMain extends JFrame {
 			list.clear();
 		}
 	}
+	*/
 }

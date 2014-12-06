@@ -1,19 +1,20 @@
 package com.modwiz.ld31.leveleditor;
 
-import java.awt.Canvas;
+import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.KeyAdapter;
+import java.awt.event.MouseMotionAdapter;
 import com.modwiz.ld31.entities.GameObject;
 import com.modwiz.ld31.world.GameWorld;
 
 /**
 	Provides a view to the level that is being edited.
 */
-public class Viewport extends Canvas {
+public class Viewport extends JComponent {
 
 	private Cursor2D cursor;
 	private float camX, camY;
@@ -52,23 +53,39 @@ public class Viewport extends Canvas {
 		selecting = object;
 	}
 	
+	public void setLevel(GameWorld level) {
+		selecting = null;
+		this.level = level;
+	}
+	
 	@Override
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.translate(-(int)camX, -(int)camY);
 		if (this.level != null) {
 			level.renderDimension(g);
+			drawCursor(g);
+		} else {
+			g.setColor(Color.WHITE);
+			g.drawString("No level being edited", 25, 25);
 		}
 		g.translate((int)camX, (int)camY);
 	}
 	
-	public void setLevel(GameWorld level) {
-		this.level = level;
+	private void drawCursor(Graphics g) {
+		int x = (int)(cursor.getX()-camX);
+		int y = (int)(cursor.getY()-camY);
+		//Cursor width is 15 lets say
+		g.setColor(Color.RED);
+		g.drawLine(x-15, y, x+15, y);
+		g.drawLine(x, y-15, x, y+15);
 	}
 	
 	public void setupListeners(final LevelEditorMain frame) {
-		frame.addKeyListener(new KeyAdapter() {
+		setFocusable(true);
+		
+		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				switch(e.getKeyCode()) {
@@ -88,13 +105,23 @@ public class Viewport extends Canvas {
 			}
 		});
 		
-		frame.addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
 					frame.checkSelection(cursor);
+					repaint();
 				}
+			}
+		});
+		
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				cursor.setCursorLocation(e.getX() + camX,e.getY() + camY);
+				frame.mouseDragged(e.getX()+camX, e.getY()+camY);
+				repaint();
 			}
 		});
 	}

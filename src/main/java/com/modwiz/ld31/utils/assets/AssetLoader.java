@@ -131,12 +131,13 @@ public abstract class AssetLoader {
 						readingDimension = false;
 						dieWelt.addDimension(current);
 						current = null;
-					}
-					//Next step processing
-					if (readingDimension) {
-						//Parse a game object
-						current.addObject(readGameObject(current, currentLine));
-						System.out.println("Read " + currentLine);
+					} else {
+						//Next step processing
+						if (readingDimension) {
+							//Parse a game object
+							current.addObject(readGameObject(current, currentLine));
+							System.out.println("Read " + currentLine);
+						}
 					}
 				}
 				rdr.close();
@@ -152,6 +153,9 @@ public abstract class AssetLoader {
 		public void saveLevel(File file, GameWorld level) {
 			//Write stuff
 			try {
+				if (level==null) {
+					System.err.println("ERROR: Attempting to save a null level (Should never happen)");
+				}
 				PrintWriter writer = new PrintWriter(file);
 				/* Go through the dimensions and write each one */
 				Dimension[] dimensions = level.getDimensions();
