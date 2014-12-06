@@ -11,6 +11,8 @@ public class Main {
     public static void main(String[] args) {
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
+			editor.init();
+			editor.setVisible(true);
 			//The level editor is now OK
 		} else {
 			System.out.println("This shows that it is working!");

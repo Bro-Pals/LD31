@@ -35,7 +35,11 @@ public class Viewport extends Canvas {
 	public void paint(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+		g.translate(-(int)camX, -(int)camY);
+		if (this.level != null) {
+			level.renderDimension(g);
+		}
+		g.translate((int)camX, (int)camY);
 	}
 	
 	public void setLevel(GameWorld level) {

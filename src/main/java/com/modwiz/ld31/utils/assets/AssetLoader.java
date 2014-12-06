@@ -27,7 +27,15 @@ public abstract class AssetLoader {
     public abstract Optional<Resource<GameWorld>> getLevel(String levelPath);
 
     static class Basic extends AssetLoader{
-
+		
+		private DimensionInputOutput dimensionLoader;
+		private GameObjectInputOutput gameWorldLoader;
+		
+		public Basic() {
+			dimensionLoader = new DimensionInputOutput();
+			gameWorldLoader = new GameObjectInputOutput();
+		}
+		
         @Override
         public Optional<Resource<?>> getResource(String resourcePath) {
             return Optional.absent();
