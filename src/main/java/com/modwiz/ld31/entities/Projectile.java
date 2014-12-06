@@ -54,7 +54,6 @@ public class Projectile extends GameBlock {
             Vector2 knockBack = (Vector2)getVelocity().normalize();
             knockBack = VectorUtils.multiplyScalar(20, knockBack);
             VectorUtils.setVector2(player.getVelocity(), (Vector2) player.getVelocity().add(knockBack));
-            System.out.println(isDead());
         }
     }
 
