@@ -1,9 +1,8 @@
-package com.modwiz.ld31.world;
+package com.modwiz.ld31.entities;
 
+import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.world.draw.Animation;
 import java.awt.Graphics;
-import java.util.List;
-import java.awt.image.BufferedImage;
 
 /**
 	The extreme creature that the Player and Enemies will extend from
@@ -12,9 +11,8 @@ public class Creature extends GameBlock {
 
 	private double health;
 	private boolean dead;
-	/**
-		The animation for this creature
-	*/
+
+	// The animation for this creature
 	private Animation animation;
 	
 	public Creature(Dimension parent, float x, float y, float w, float h) {

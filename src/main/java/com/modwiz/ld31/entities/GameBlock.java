@@ -1,8 +1,6 @@
-package com.modwiz.ld31.world;
+package com.modwiz.ld31.entities;
 
 import java.awt.*;
-import java.util.List;
-import java.util.Iterator;
 
 /**
 	The basic block with width, height, and collision
@@ -11,7 +9,7 @@ public class GameBlock extends GameObject {
 	
 	private float width, height;
 	
-	public GameBlock(Dimension parent, float x, float y, float w, float h) {
+	public GameBlock(com.modwiz.ld31.world.Dimension parent, float x, float y, float w, float h) {
 		super(parent, x, y);
 		this.width = w;
 		this.height = height;
@@ -59,6 +57,7 @@ public class GameBlock extends GameObject {
 						}
 						getVelocity().set(0, 0);
 					}
+					onCollide(bl); // collide with other blocks
 				}
 			}
 		}

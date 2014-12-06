@@ -1,6 +1,8 @@
 package com.modwiz.ld31.world;
 
-import java.awt.*;
+import com.modwiz.ld31.entities.Creature;
+import com.modwiz.ld31.entities.GameObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Graphics;
