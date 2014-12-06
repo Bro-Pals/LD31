@@ -5,7 +5,7 @@ import com.modwiz.ld31.world.GameObject;
 public class Main {
 
     public static void main(String[] args) {
-		if (args.length == 1 && args[0].equals()) {
+		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
 			//The level editor is now OK
 		} else {
