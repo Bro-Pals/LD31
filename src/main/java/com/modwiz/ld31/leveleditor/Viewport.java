@@ -19,6 +19,8 @@ public class Viewport extends Canvas {
 	private float camX, camY;
 	private final float camSpeed;
 	private GameWorld level;
+	private int gridSpacing;
+	private boolean gridVisible;
 	
 	public Viewport(int viewPortWidth, int viewPortHeight) {
 		cursor = new Cursor2D();
@@ -27,9 +29,21 @@ public class Viewport extends Canvas {
 		camSpeed = 40;
 		setPreferredSize(new java.awt.Dimension(viewPortWidth, viewPortHeight));
 		setSize(viewPortWidth, viewPortHeight);
+		gridVisible = false;
+		gridSpacing = 25;
 	}
 	
+	public int getGridSpacing() {
+		return gridSpacing;
+	}
 	
+	public boolean getGridVisible() {
+		return gridVisible;
+	}
+	
+	public void setGridVisible(boolean gridVisible) {
+		this.gridVisible = gridVisible;
+	}
 	
 	@Override
 	public void paint(Graphics g) {

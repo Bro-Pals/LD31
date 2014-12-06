@@ -62,6 +62,8 @@ public class LevelEditorMain extends JFrame {
 	private JPanel rightPanel;
 	private JPanel southPanel;
 	private JFileChooser fc;
+	private boolean snappingToGrid;
+	private boolean snappingToObjects;
 	
 	public LevelEditorMain() {
 		super("Ludum Dare 31 Level Editor");
@@ -78,6 +80,8 @@ public class LevelEditorMain extends JFrame {
 				}
 			}
 		);
+		snappingToGrid = false;
+		snappingToObjects = true;
 		currentLevel = null;
 		fc = new JFileChooser();
 		viewport = new Viewport(600, 400);
@@ -99,12 +103,12 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void makeEverythingElse() {
-		makeDimList();
-		makeObjectLib();
 		makeAddDim();
 		makeRemoveDim();
 		makeAddObject();
 		makeRemoveObject();
+		makeObjectLib();
+		makeDimList();
 	}
 	
 	private boolean confirmAction(String message) {
@@ -132,17 +136,7 @@ public class LevelEditorMain extends JFrame {
 		newButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (fileManager.hasCurrent()) {
-					if (confirmAction("Save current level before overwriting with a new level?")) {
-						//Make a new level
-						fileManager.save(currentLevel);
-						fileManager.clear();
-						currentLevel = new GameWorld();
-						dimListModel.clear();
-						dimList.revalidate();
-						viewport.setLevel(currentLevel);
-					}
-				}
+				newLevel();
 			}
 		});
 	}
@@ -153,9 +147,9 @@ public class LevelEditorMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fileManager.hasCurrent()) {
-					
+					saveLevel();
 				} else {
-					
+					saveLevelAs();
 				}
 			}
 		});
@@ -166,7 +160,7 @@ public class LevelEditorMain extends JFrame {
 		saveAsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				saveLevelAs();
 			}
 		});
 	}
@@ -176,7 +170,7 @@ public class LevelEditorMain extends JFrame {
 		openButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				openLevel();
 			}
 		});
 	}
@@ -237,7 +231,15 @@ public class LevelEditorMain extends JFrame {
 				choseDimension();
 			}
 		});
-		southPanel.add(dimListViewport);
+		JPanel dimPanel = new JPanel();
+		dimPanel.setLayout(new BoxLayout(dimPanel, BoxLayout.X_AXIS));
+		JPanel dimPanelRight = new JPanel();
+		dimPanelRight.setLayout(new BoxLayout(dimPanelRight, BoxLayout.Y_AXIS));
+		dimPanelRight.add(dimAdd);
+		dimPanelRight.add(dimRemove);
+		dimPanel.add(dimListViewport);
+		dimPanel.add(dimPanelRight);
+		southPanel.add(dimPanel);
 	}
 	
 	private void makeObjectLib() {
@@ -248,7 +250,15 @@ public class LevelEditorMain extends JFrame {
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
 		);
-		southPanel.add(objectLibViewport);
+		JPanel objectPanel = new JPanel();
+		objectPanel.setLayout(new BoxLayout(objectPanel, BoxLayout.X_AXIS));
+		JPanel objectPanelRight = new JPanel();
+		objectPanelRight.setLayout(new BoxLayout(objectPanelRight, BoxLayout.Y_AXIS));
+		objectPanelRight.add(addObject);
+		objectPanelRight.add(removeObject);
+		objectPanel.add(objectLibViewport);
+		objectPanel.add(objectPanelRight);
+		southPanel.add(objectPanel);
 	}
 	
 	private void makeAddDim() {
@@ -318,47 +328,69 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void newLevel() {
-	
+		if (fileManager.hasCurrent()) {
+			if (confirmAction("Save current level before overwriting with a new level?")) {
+				//Make a new level
+				fileManager.save(currentLevel);
+				fileManager.clear();
+				currentLevel = new GameWorld();
+				dimListModel.clear();
+				dimList.revalidate();
+				viewport.setLevel(currentLevel);
+			}
+		}
 	}
 	
 	private void saveLevel() {
-	
+		fileManager.save(currentLevel);
 	}
 	
 	private void saveLevelAs() {
-	
+		if (fileManager.hasCurrent()) {
+			fc.setSelectedFile(fileManager.getCurrent());
+		}
+		int chooser = fc.showSaveDialog(this);
+		if (chooser == JFileChooser.APPROVE_OPTION) {
+			fileManager.saveAs(fc.getSelectedFile(), currentLevel);
+		}
 	}
 	
 	private void openLevel() {
-	
+		if (fileManager.hasCurrent()) {
+			fc.setSelectedFile(fileManager.getCurrent());
+		}
+		int chooser = fc.showOpenDialog(this);
+		if (chooser == JFileChooser.APPROVE_OPTION) {
+			currentLevel = fileManager.open(fc.getSelectedFile());
+		}
 	}
 	
 	private void selectGameObject(GameObject selecting) {
-	
+		
 	}
 	
 	private void showGrid() {
-	
+		viewport.setGridVisible(true);
 	}
 	
 	private void hideGrid() {
-	
+		viewport.setGridVisible(true);
 	}
 	
 	private void startSnappingToGrid() {
-	
+		
 	}
 	
 	private void stopSnappingToGrid() {
-	
+		
 	}
 	
 	private void startSnappingToObjects() {
-	
+		
 	}
 	
 	private void stopSnappingToObjects() {
-	
+		
 	}
 	
 	private void removeSelectedObject() {

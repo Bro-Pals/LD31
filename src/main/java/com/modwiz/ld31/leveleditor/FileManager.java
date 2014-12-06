@@ -22,6 +22,10 @@ public class FileManager {
 		return current != null;
 	}
 	
+	public File getCurrent() {
+		return current;
+	}
+	
 	public void clear() {
 		current = null;
 	}
@@ -30,7 +34,9 @@ public class FileManager {
 		current = file;
 	}
 	
-	public void open(File file) {
+	public GameWorld open(File file) {
 		current = file;
+		//Load the game world here
+		return null;
 	}
 }
