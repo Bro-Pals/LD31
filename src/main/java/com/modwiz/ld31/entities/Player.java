@@ -26,6 +26,7 @@ public class Player extends Creature {
 		sneaking = false;
 		stabbing = false;
 		radiationLevel = 0;
+		setWeapon(new Weapon(this, 35, 3, 42));
     }
 	
     /**
@@ -49,17 +50,19 @@ public class Player extends Creature {
 		if (getAnimation() != null) {
 			int rightAnim = stabbing ? 2 : 0;
 			int leftAnim = stabbing ? 3 : 1;
-			if (stabbing && getAnimation().getFrameOn() == 6) {
+			int delay = stabbing ? 2 : 8;
+			if (stabbing && getAnimation().getFrameOn() >= 5) {
 				rightAnim = 0;
 				leftAnim = 1;
+				delay = 8;
 				stabbing = false;
 			}
 			if (isFacingRight()) { 
-				getAnimation().setTrack(rightAnim); // won't reset the frame if the track it's changing to is the same as it already was
+				getAnimation().setTrack(rightAnim, delay); // won't reset the frame if the track it's changing to is the same as it already was
 					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
 			} else {
-				getAnimation().setTrack(leftAnim);
-				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
+				getAnimation().setTrack(leftAnim, delay);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX-20), (int)(getY()-camY), null);
 			}
 		} else {
 			super.render(g, camX, camY);

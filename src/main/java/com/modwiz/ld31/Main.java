@@ -9,6 +9,7 @@ import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -78,6 +79,8 @@ public class Main {
 					playerAnimations[3][i] = flipImage(playerAnimations[2][i], true);
 				}
 			}
+			playerAnimations[2][5] = playerAnimations[2][5];
+			playerAnimations[3][5] = playerAnimations[3][5];
 			Animation playerAnim = new Animation(playerAnimations, 8);
 			
 			Dimension firstDimension = new Dimension();
@@ -117,7 +120,14 @@ public class Main {
 				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
 					changeKey(keyEvent.getKeyCode(), false);
 				}
-				player.useWeapon(0, 0);
+				MouseEvent mouseEvent;
+				while((mouseEvent = window.nextMousePressedEvent() ) != null) {
+					if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+						player.useWeapon(mouseEvent.getX() - window.getRawFrame().getBounds().x, 
+							mouseEvent.getY() - window.getRawFrame().getBounds().y);
+					}
+				}
+				
 				// moving and stuff
 				if (d && !a) {
 					player.getVelocity().set(0, 4);

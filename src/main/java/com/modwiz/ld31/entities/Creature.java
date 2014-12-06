@@ -121,6 +121,10 @@ public class Creature extends GameBlock {
 		animation.update(); 
 	}
 
+	public void setWeapon(Weapon w) {
+		this.weapon = w;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

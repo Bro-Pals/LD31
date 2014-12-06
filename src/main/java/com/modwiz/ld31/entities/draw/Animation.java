@@ -51,6 +51,21 @@ public class Animation {
 	public void setTrack(int track) {
 		if (track != trackOn && track >= 0 && track < tracks.length) {
 			frameOn = 0;
+			frameDelayOn = 0;
+			trackOn = track;
+		}	
+	}
+	
+	/**
+	 * If multiple animation tracks are used this switches between them
+	 * Ex. Running track, Jumping track, etc
+	 * @param track The track number to switch to
+	 */
+	public void setTrack(int track, int newDelay) {
+		if (track != trackOn && track >= 0 && track < tracks.length) {
+			frameOn = 0;
+			frameDelay = newDelay;
+			frameDelayOn = 0;
 			trackOn = track;
 		}	
 	}

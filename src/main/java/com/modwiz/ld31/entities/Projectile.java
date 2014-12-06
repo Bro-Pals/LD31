@@ -72,7 +72,7 @@ public class Projectile extends GameBlock {
      * {@inheritDoc}
      */
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics g, float camX, float camY) {
 		BufferedImage projectileImage = getVelocity().getX() > 0 ? projectileImageRight : projectileImageLeft;
         if (projectileImage != null) {
             g.drawImage(projectileImage, (int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight(), null);
