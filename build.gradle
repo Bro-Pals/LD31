@@ -40,3 +40,7 @@ shadowJar {
     append('lib/SimpleDrawing/SimpleDrawing.jar')
     append('lib/SimpleTextParser/SimpleTextParser.jar')
 }
+
+artifacts {
+    archives jar
+}

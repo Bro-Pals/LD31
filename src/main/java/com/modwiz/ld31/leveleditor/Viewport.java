@@ -1,5 +1,6 @@
 package com.modwiz.ld31.leveleditor;
 
+<<<<<<< HEAD
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Dimensions;
@@ -8,6 +9,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.KeyAdapter;
+=======
+import java.awt.*;
+>>>>>>> b7fd21ee64ddb74d4e0c4d1c954bb46b543a4ff8
 
 /**
 	Provides a view to the level that is being edited.

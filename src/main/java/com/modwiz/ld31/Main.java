@@ -14,5 +14,10 @@ public class Main {
 			object.getVelocity().set(0, 20);
 			object.getVelocity().printVector();
 		}
+       System.out.println("This shows that it is working!");
+        /*GameObject object = new GameObject();
+        object.getVelocity().set(0, 20);
+        object.getVelocity().printVector();
+        */
     }
 }

@@ -2,19 +2,22 @@ package com.modwiz.ld31.world;
 
 import horsentpmath.Vector2;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 	The extreme game object for everything that is going to go in the world
 */
 public class GameObject {
 	
-	private ArrayList<Dimension> parent;
+	private List<Dimension> parent;
 	private float x, y;
 	private Vector2 velocity;
 	private Vector2 acceleration;
 	
-	public GameObject(ArrayList<Dimension> parent, float x, float y) {
+	public GameObject(List<Dimension> parent, float x, float y) {
 		this.parent = parent;
 		this.x = x;
 		this.y = y;
@@ -34,11 +37,11 @@ public class GameObject {
 		g.fillRect((int)x, (int)y, 3, 3);
 	}
 	
-	public ArrayList<Dimension> getParent() {
+	public List<Dimension> getParent() {
 		return parent;
 	}
 	
-	public void setParent(ArrayList<Dimension> p) {
+	public void setParent(List<Dimension> p) {
 		this.parent = p;
 	}
 	
