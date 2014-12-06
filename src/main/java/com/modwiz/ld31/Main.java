@@ -4,6 +4,7 @@ import com.modwiz.ld31.entities.*;
 import com.modwiz.ld31.entities.draw.Animation;
 import com.modwiz.ld31.leveleditor.LevelEditorMain;
 import com.modwiz.ld31.utils.assets.*;
+import com.modwiz.ld31.utils.math.VectorUtils;
 import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
@@ -98,12 +99,18 @@ public class Main {
 				
 				// moving and stuff
 				if (d && !a) {
-					player.getVelocity().set(0, 3);
+					player.getVelocity().set(0, 4);
 				} else if (a && !d) {
-					player.getVelocity().set(0, -3);
-				} else if (!a && !d) {
-					player.getVelocity().set(0, 0);
+					player.getVelocity().set(0, -4);
+				} 
+				/*
+				else if (!a && !d) {
+					float originalY = player.getVelocity().getY();
+					VectorUtils.setVector2(player.getVelocity(), VectorUtils.multiplyScalar(.5f, player.getVelocity()));
+					player.getVelocity().set(1, originalY);
+>>>>>>> 9f535081c3bd34b9664eef097a2522b96b08ea98
 				}
+				*/
 				if (w) {
 					if (player.isGrounded()) {
 						System.out.println("JUMP");

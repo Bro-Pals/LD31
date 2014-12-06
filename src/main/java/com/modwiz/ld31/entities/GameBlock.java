@@ -71,6 +71,14 @@ public class GameBlock extends GameObject {
 	 */
 	@Override
 	public void update() {
+		if (grounded) {
+			getAcceleration().set(0, -getVelocity().getX() / 10);
+			if (Math.abs(getVelocity().getX()) < 0.05) {
+				getVelocity.set(0, 0);
+			}
+		} else {
+			getAcceleration().set(0, 0);
+		}
 		super.update();
 		
 		// if it's not moving it can't move
