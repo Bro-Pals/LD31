@@ -45,7 +45,7 @@ public class Animation {
 	 * @param track The track number to switch to
 	 */
 	public void setTrack(int track) {
-		if (track >= 0 && track < tracks.length) {
+		if (track != trackOn && track >= 0 && track < tracks.length) {
 			frameOn = 0;
 			trackOn = track;
 		}	

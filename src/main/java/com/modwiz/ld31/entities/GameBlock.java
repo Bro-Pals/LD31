@@ -1,5 +1,6 @@
 package com.modwiz.ld31.entities;
 
+import java.awt.image.BufferedImage;
 import java.awt.*;
 import com.modwiz.ld31.world.Dimension;
 
@@ -11,6 +12,7 @@ public class GameBlock extends GameObject {
 	private float width, height;
 	private boolean grounded; // has this object collided with something below it?
 	private boolean staticBlock; // Platform
+	private BufferedImage image;
 
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -27,6 +29,7 @@ public class GameBlock extends GameObject {
 		this.height = h;
 		this.grounded = false;
 		this.staticBlock = false;
+		image = null;
 	}
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -42,7 +45,17 @@ public class GameBlock extends GameObject {
 		this(parent, x, y, w, h);
 		this.staticBlock = true;
 	}
+	
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
+		this(parent, x, y, w, h, staticBlock);
+		this.staticBlock = true;
+		this.image = image;
+	}
 
+	public void setImage(BufferedImage img) {
+		this.image = img;
+	}
+	
 	/**
 	 * Represents the functionality when collided with
 	 * @param other The {@link com.modwiz.ld31.entities.GameBlock} we are colliding with
@@ -114,8 +127,12 @@ public class GameBlock extends GameObject {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
+		//if (image == null) {
+			g.setColor(Color.BLACK);
+			g.fillRect((int)getX(), (int)getY(), (int)width, (int)height);
+		//} else {
+			
+		//}
 	}
 
 	/**

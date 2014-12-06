@@ -1,7 +1,9 @@
 package com.modwiz.ld31.entities;
 
 import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.math.VectorUtils;
 import com.modwiz.ld31.world.Dimension;
+import horsentpmath.Vector2;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -49,6 +51,9 @@ public class Projectile extends GameBlock {
             Player player = (Player) other;
             player.damage(15);
             setDead(true);
+            Vector2 knockBack = (Vector2)getVelocity().normalize();
+            knockBack = VectorUtils.multiplyScalar(20, knockBack);
+            VectorUtils.setVector2(player.getVelocity(), (Vector2) player.getVelocity().add(knockBack));
             System.out.println(isDead());
         }
     }
