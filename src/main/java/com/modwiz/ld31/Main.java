@@ -50,8 +50,8 @@ public class Main {
 			Animation playerAnim = new Animation(playerAnimations, 8);
 			
 			Dimension firstDimension = new Dimension();
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30);
-
+			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
+			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
 
 			Player player = new Player(firstDimension, 60, 20, 65, 120, 8, playerAnim);
 			player.getVelocity().set(0, 2);
@@ -59,6 +59,8 @@ public class Main {
 
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
+			firstDimension.getObjects().add(secondBlock);
+
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
 			world.setActiveDimension(firstDimension.getName());
