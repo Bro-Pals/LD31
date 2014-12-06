@@ -1,7 +1,6 @@
-package main.java.com.modwiz.ld31.leveleditor;
+package com.modwiz.ld31.leveleditor;
 
-import java.awt.Canvas;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
 	Provides a view to the level that is being edited.

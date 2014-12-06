@@ -1,5 +1,8 @@
 package com.modwiz.ld31.world;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 /**
 	The basic block with width, height, and collision
 */

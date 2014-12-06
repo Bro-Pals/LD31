@@ -11,14 +11,14 @@ import java.awt.event.MouseAdapter;
 /**
 	The JFrame that is the level editor, create a new instance to have the level editor be created.
 */
-public class LevelEditor extends JFrame {
+public class LevelEditorMain extends JFrame {
 	
 	private Viewport viewport;
 	private PropertyPanel propertyPanel;
 	private DimensionsPanel dimensionsPanel;
 	private ObjectLibraryPanel objectLibraryPanel;
 	
-	public LevelEditor() {
+	public LevelEditorMain() {
 		
 	}
 

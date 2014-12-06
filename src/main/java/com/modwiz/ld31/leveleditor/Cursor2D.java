@@ -1,4 +1,4 @@
-package main.java.com.modwiz.ld31.leveleditor;
+package com.modwiz.ld31.leveleditor;
 
 public class Cursor2D {
 	
