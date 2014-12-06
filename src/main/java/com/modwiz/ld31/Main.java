@@ -98,11 +98,9 @@ public class Main {
 				
 				// moving and stuff
 				if (d && !a) {
-					player.getVelocity().set(0, 3);
+					player.getVelocity().set(0, 4);
 				} else if (a && !d) {
-					player.getVelocity().set(0, -3);
-				} else if (!a && !d) {
-					player.getVelocity().set(0, 0);
+					player.getVelocity().set(0, -4);
 				}
 				if (w) {
 					if (player.isGrounded()) {
