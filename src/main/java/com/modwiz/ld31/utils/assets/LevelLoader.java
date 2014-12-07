@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import com.modwiz.ld31.entities.*;
+import com.modwiz.ld31.utils.assets.AssetLoader;
 import com.modwiz.ld31.world.*;
 import java.util.regex.Pattern;
 
@@ -97,7 +98,7 @@ public class LevelLoader {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.isStaticBlock();
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageForString();
         } else {
             //Must be a game object then
             return "" + LevelString.OBJECT + LevelString.SEP + object.getX() +
@@ -155,7 +156,8 @@ public class LevelLoader {
                         Float.parseFloat(split[2]),
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
-						Boolean.parseBoolean(split[5])
+						Boolean.parseBoolean(split[5]),
+						split[6]
                 );
             case OBJECT:
                 return new GameObject(
