@@ -437,7 +437,7 @@ public class LevelEditorMain extends JFrame {
 			if (fileManager.hasCurrent()) {
 				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
 			} else {
-				File loc = new File("assets/levels");
+				File loc = new File("assets/Levels");
 				fc.setCurrentDirectory(loc.getAbsoluteFile());
 			}
 			int confirm = fc.showSaveDialog(this);
@@ -463,7 +463,7 @@ public class LevelEditorMain extends JFrame {
 		if (fileManager.hasCurrent()) {
 				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
 		} else {
-			File loc = new File("assets/levels");
+			File loc = new File("assets/Levels");
 			fc.setCurrentDirectory(loc.getAbsoluteFile());
 		}
 		int confirm = fc.showOpenDialog(this);
