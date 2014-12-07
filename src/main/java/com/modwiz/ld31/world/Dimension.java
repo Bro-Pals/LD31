@@ -16,10 +16,16 @@ public class Dimension {
 
 	/**
 	 * Creates a new Dimension object
+	 * @param The name of the dimension
 	 */
+	public Dimension(String n) {
+		objects = new ArrayList<>();
+		name = n;
+	}
+	
 	public Dimension() {
 		objects = new ArrayList<>();
-		name = "";
+		name = "NoName";
 	}
 
 	/**

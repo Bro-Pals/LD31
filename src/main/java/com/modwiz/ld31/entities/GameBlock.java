@@ -47,14 +47,20 @@ public class GameBlock extends GameObject {
 		this.staticBlock = true;
 	}
 	
-	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage img) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
-		this.image = image;
+		setImage(img);
 	}
 
 	public void setImage(BufferedImage img) {
-		this.image = img;
+		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
+		Graphics g = image.getGraphics();
+		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
+			for (int y=0; y < (int)getHeight() + img.getHeight(); y += img.getHeight()) {
+				g.drawImage(img, x, y, null);
+			}
+		}
 	}
 	
 	/**
@@ -147,12 +153,12 @@ public class GameBlock extends GameObject {
 	 */
 	@Override
 	public void render(Graphics g, float camX, float camY) {
-		//if (image == null) {
+		if (image == null) {
 			g.setColor(Color.BLACK);
 			g.fillRect((int)(getX()-camX), (int)(getY()-camY), (int)width, (int)height);
-		//} else {
-			
-		//}
+		} else {
+			g.drawImage(image, (int)(getX()-camX), (int)(getY()-camY), null);
+		}
 	}
 
 	/**

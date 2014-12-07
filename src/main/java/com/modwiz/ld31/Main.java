@@ -44,10 +44,12 @@ public class Main {
 			BufferedImage playerMoving = null;
 			BufferedImage playerStab = null;
 			BufferedImage projectileImage = null;
+			BufferedImage texture0 = null;
 			try {
 				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
 				playerStab = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerStab.png").get().getContent();
+				texture0 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture0.png").get().getContent();
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -83,9 +85,9 @@ public class Main {
 			playerAnimations[3][5] = playerAnimations[3][5];
 			Animation playerAnim = new Animation(playerAnimations, 8);
 			
-			Dimension firstDimension = new Dimension();
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true);
-			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true);
+			Dimension firstDimension = new Dimension("First");
+			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true, texture0);
+			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true, texture0);
 
 			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
 			player.getVelocity().set(0, 2);
@@ -97,7 +99,7 @@ public class Main {
 
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
-			world.setActiveDimension(firstDimension.getName());
+			world.setActiveDimension("First");
 			
 			long start = System.currentTimeMillis();
 			int millisBetweenFrames = 30;
@@ -123,8 +125,8 @@ public class Main {
 				MouseEvent mouseEvent;
 				while((mouseEvent = window.nextMousePressedEvent() ) != null) {
 					if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-						player.useWeapon(mouseEvent.getX() - window.getRawFrame().getBounds().x, 
-							mouseEvent.getY() - window.getRawFrame().getBounds().y);
+						player.useWeapon((int)window.getMousePosition().getX(), 
+							(int)window.getMousePosition().getY());
 					}
 				}
 				
