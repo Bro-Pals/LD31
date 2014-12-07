@@ -396,8 +396,15 @@ public class LevelEditorMain extends JFrame {
 			clearLevel();
 		}
 		currentLevel = new GameWorld();
-		viewport.setLevel(currentLevel);
+		Dimension dim = new Dimension("Dimension1");
+		dim.setName(dimName);
+		currentLevel.addDimension(dim);
+		Dimension[] dimensions = currentLevel.getDimensions();
+		dimList.setListData(dimensions);
+		dimListViewport.revalidate();
+		dimList.repaint();
 		viewport.repaint();
+		viewport.setLevel(currentLevel);
 		System.out.println("Create a new level");
 	}
 	
