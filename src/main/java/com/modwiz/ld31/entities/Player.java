@@ -56,6 +56,28 @@ public class Player extends Creature {
 		setWeapon(new Weapon(this, 35, 3, 42));
     }
 
+	/**
+     * Creates a new player with an {@link com.modwiz.ld31.entities.draw.Animation}
+     *
+     * @param parent Dimension in the game world to be loaded into
+     * @param x      The x position of the player
+     * @param y      The y position of the player
+     * @param w      The bounding width of the player
+     * @param h      The bounding height of the player
+     * @param health The initial health value for the player
+     * @param animationString   The animation for the player in string form (path)
+     * @see com.modwiz.ld31.entities.Creature
+     */
+    public Player(Dimension parent, float x, float y, float w, float h, double health, String animationString) {
+        super(parent, x, y, w, h, health, animationString);
+		sneaking = false;
+		stabbing = false;
+		radiationLevel = 0;
+		dimensionToGoTo = null;
+		dimensionJumpDamageDuration = 0;
+		setWeapon(new Weapon(this, 35, 3, 42));
+    }
+	
 	@Override
 	public void render(Graphics g, float camX, float camY) {
 		if (getAnimation() != null) {
@@ -137,7 +159,7 @@ public class Player extends Creature {
 	@Override
 	public Object clone() {
 		//TO DO : Copy the animation
-		Player p = new Player(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), null);
+		Player p = new Player(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), getAnimationString());
 		p.setName(getName());
 		return p;
 	}

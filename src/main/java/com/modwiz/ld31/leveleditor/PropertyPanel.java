@@ -1,9 +1,10 @@
 package com.modwiz.ld31.leveleditor;
 
 import com.modwiz.ld31.entities.*;
+import com.modwiz.ld31.entities.draw.Animation;
 
 import com.modwiz.ld31.utils.assets.AssetLoader;
-import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
+import com.modwiz.ld31.utils.assets.loaders.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +31,8 @@ public class PropertyPanel extends JPanel {
 		STATIC = 0,
 		CAN_COLLIDE = 1,
 		IMAGE = 3,
-		ANIMATION = 4
+		ANIMATION = 4,
+		PATROL_PATH = 5
 	;
 	
 	private JViewport view;
@@ -47,7 +49,7 @@ public class PropertyPanel extends JPanel {
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[5];
+		fields = new JTextField[6];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -63,6 +65,8 @@ public class PropertyPanel extends JPanel {
 		fields[IMAGE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setImage();  } });
 		fields[ANIMATION] = new JTextField(6);
 		fields[ANIMATION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setAnimation();  } });
+		fields[PATROL_PATH] = new JTextField(6);
+		fields[PATROL_PATH].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPatrolPath();  } });
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
@@ -105,6 +109,36 @@ public class PropertyPanel extends JPanel {
 		}
 	}
 	
+	class AnimationDialog extends JDialog implements ActionListener {
+		
+		private JList<String> list;
+		
+		public AnimationDialog() {
+			super(lem);
+			list = new JList<String>(
+				(String[])((AnimationLoader)AssetLoader.getSingleton().getLoader(Animation.class)).getKeys().toArray(new String[0])
+			);
+			setLayout(new BorderLayout());
+			add(list, BorderLayout.CENTER);
+			JButton button = new JButton("Accept");
+			button.addActionListener(this);
+			add(button, BorderLayout.SOUTH);
+			setVisible(true);
+			pack();
+			setLocationRelativeTo(lem);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String str = list.getSelectedValue();
+			if (str!=null) {
+				fields[ANIMATION].setText(str);
+				setImage();
+			}
+			dispose();
+		}
+	}
+	
 	private void openImageDialog() {
 		ImageDialog log = new ImageDialog();
 	}
@@ -116,6 +150,16 @@ public class PropertyPanel extends JPanel {
 			editing.setY(Float.parseFloat(pos[1]));
 		} catch(Exception e) {
 			fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
+		}
+		lem.repaintViewport();
+	}
+	
+	private void setPatrolPath() {
+		try {
+			String[] path = fields[PATROL_PATH].getText().split(Pattern.quote(","));
+			((Enemy)editing).setPatrolPath(Integer.parseInt(path[0]), Integer.parseInt(path[1]));
+		} catch(Exception e) {
+			fields[PATROL_PATH].setText("" + editing.getX() + "," + editing.getX());
 		}
 		lem.repaintViewport();
 	}
@@ -145,8 +189,16 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
+	private void openAnimationDialog() {
+		AnimationDialog log = new AnimationDialog();
+	}
+	
 	private void setAnimation() {
-		
+		try {
+			((Creature)editing).setAnimationString(fields[ANIMATION].getText());
+		} catch(Exception e) {
+			((Creature)editing).noAnimation();
+		}
 		lem.repaintViewport();
 	}
 	
@@ -163,26 +215,39 @@ public class PropertyPanel extends JPanel {
 	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Add more fields to this
-		if (entity instanceof GameBlock) {
+		if (entity instanceof Enemy) {
 			addName();
 			addPosition();
 			addSize();
-			addImage();
+			addAnimation();
+			addPatrolPath();
 			lem.repaintViewport();
-		} else if (entity instanceof Enemy) {
+		} else if (entity instanceof Creature) {
 			addName();
 			addPosition();
 			addSize();
 			addAnimation();
 			lem.repaintViewport();
-		}
+		} else if (entity instanceof GameBlock) {
+			addName();
+			addPosition();
+			addSize();
+			addImage();
+			lem.repaintViewport();
+		} 
 		lem.revalidate();
 	}
 	
 	private void addPosition() {
-		add(new JLabel("Position (x, y)"));
+		add(new JLabel("Position (x,y)"));
 		add(fields[POSITION]);
 		fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
+	}
+	
+	private void addPatrolPath() {
+		add(new JLabel("Patrol Path (minX,manX)"));
+		add(fields[PATROL_PATH]);
+		fields[PATROL_PATH].setText("" + ((Enemy)editing).getInitialPoint() + "," + ((Enemy)editing).getFinalPoint());
 	}
 	
 	public void updatePositionField() {
@@ -190,7 +255,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void addSize() {
-		add(new JLabel("Size (width, height)"));
+		add(new JLabel("Size (width,height)"));
 		add(fields[SIZE]);
 		fields[SIZE].setText("" + ((GameBlock)editing).getWidth() + "," + ((GameBlock)editing).getHeight());
 	}

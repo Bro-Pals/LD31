@@ -18,6 +18,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.awt.Graphics;
+import java.util.Set;
 
 /**
  * The class for loading {@link com.modwiz.ld31.entities.draw.Animation} class through
@@ -77,6 +78,10 @@ public class AnimationLoader implements ILoader<Animation> {
         }
         return null;
 	}
+	
+	public Set<String> getKeys() {
+        return cache.asMap().keySet();
+    }
 	
 	private static BufferedImage flipImage(BufferedImage img, boolean horiz) {
 		BufferedImage flipped = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TRANSLUCENT);

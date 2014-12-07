@@ -9,6 +9,13 @@ public class Weapon {
 	private double range, damage;
 	private int attackCooldown, attackMaxCooldown;
 	
+	/**
+	 * Creates a new Weapon
+	 * @param hldr The holder of the weapon
+	 * @param rg The range of the weapon
+	 * @param dm The damage of the weapon
+	 * @param attackCd The attack cooldown in frames
+	 */
 	public Weapon(Creature hldr, double rg, double dm, int attackCd) {
 		this.holder = hldr;
 		this.range = rg;

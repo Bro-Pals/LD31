@@ -83,17 +83,18 @@ public class LevelLoader {
             Player p = (Player)object;
             return "" + LevelString.PLAYER + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.getHealth();
+                    p.getHeight() + LevelString.SEP + p.getHealth() + LevelString.SEP + p.getAnimationString();
         } else if (object instanceof Enemy) {
             Enemy e = (Enemy)object;
             return "" + LevelString.ENEMY + LevelString.SEP + e.getX() + LevelString.SEP +
                     e.getY() + LevelString.SEP + e.getWidth() + LevelString.SEP +
-                    e.getHeight() + LevelString.SEP + e.getHealth();
+                    e.getHeight() + LevelString.SEP + e.getHealth() + LevelString.SEP + e.getAnimationString() +
+					LevelString.SEP + e.getInitialPoint() + LevelString.SEP + e.getFinalPoint();
         } else if (object instanceof Creature) {
             Creature p = (Creature)object;
             return "" + LevelString.CREATURE + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.getHealth();
+                    p.getHeight() + LevelString.SEP + p.getHealth() + LevelString.SEP + p.getAnimationString();
         } else if (object instanceof GameBlock) {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
@@ -128,7 +129,7 @@ public class LevelLoader {
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
                         (int)Double.parseDouble(split[5]),
-                        null
+                        split[6]
                 );
             case ENEMY:
 				System.out.println("Loading Enemy");
@@ -139,7 +140,9 @@ public class LevelLoader {
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
                         (int)Double.parseDouble(split[5]),
-                        null
+                        split[6],
+						Integer.parseInt(split[7]),
+						Integer.parseInt(split[8])
                 );
             case CREATURE:
 				System.out.println("Loading Creature");
@@ -150,7 +153,7 @@ public class LevelLoader {
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
                         (int)Double.parseDouble(split[5]),
-                        null
+                        split[6]
                 );
             case BLOCK:
 				System.out.println("Loading Block");

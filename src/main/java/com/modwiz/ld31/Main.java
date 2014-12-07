@@ -85,7 +85,7 @@ public class Main {
 
 
 			Enemy enemy = new Enemy(firstDimension, 450, 130, 60, 100, 50, enemyAnim);
-			enemy.setPatrolPath(150);
+			enemy.setPatrolPath(150, 450);
 			enemy.givePlayerRef(player);
 			//enemy.getVelocity().set(0, -10f);
 			enemy.getAcceleration().set(1, 1); // gravity!

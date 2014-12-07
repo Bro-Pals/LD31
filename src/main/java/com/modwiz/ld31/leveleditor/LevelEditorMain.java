@@ -112,6 +112,14 @@ public class LevelEditorMain extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	private GameObject[] makeObjectsInLibrary() {
+		return new GameObject[] {
+			gameObjectFactory.createWall(),
+			gameObjectFactory.createMeleeEnemy(),
+			gameObjectFactory.createRangedEnemy()
+		};
+	}
+	
 	public void updateCursorLabel(float x, float y) {
 		cursorPos.setText("2D Cursor position (" + x + ", " + y + ")");
 		cursorPos.repaint();
@@ -271,8 +279,7 @@ public class LevelEditorMain extends JFrame {
 		objectPanel.add(objectPanelRight);
 		southPanel.add(objectPanel);
 		/* Add objects into the object library  */
-		GameObject[] objects = new GameObject[1];
-		objects[0] = gameObjectFactory.createWall();
+		GameObject[] objects = makeObjectsInLibrary();
 		
 		objectLib.setListData(objects);
 		objectLibViewport.revalidate();

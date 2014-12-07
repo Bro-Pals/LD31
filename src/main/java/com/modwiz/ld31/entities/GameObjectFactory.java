@@ -27,15 +27,37 @@ public class GameObjectFactory {
 	}
 	
 	/**
-		Make a Wall object
-		@return A default wall
-	*/
+	 *	Make a Wall object
+	 *	@return A default wall
+	 */
 	public GameBlock createWall() {
 		GameBlock wall = createGameBlock();
 		wall.setWidth(50);
 		wall.setHeight(50);
 		wall.setName("Wall");
 		return wall;
+	}
+	
+	/**
+	 * Make a melee Enemy
+	 * @return a melee Enemy 
+	 */
+	public Enemy createMeleeEnemy() {
+		Enemy enemy = createEnemy();
+		enemy.setName("Melee Enemy");
+		enemy.setWeapon(new Weapon(enemy, 35, 3, 42));
+		return enemy;
+	}
+	
+	/**
+	 * Make a ranged Enemy
+	 * @return a ranged Enemy 
+	 */
+	public Enemy createRangedEnemy() {
+		Enemy enemy = createEnemy();
+		enemy.setName("Ranged Enemy");
+		enemy.setWeapon(new Weapon(enemy, 444, 3, 83));
+		return enemy;
 	}
 	
 	public GameBlock createGameBlock(Dimension parent, float x, float y, float w, float h) {

@@ -5,6 +5,8 @@ import horsentpmath.Vector2;
 import com.modwiz.ld31.entities.draw.Animation;
 import java.awt.Graphics;
 import java.awt.Color;
+import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
 
 /**
 	The extreme creature that the Player and Enemies will extend from
@@ -17,6 +19,7 @@ public class Creature extends GameBlock {
 	
 	// The animation for this creature
 	private Animation animation;
+	private String animString;
 
 	/**
 	 * Creates a new creature instance
@@ -34,6 +37,7 @@ public class Creature extends GameBlock {
 		this.health = health;
 		this.maxHealth = health;
 		weapon = new Weapon(this, 35, 3, 12); // default weapon
+		animString = null;
 	}
 
 	/**
@@ -50,6 +54,23 @@ public class Creature extends GameBlock {
 	public Creature(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
 		this(parent, x, y, w, h, health);
 		animation = anim;
+		animString = null;
+	}
+	
+	/**
+	 * Creates a new creature with an {@link com.modwiz.ld31.entities.draw.Animation}
+	 * @param parent Dimension in the game world to be loaded into
+	 * @param x The x position of the creature
+	 * @param y The y position of the creature
+	 * @param w The bounding width of the creature
+	 * @param h The bounding height of the creature
+	 * @param health The initial health value for the creature
+	 * @param anim The animation for the creature
+	 * @see com.modwiz.ld31.entities.GameBlock
+	 */
+	public Creature(Dimension parent, float x, float y, float w, float h, double health, String animString) {
+		this(parent, x, y, w, h, health, AssetLoader.getSingleton().loadAsset(Animation.class, animString));
+		this.animString = animString;
 	}
 
 	/**
@@ -88,10 +109,36 @@ public class Creature extends GameBlock {
 		this.animation = a;
 	}
 	
+	/**
+	 * Sets the animation string, setting the actual Animation object as well as the internal string.
+	 * Use this instead of setting the animation directly.
+	 * @param animationString the new animation string
+	 */
+	public void setAnimationString(String animationString) {
+		animString = animationString;
+		setAnimation(AssetLoader.getSingleton().loadAsset(Animation.class, animationString));
+	}
+	
+	/**
+	 * Makes it so that this Creature has no animation
+	 */
+	public void noAnimation() {
+		animString = null;
+		animation = null;
+	}
+	
 	public Animation getAnimation() {
 		return animation;
 	}
 
+	/**
+	 * Gets the string that represents this Creature's animation.
+	 * @return the string that represents this Creature's animation.
+	 */
+	public String getAnimationString() {
+		return animString;
+	}
+	
 	/**
 	 * Get the current health for the creature
 	 * @return The health
@@ -157,7 +204,7 @@ public class Creature extends GameBlock {
 	@Override
 	public Object clone() {
 		//TO DO : Copy the animation
-		Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), null);
+		Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString);
 		c.setName(getName());
 		return c;
 	}

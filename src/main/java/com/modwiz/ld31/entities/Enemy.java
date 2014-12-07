@@ -74,6 +74,33 @@ public class Enemy extends Creature {
 		player = null;
     }
 	
+	/**
+     * Creates a new entity with an {@link com.modwiz.ld31.entities.draw.Animation} and a Patrol path
+     *
+     * @param parent Dimension in the game world to be loaded into
+     * @param x      The x position of the entity
+     * @param y      The y position of the entity
+     * @param w      The bounding width of the entity
+     * @param h      The bounding height of the entity
+     * @param health The initial health value for the entity
+     * @param anim   The animation for the entity
+	 * @param initialPatrolPoint The initial patrol point.
+	 * @param finalPatrolPoint The final patrol point.
+     * @see com.modwiz.ld31.entities.Creature
+     */
+    public Enemy(Dimension parent, float x, float y, float w, float h, double health, String animString, int initialPatrolPoint, int finalPatrolPoint) {
+        super(parent, x, y, w, h, health, animString);
+        setPatrolPath(initialPatrolPoint, finalPatrolPoint);
+		patrolPointOn = true;
+		distanceNear = 50;
+		timeOnPoint = 0;
+		timeOnPointMax = 20; // frames
+		normalLOS = 400;
+		sneakLOS = 100;
+		fieldOfView = (float)(Math.PI / 6);
+		player = null;
+    }
+	
 	public boolean canSeePlayer() {
 		//only can track the player when it's in the same dimension
 		if (player == null || getParent() != player.getParent()) {
@@ -179,9 +206,30 @@ public class Enemy extends Creature {
 	 * a patrol path of n points on it. The enemy will walk towards each
 	 * point until they are near it, then start heading towards the next
 	 * one.
-	 * @param path The patrol path in the format described above.
+	 * @param initialPoint The spawn point for this Enemy.
+	 * @param finalPoint The destination point for this Enemy.
 	 */
-	public void setPatrolPath(int path) {
-		patrolPoint = path;
+	public void setPatrolPath(int initialPoint, int finalPoint) {
+		if (finalPoint<initialPoint) {
+			throw new IllegalStateException("Initial must be less than Final");
+		}
+		spawnX = initialPoint;
+		patrolPoint = finalPoint;
+	}
+	
+	/**
+	 * Gets the initial patrol path point.
+	 * @return the initial patrol path point.
+	 */
+	public int getInitialPoint() {
+		return spawnX;
+	}
+	 
+	 /**
+	 * Gets the final patrol path point.
+	 * @return the final patrol path point.
+	 */
+	public int getFinalPoint() {
+		return patrolPoint;
 	}
 }
