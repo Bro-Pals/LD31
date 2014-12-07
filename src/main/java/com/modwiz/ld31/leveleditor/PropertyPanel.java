@@ -38,7 +38,8 @@ public class PropertyPanel extends JPanel {
 		TEXT_LABEL = 7,
 		FONT_SIZE = 8,
 		MESSAGE_LIST = 9,
-		DIMENSION_TO = 10
+		DIMENSION_TO = 10,
+		HEALTH = 11
 	;
 	
 	private JViewport view;
@@ -53,9 +54,9 @@ public class PropertyPanel extends JPanel {
 	public PropertyPanel(final LevelEditorMain lem) {
 		this.lem = lem;
 		editing = null;
-		setLayout(new GridLayout(7, 2, 10, 10));
+		setLayout(new GridLayout(8, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[11];
+		fields = new JTextField[12];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -83,6 +84,8 @@ public class PropertyPanel extends JPanel {
 		fields[MESSAGE_LIST].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setMessageList();  } });
 		fields[DIMENSION_TO] = new JTextField(6);
 		fields[DIMENSION_TO].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setDimensionTo();  } });
+		fields[HEALTH] = new JTextField(6);
+		fields[HEALTH].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setHealth();  } });
 		
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
@@ -249,6 +252,20 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
+	private void addHealth() {
+		add(new JLabel("Health"));
+		add(fields[HEALTH]);
+		fields[HEALTH].setText("" + ((Creature)editing).getHealth());
+	}
+	
+	private void setHealth() {
+		try {
+			((Creature)editing).setHealth(Double.parseDouble(fields[HEALTH].getText()));
+		} catch(Exception e) {
+			
+		}
+	}
+	
 	private void openAnimationDialog() {
 		AnimationDialog log = new AnimationDialog();
 	}
@@ -304,8 +321,9 @@ public class PropertyPanel extends JPanel {
 			addAnimation();
 			addStatic();
 			addCanCollide();
-			addPatrolPath();
+			addHealth();
 			addWeapon();
+			addPatrolPath();
 		} else if (entity instanceof Creature) {
 			addName();
 			addPosition();
@@ -313,6 +331,8 @@ public class PropertyPanel extends JPanel {
 			addAnimation();
 			addStatic();
 			addCanCollide();
+			addHealth();
+			addWeapon();
 		}  else if (entity instanceof TextBlock) {
 			addName();
 			addPosition();
