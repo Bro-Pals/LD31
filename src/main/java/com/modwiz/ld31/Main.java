@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -29,13 +30,15 @@ public class Main {
 
 	// Ratio of our 1 to real 9.8
 	private static final double GRAVITY_RATIO = 0.1020408163265306;
-
-	//The currently played level
-	private static GameWorld level = null;
-	
-	// Projectile speed ratio, gravity -> speed for projectiles is important
-
     public static void main(String[] args) {
+        GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
+        GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
+        GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
+        ArrayList<GameWorld> worlds = new ArrayList<GameWorld>();
+        worlds.add(level1);
+        worlds.add(level2);
+        worlds.add(level3);
+
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			preloadAssets(); //For the level editor
 			LevelEditorMain editor = new LevelEditorMain();
@@ -77,8 +80,8 @@ public class Main {
 				System.exit(0);
 			}
 
-            GameWorld world = LevelLoader.getLevel("Levels/levelTest.txt");
-            world.setActiveDimension("Dimension1");
+            GameWorld world = level1;
+            world.setActiveDimension("MainDimension");
 
 			Player player = Player.getSingleton();
 			player.setParent(world.getActiveDimension());
@@ -152,16 +155,18 @@ public class Main {
 	 * Makes the game play in the given level.
 	 * @param the path to the playing level relative to the assets directory.
 	 */
-	public static void setPlayingLevel(String levelPath) {
-		if (level!=null) {
-			level.getDimension("MainDimension").removeObject(Player.getSingleton());
+	public GameWorld setPlayingLevel(GameWorld wrld, ArrayList<GameWorld> wrlds) {
+		if (wrld!=null) {
+			for (GameWorld g : wrlds){
+                if(g != wrld){
+                    for (Dimension dim : g.getDimensions()){
+                        dim.removeObject(Player.getSingleton());
+                    }
+                }
+            }
+            wrld.getActiveDimension().addObject(Player.getSingleton());
 		}
-		GameWorld dieWelt = LevelLoader.getLevel(levelPath);
-		Player.getSingleton().setX(0);
-		Player.getSingleton().setY(0);
-		dieWelt.getDimension("MainDimension").addObject(Player.getSingleton());
-		dieWelt.setActiveDimension("MainDimension");
-		level = dieWelt;
+        return wrld;
 	}
 	
 	private static void changeKey(int keyCode, boolean value) {
@@ -196,7 +201,8 @@ public class Main {
 			}
 		}
 	}
-	
+
+
 	private static BufferedImage flipImage(BufferedImage img, boolean horiz) {
 		BufferedImage flipped = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = flipped.getGraphics();
