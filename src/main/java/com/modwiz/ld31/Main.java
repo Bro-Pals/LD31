@@ -145,7 +145,6 @@ public class Main {
 
 				if (w) {
 					if (player.isGrounded()) {
-						System.out.println("JUMP");
 						player.getVelocity().set(1, -14); // jumping
 					}
 				}
