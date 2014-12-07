@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Main {
 
@@ -40,21 +41,23 @@ public class Main {
 		} else {
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
-			
+
+			AssetLoader assetLoader = new AssetLoader(new File("assets"));
 			// loading all the animations
-			Resource<BufferedImage> playerMoving = null;
-			Resource<BufferedImage> enemy0Moving = null;
-			Resource<BufferedImage> playerStab = null;
-			Resource<BufferedImage> projectileImage = null;
-			Resource<BufferedImage> texture0 = null;
-			Resource<BufferedImage> texture1 = null;
+			BufferedImage playerMoving = null;
+			BufferedImage enemy0Moving = null;
+			BufferedImage playerStab = null;
+			BufferedImage projectileImage = null;
+			BufferedImage texture0 = null;
+			BufferedImage texture1 = null;
+
 			try {
-				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get();
-				enemy0Moving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/enemy0Move.png").get();
-				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get();
-				playerStab = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerStab.png").get();
-				texture0 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture0.png").get();
-				texture1 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture1.png").get();
+				projectileImage = assetLoader.loadAsset(BufferedImage.class, "img/golden_projectile.png");
+				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "assets/img/enemy0Move.png");
+				playerMoving = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerMove.png");
+				playerStab = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerStab.png");
+				texture0 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture0.png");
+				texture1 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture1.png");
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -77,13 +80,13 @@ public class Main {
 			playerAnimations[3] = new BufferedImage[6];
 			if (playerMoving != null) {
 				for (int i=0; i<3; i++) {
-					playerAnimations[0][i] = playerMoving.getContent().getSubimage(i * 80, 0, 80, 120);
+					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
 					playerAnimations[1][i] = flipImage(playerAnimations[0][i], true);
 				}
 			}
 			if (playerStab != null) {
 				for (int i=0; i<5; i++) {
-					playerAnimations[2][i] = playerStab.getContent().getSubimage(i * 80, 0, 80, 120);
+					playerAnimations[2][i] = playerStab.getSubimage(i * 80, 0, 80, 120);
 					playerAnimations[3][i] = flipImage(playerAnimations[2][i], true);
 				}
 			}
@@ -92,7 +95,7 @@ public class Main {
 			
 			if (enemy0Moving != null) {
 				for (int i=0; i<4; i++) {
-					enemyAnimations[0][i] = enemy0Moving.getContent().getSubimage(i * 60, 0, 60, 100);
+					enemyAnimations[0][i] = enemy0Moving.getSubimage(i * 60, 0, 60, 100);
 					enemyAnimations[1][i] = flipImage(enemyAnimations[0][i], true);
 				}
 			}
@@ -189,25 +192,7 @@ public class Main {
 			}
 		}
     }
-	
-	private static void loadAssets() {
-		loadImage("Brick", "assets/img/brick.png");
-		loadImage("Metal", "assets/img/metal.png");
-		loadImage("Wood", "assets/img/wood.png");
-	}
-	
-	private static void loadImage(String key, String path) {
-		AssetRegistry.bufferedImageRegistry.registerAsset(
-			key,
-			AssetLoader.getAssetLoader().getBufferedImage(path).get()
-		);
-		if (AssetRegistry.bufferedImageRegistry.assetExists(key)) {
-			System.out.println("Successfully loaded asset: " + key + ", " + path);
-		} else {
-			System.err.println("ERROR: Unable to load asset: " + key + ", " + path);
-		}
-	}
-	
+
 	private static void changeKey(int keyCode, boolean value) {
 		switch(keyCode) {
 			case KeyEvent.VK_SPACE: // Space should jump too.
