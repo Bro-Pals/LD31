@@ -167,6 +167,7 @@ public class Viewport extends JComponent {
 						repaint();
 						break;
 				}
+                System.out.printf("X:%.0f Y: %.0f\n", camX, camY);
 			}
 		});
 		
