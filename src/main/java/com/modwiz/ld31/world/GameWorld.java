@@ -91,6 +91,15 @@ public class GameWorld {
 	}
 
 	/**
+	 * Gets a dimension by its name
+	 * @param name the name of the dimension that you are getting
+	 * @return the dimension that has the given name
+	 */
+	public Dimension getDimension(String name) {
+		return dimensions.get(name);
+	}
+	
+	/**
 	 * Gets the current number of dimensions
 	 * @return The number of dimensions
 	 */
