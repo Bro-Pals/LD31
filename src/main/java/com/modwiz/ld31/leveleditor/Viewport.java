@@ -187,6 +187,7 @@ public class Viewport extends JComponent {
 					cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 					repaint();
 				}
+				requestFocus();
 			}
 			
 			@Override
@@ -200,7 +201,7 @@ public class Viewport extends JComponent {
 			public void mouseDragged(MouseEvent e) {
 				cursor.setCursorLocation(e.getX()+camX,e.getY()+ camY);
 				frame.mouseDragged(cursor);
-				
+				requestFocus();
 				repaint();
 			}
 		});
