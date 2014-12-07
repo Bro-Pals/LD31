@@ -13,7 +13,7 @@ public class GameBlock extends GameObject {
 	private boolean grounded, canCollide; // has this object collided with something below it?
 	private boolean staticBlock; // Platform
 	private BufferedImage image;
-	private String imageKey;
+	private BufferedImage source;
 
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -46,7 +46,6 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock) {
 		this(parent, x, y, w, h);
 		this.staticBlock = true;
-		imageKey = null;
 		image = null;
 	}
 	
@@ -54,15 +53,15 @@ public class GameBlock extends GameObject {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
 		this.image = image;
+		resetImage();
 	}
 
 	public void resetImage() {
 		setImage(this.image);
 	}
 	
-	public void setImage(BufferedImage image) {
-		this.imageKey = imageKey;
-		BufferedImage img = null; //Need to get the image here?
+	public void setImage(BufferedImage img) {
+		source = image;
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
 		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
