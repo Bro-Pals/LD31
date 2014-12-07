@@ -72,27 +72,13 @@ public class PropertyPanel extends JPanel {
 		imageBrowse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Set<String> keySet = AssetRegistry.bufferedImageRegistry.getAssetKeys();
-				final JDialog log = new JDialog(lem);
-				log.setVisible(true);
-				log.pack();
-				log.setLocationRelativeTo(lem);
-				log.setTitle("Chooser an image");
-				final JList<String> list = new JList<String>((String[]) keySet.toArray());
-				final JButton button = new JButton("Accept");
-				button.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						String str = list.getSelectedValue();
-						log.dispose();
-						if (str!=null) {
-							fields[IMAGE].setText(str);
-							setImage();
-						}
-					}
-				});
+				openImageDialog();
 			}
 		});
+	}
+	
+	private void openImageDialog() {
+		ImageDialog id = new ImageDialog(lem, fields[IMAGE]);
 	}
 	
 	private void setPosition() {

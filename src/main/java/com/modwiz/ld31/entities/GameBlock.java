@@ -176,6 +176,9 @@ public class GameBlock extends GameObject {
 	 */
 	public void setHeight(float h) {
 		this.height = h;
+		if (this.height <= 0) {
+			this.height = 10;
+		}
 	}
 
 	/**
@@ -208,6 +211,9 @@ public class GameBlock extends GameObject {
 	 */
 	public void setWidth(float w) {
 		this.width = w;
+		if (this.width <= 0) {
+			this.width = 10;
+		}
 	}
 
 	/**

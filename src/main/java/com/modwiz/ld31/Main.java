@@ -31,13 +31,13 @@ public class Main {
 	// Projectile speed ratio, gravity -> speed for projectiles is important
 
     public static void main(String[] args) {
+		loadAssets();
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();
 			editor.setVisible(true);
 			//The level editor is now OK
 		} else {
-			loadAssets();
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
 			
@@ -191,7 +191,21 @@ public class Main {
     }
 	
 	private static void loadAssets() {
-		
+		loadImage("Brick", "assets/img/brick.png");
+		loadImage("Metal", "assets/img/metal.png");
+		loadImage("Wood", "assets/img/wood.png");
+	}
+	
+	private static void loadImage(String key, String path) {
+		AssetRegistry.bufferedImageRegistry.registerAsset(
+			key,
+			AssetLoader.getAssetLoader().getBufferedImage(path).get()
+		);
+		if (AssetRegistry.bufferedImageRegistry.assetExists(key)) {
+			System.out.println("Successfully loaded asset: " + key + ", " + path);
+		} else {
+			System.err.println("ERROR: Unable to load asset: " + key + ", " + path);
+		}
 	}
 	
 	private static void changeKey(int keyCode, boolean value) {
