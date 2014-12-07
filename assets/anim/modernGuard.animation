@@ -4,5 +4,5 @@ amount 4
 0 img/modernGuardMove.png 6 40 100 false
 1 img/modernGuardMove.png 6 40 100 true
 #enemy attacking animations
-2 img/enemy0Attack.png 3 60 100 false
-3 img/enemy0Attack.png 3 60 100 true
+2 img/modernGuardAttack.png 4 40 100 false
+3 img/modernGuardAttack.png 4 40 100 true
