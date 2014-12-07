@@ -171,6 +171,14 @@ public class Creature extends GameBlock {
 	public double getHealth() {
 		return health;
 	}
+	
+	/**
+	 * Set the current health for the creature
+	 * @param health The new health
+	 */
+	public void setHealth(double health) {
+		this.health = health;
+	}
 
 	/**
 	 * Get if the creature is facing rihgt
