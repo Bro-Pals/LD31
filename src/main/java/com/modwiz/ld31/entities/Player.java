@@ -100,6 +100,7 @@ public class Player extends Creature {
 		} else {
 			super.render(g, camX, camY);
 		}
+		renderHealthBar(g, camX, camY);
 		// bounding box
 		//g.setColor(Color.BLACK);
 		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());

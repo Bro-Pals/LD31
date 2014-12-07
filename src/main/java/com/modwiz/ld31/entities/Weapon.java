@@ -48,6 +48,10 @@ public class Weapon {
 		attackCooldown--;
 	}
 	
+	public int getCooldown() {
+		return attackMaxCooldown;
+	}
+	
 	public double getRange() {
 		return range;
 	}

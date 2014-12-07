@@ -118,17 +118,17 @@ public class Viewport extends JComponent {
 			int xPos = (int)(x - camX);
 			g.drawLine(
 				xPos,
-				minY,
+				(int)(minY-camY),
 				xPos,
-				maxX
+				(int)(maxY-camY)
 			);
 		}
 		for (int y=minY; y<maxY; y += gridSpacing) {
 			int yPos = (int)(y - camY);
 			g.drawLine(
-				minX,
+				(int)(minX-camX),
 				yPos,
-				maxX,
+				(int)(maxX-camX),
 				yPos
 			);
 		}

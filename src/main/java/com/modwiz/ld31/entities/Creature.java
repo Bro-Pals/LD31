@@ -202,18 +202,37 @@ public class Creature extends GameBlock {
 		} else {
 			super.render(g, camX, camY);
 		}
+		renderHealthBar(g, camX, camY);
 		// bounding box
 		//g.setColor(Color.BLACK);
 		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
 	}
 	
+	protected void renderHealthBar(Graphics g, float camX, float camY) {
+		int barWidth = 60;
+		int barFilledIn = (int)((health / maxHealth) * barWidth);
+		int barHeight = 8;
+		int barX = (int)(getX() + (getWidth()/2) - (barWidth/2));
+		int barY = (int)(getY() - 10);
+		g.setColor(Color.BLACK);
+		g.fillRect(barX - (int)camX, barY - (int)camY, barWidth, barHeight);
+		g.setColor(Color.RED);
+		g.fillRect(barX + 1 - (int)camX, barY + 1 - (int)camY, barWidth - 2, barHeight - 2);
+		if (health >= 0) {
+			g.setColor(Color.GREEN);
+			g.fillRect(barX + 1 + (barWidth - barFilledIn) - (int)camX, barY + 1 - (int)camY, 
+				barFilledIn - 2, barHeight - 2);
+		}
+	}
+	
 	@Override
 	public Object clone() {
 		//TO DO : Copy the animation
+		Creature c;
 		if (animString!=null) {
-			Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString);
+			c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString);
 		} else {
-			Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
+			c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
 		}
 		c.setName(getName());
 		return c;
