@@ -65,6 +65,8 @@ public class TextBlock extends GameBlock {
 	
 	@Override
 	public Object clone() {
-		return new TextBlock(null, getX(), getY(), getWidth(), getHeight(), getTextLabel(), getFontSize());
+		TextBlock t =  new TextBlock(null, getX(), getY(), getWidth(), getHeight(), getTextLabel(), getFontSize());
+		t.setName(getName());
+		return t;
 	}
 }

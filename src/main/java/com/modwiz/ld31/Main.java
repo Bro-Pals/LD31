@@ -110,6 +110,9 @@ public class Main {
 				KeyEvent keyEvent;
 				while ((keyEvent = window.nextKeyPressedEvent()) != null) {
 					changeKey(keyEvent.getKeyCode(), true);
+					if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
+						player.cycleMessages();
+					}
 				}
 				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
 					changeKey(keyEvent.getKeyCode(), false);

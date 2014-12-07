@@ -14,6 +14,8 @@ import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
 public class Creature extends GameBlock {
 
 	private double health, maxHealth;
+	private boolean attacking;
+	protected int attackAnimDelay, normalAnimDelay;
 	protected boolean facingRight;
 	private Weapon weapon;
 	
@@ -38,6 +40,9 @@ public class Creature extends GameBlock {
 		this.maxHealth = health;
 		weapon = new Weapon(this, 35, 3, 12); // default weapon
 		animString = null;
+		attacking = false;
+		attackAnimDelay = 2;
+		normalAnimDelay = 7;
 	}
 
 	/**
@@ -73,6 +78,14 @@ public class Creature extends GameBlock {
 		this.animString = animString;
 	}
 
+	public void setAttacking(boolean a) {
+		this.attacking = a;
+	}
+	
+	public boolean isAttacking() {
+		return attacking;
+	}
+	
 	/**
 	 * Damage this creature the specified amount.
 	 * If health becomes less than or equal to zero, then dead will be set to true.
@@ -192,6 +205,27 @@ public class Creature extends GameBlock {
 	 */
 	@Override
 	public void render(Graphics g, float camX, float camY) {
+		if (getAnimation() != null) {
+			int rightAnim = attacking ? 2 : 0;
+			int leftAnim = attacking ? 3 : 1;
+			int delay = attacking ? attackAnimDelay : normalAnimDelay;
+			if (attacking && getAnimation().getFrameOn() >= 4) {
+				rightAnim = 0;
+				leftAnim = 1;
+				delay = normalAnimDelay;
+				attacking = false;
+			}
+			if (isFacingRight()) { 
+				getAnimation().setTrack(rightAnim, delay); // won't reset the frame if the track it's changing to is the same as it already was
+					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
+			} else {
+				getAnimation().setTrack(leftAnim, delay);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX-20), (int)(getY()-camY), null);
+			}
+		} else {
+			super.render(g, camX, camY);
+		}
+		/*
 		if (animation != null) {
 			if (facingRight) { 
 				animation.setTrack(0); // won't reset the frame if the track it's changing to is the same as it already was
@@ -202,6 +236,8 @@ public class Creature extends GameBlock {
 		} else {
 			super.render(g, camX, camY);
 		}
+		*/
+		
 		renderHealthBar(g, camX, camY);
 		// bounding box
 		//g.setColor(Color.BLACK);
