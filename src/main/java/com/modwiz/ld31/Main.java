@@ -63,8 +63,8 @@ public class Main {
 				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
 				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
 				
-				playerAnim = assetLoader.loadAsset(Animation.class, "anim/player.txt");
-				enemyAnim = assetLoader.loadAsset(Animation.class, "anim/enemy0.txt");
+				playerAnim = assetLoader.loadAsset(Animation.class, "anim/player.animation");
+				enemyAnim = assetLoader.loadAsset(Animation.class, "anim/enemy0.animation");
 				System.out.println(playerAnim);
 				System.out.println(enemyAnim);
 			} catch(NullPointerException npe) {
@@ -184,6 +184,15 @@ public class Main {
 			String extension = files[i].split(Pattern.quote("."))[1];
 			if (extension.equals("png")) {
 				al.loadAsset(BufferedImage.class, "img/" + files[i]);
+			}
+		}
+		
+		File animDir = new File("assets/anim");
+		files = animDir.list();
+		for (int i=0; i<files.length; i++) {
+			String extension = files[i].split(Pattern.quote("."))[1];
+			if (extension.equals("animation")) {
+				al.loadAsset(Animation.class, "anim/" + files[i]);
 			}
 		}
 	}
