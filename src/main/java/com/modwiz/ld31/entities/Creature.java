@@ -189,7 +189,11 @@ public class Creature extends GameBlock {
 			facingRight = getVelocity().getX() > 0;
 		}
 		weapon.decreaseCooldown();
-		animation.update(); 
+		if(animation != null) {
+			animation.update(); 
+		} else {
+			System.out.println("No animation: Skipping update animation in creature");
+		}
 	}
 
 	public Weapon getWeapon() {
