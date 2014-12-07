@@ -89,6 +89,7 @@ public class LevelEditorMain extends JFrame {
 		fileManager = new FileManager();
 		propertyPanel = new PropertyPanel(this);
 		rightPanel = new JPanel();
+		rightPanel.add(propertyPanel);
 		southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 		JMenuBar bar = new JMenuBar();
