@@ -189,7 +189,9 @@ public class Main {
     }
 	
 	private static void loadAssets() {
-		
+		loadImage("Brick", "assets/img/brick.png");
+		loadImage("Metal", "assets/img/metal.png");
+		loadImage("Wood", "assets/img/wood.png");
 	}
 	
 	private static void loadImage(String key, String path) {
