@@ -28,7 +28,6 @@ public class CachedLoader extends AssetLoader {
         gameWorldLoadingCache = CacheBuilder.newBuilder().build(new GameWorldLoader());
     }
 
-
     /**
      * {@inheritDoc}
      */
