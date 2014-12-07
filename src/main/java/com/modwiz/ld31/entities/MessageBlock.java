@@ -23,7 +23,18 @@ public class MessageBlock extends GameBlock {
 		}
 	}
 	
+	public void setMessages(String[] messages) {
+		this.messages = messages;
+	}
+	
 	public String[] getMessages() {
 		return messages;
+	}
+	
+	@Override
+	public Object clone() {
+		MessageBlock t =  new MessageBlock(null, getX(), getY(), getWidth(), getHeight(), getMessages());
+		t.setName(getName());
+		return t;
 	}
 }

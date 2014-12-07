@@ -102,7 +102,17 @@ public class LevelLoader {
             return "" + LevelString.TEXT + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
                     p.getHeight() + LevelString.SEP + p.getTextLabel() + LevelString.SEP + p.getFontSize();
-        }  else if (object instanceof GameBlock) {
+        } else if (object instanceof MessageBlock) {
+            MessageBlock p = (MessageBlock)object;
+            String str = "" + LevelString.MESSAGE + LevelString.SEP + p.getX() + LevelString.SEP +
+                    p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
+                    p.getHeight();
+			str += ("" + LevelString.SEP + (p.getMessages().length-1));
+			for (int i=0; i<p.getMessages().length; i++) {
+				str += ("" + LevelString.SEP + p.getMessages()[i]);
+			}
+			return str;
+        } else if (object instanceof GameBlock) {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
@@ -176,6 +186,24 @@ public class LevelLoader {
 						split[5],
 						Integer.parseInt(split[6])
                 );
+			case MESSAGE:
+				System.out.println("Loading Message");
+                MessageBlock mb = new MessageBlock(
+                        parent,
+                        Float.parseFloat(split[1]),
+                        Float.parseFloat(split[2]),
+                        Float.parseFloat(split[3]),
+                        Float.parseFloat(split[4]),
+						null
+                );
+				//Parse the message block
+				int msgCount = Integer.parseInt(split[5]);
+				String[] messages = new String[split.length-5];
+				for (int i=0; i<msgCount; i++) {
+					messages[i] = split[5+i];
+				}
+				mb.setMessages(messages);
+				return mb;
             case BLOCK:
 				System.out.println("Loading Block");
                 return new GameBlock(

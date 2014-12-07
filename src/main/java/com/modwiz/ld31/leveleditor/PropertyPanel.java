@@ -35,7 +35,8 @@ public class PropertyPanel extends JPanel {
 		PATROL_PATH = 5,
 		WEAPON = 6,
 		TEXT_LABEL = 7,
-		FONT_SIZE = 8
+		FONT_SIZE = 8,
+		MESSAGE_LIST = 9
 	;
 	
 	private JViewport view;
@@ -52,7 +53,7 @@ public class PropertyPanel extends JPanel {
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[9];
+		fields = new JTextField[10];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -76,6 +77,9 @@ public class PropertyPanel extends JPanel {
 		fields[TEXT_LABEL].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setTextLabel();  } });
 		fields[FONT_SIZE] = new JTextField(6);
 		fields[FONT_SIZE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setFontSize();  } });
+		fields[MESSAGE_LIST] = new JTextField(6);
+		fields[MESSAGE_LIST].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setMessageList();  } });
+		
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
@@ -174,6 +178,16 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
+	private void setMessageList() {
+		try {
+			String[] messages = fields[POSITION].getText().split(Pattern.quote(","));
+			((MessageBlock)editing).setMessages(messages);
+		} catch(Exception e) {
+			fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
+		}
+		lem.repaintViewport();
+	}
+	
 	private void setPatrolPath() {
 		try {
 			String[] path = fields[PATROL_PATH].getText().split(Pattern.quote(","));
@@ -248,6 +262,11 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
+	private void addMessageList() {
+		add(new JLabel("Message List (msg1,msg2,...)"));
+		add(fields[MESSAGE_LIST]);
+	}
+	
 	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Add more fields to this
@@ -274,7 +293,12 @@ public class PropertyPanel extends JPanel {
 			addSize();
 			addTextLabel();
 			addFontSize();
-		} else if (entity instanceof GameBlock) {
+		}  else if (entity instanceof MessageBlock) {
+			addName();
+			addPosition();
+			addSize();
+			addMessageList();
+		}  else if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
 			addSize();
