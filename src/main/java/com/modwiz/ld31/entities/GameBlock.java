@@ -3,6 +3,7 @@ package com.modwiz.ld31.entities;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import com.modwiz.ld31.world.Dimension;
+import com.modwiz.ld31.utils.assets.Resource;
 
 /**
 	The basic block with width, height, and collision
@@ -12,6 +13,7 @@ public class GameBlock extends GameObject {
 	private float width, height;
 	private boolean grounded, canCollide; // has this object collided with something below it?
 	private boolean staticBlock; // Platform
+	private Resource<BufferedImage> source;
 	private BufferedImage image;
 
 	/**
@@ -47,18 +49,19 @@ public class GameBlock extends GameObject {
 		this.staticBlock = true;
 	}
 	
-	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage img) {
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, Resource<BufferedImage> img) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
 		setImage(img);
 	}
 
-	public void setImage(BufferedImage img) {
+	public void setImage(Resource<BufferedImage> img) {
+		source = img;
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
-		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
-			for (int y=0; y < (int)getHeight() + img.getHeight(); y += img.getHeight()) {
-				g.drawImage(img, x, y, null);
+		for (int x=0; x < (int)getWidth() + img.getContent().getWidth(); x += img.getContent().getWidth()) {
+			for (int y=0; y < (int)getHeight() + img.getContent().getHeight(); y += img.getContent().getHeight()) {
+				g.drawImage(img.getContent(), x, y, null);
 			}
 		}
 	}
