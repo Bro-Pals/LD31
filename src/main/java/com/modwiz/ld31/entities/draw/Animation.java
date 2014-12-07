@@ -26,6 +26,10 @@ public class Animation {
 		frameDelay = fDelay;
 	}
 
+	public int getTrackSize() {
+		return tracks[trackOn].length;
+	}
+	
 	public int getFrameOn() {
 		return frameOn;
 	}

@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import com.modwiz.ld31.utils.assets.AssetLoader;
 import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
+import com.modwiz.ld31.Main;
 
 /**
 	The extreme creature that the Player and Enemies will extend from
@@ -43,6 +44,7 @@ public class Creature extends GameBlock {
 		attacking = false;
 		attackAnimDelay = 2;
 		normalAnimDelay = 7;
+		getAcceleration().set(1, (float)Main.GRAVITY_RATIO);
 	}
 
 	/**
@@ -118,7 +120,6 @@ public class Creature extends GameBlock {
 	 * @param y The y coordinate where the attack was attempted
 	 */
 	public void useWeapon(int x, int y) {
-		System.out.println("WEAPON USE");
 		facingRight = x > (getX() + (getWidth()/2));
 		weapon.use((Vector2)(new Vector2(x - (getX() + (getWidth()/2)), 
 							y - (getY() + (getHeight()/2))).normalize())); // use the weapon if it's within range;
@@ -190,6 +191,9 @@ public class Creature extends GameBlock {
 	@Override
 	public void update() {
 		super.update(); // collision stuff from GameBlock
+        if (getY()> 1000){
+            this.setDead(true);
+        }
 		if (!(this instanceof Player) && getVelocity().getX() != 0) {
 			facingRight = getVelocity().getX() > 0;
 		}
@@ -218,7 +222,7 @@ public class Creature extends GameBlock {
 			int rightAnim = attacking ? 2 : 0;
 			int leftAnim = attacking ? 3 : 1;
 			int delay = attacking ? attackAnimDelay : normalAnimDelay;
-			if (attacking && getAnimation().getFrameOn() >= 4) {
+			if (attacking && getAnimation().getFrameOn() >= getAnimation().getTrackSize() - 1) {
 				rightAnim = 0;
 				leftAnim = 1;
 				delay = normalAnimDelay;

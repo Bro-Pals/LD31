@@ -15,7 +15,7 @@ public class Enemy extends Creature {
 	private int patrolPoint;
     private int spawnX;
 	private int timeOnPoint, timeOnPointMax, normalLOS, sneakLOS; // field of view in radians
-    private boolean patrolPointOn;
+    private boolean patrolPointOn, spottedPlayer;
     /** How close the Enemy needs to be near a point before they start going to the next one*/
 	private int distanceNear;
 	private float fieldOfView;
@@ -101,6 +101,7 @@ public class Enemy extends Creature {
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
 		player = Player.getSingleton();
+		spottedPlayer = false;
     }
 	
 	public boolean canSeePlayer() {
@@ -126,7 +127,7 @@ public class Enemy extends Creature {
 		float diffX = player.getX() + (player.getWidth()/2) - (getX() + getWidth()/2);
 		float diffY = player.getY() - getY();
 		float distanceFromSqred = (diffX * diffX) + (diffY * diffY);
-		if (player.isSneaking()) {
+		if (player.isSneaking() && !spottedPlayer) { // don't reduce it if already seen when he starts sneaking
 			if (distanceFromSqred > sneakLOS * sneakLOS) {
 				return false;
 			}
@@ -166,7 +167,7 @@ public class Enemy extends Creature {
         int startX = (int) (getX() - camX + (getWidth()/2));
         int startY = (int) (getY() - camY);
         int endX = (int) ((enemyLOS.getX() * sneakLOS) - camX);
-        if (player.isSneaking()){
+        if (player.isSneaking() && !spottedPlayer){
             g.drawLine(startX, startY, startX + endX, startY + (int) ((Math.sin(fieldOfView) * sneakLOS) - camY));
             g.drawLine(startX, startY, startX + endX, startY + (int) (-(Math.sin(fieldOfView) * sneakLOS) - camY));
             g.drawLine(startX, startY, startX + ((facingRight) ? sneakLOS : -sneakLOS), startY);
@@ -181,7 +182,6 @@ public class Enemy extends Creature {
 	@Override
 	public void update() {
 		super.update();
-        System.out.println(canSeePlayer());
         float distFromNextX = distFrom(getX());
 		if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
@@ -192,18 +192,18 @@ public class Enemy extends Creature {
             patrolPointOn = !patrolPointOn;
         }
         if(canSeePlayer()){
+			spottedPlayer = true;
             if(Math.abs(getX()-player.getX())>(Math.abs(getX()-1-player.getX()))){
                 getVelocity().set(0,-3);
             } else {
                 getVelocity().set(0,3);
             }
-			System.out.println("I HAVE MOVED TOWARDS TEH PLAYER");
-			System.out.println("RANGE " + getWeapon().getRange());
 			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
-				System.out.println("I'M GOING TO ATTACK U PALYER");
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
 			}
-        }
+        } else {
+			spottedPlayer = false;
+		}
         frame++;
 
     }
