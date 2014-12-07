@@ -217,7 +217,7 @@ public class Creature extends GameBlock {
 			int rightAnim = attacking ? 2 : 0;
 			int leftAnim = attacking ? 3 : 1;
 			int delay = attacking ? attackAnimDelay : normalAnimDelay;
-			if (attacking && getAnimation().getFrameOn() >= 4) {
+			if (attacking && getAnimation().getFrameOn() >= getAnimation().getTrackSize() - 1) {
 				rightAnim = 0;
 				leftAnim = 1;
 				delay = normalAnimDelay;
