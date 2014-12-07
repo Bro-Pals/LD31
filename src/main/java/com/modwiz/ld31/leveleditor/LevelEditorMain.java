@@ -109,6 +109,8 @@ public class LevelEditorMain extends JFrame {
 		setVisible(true);
 		viewport.setupListeners(this);
 		setLocationRelativeTo(null);
+		revalidate();
+		viewport.revalidate();
 	}
 	
 	/**

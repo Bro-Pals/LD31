@@ -143,12 +143,12 @@ public class Viewport extends JComponent {
 		g.drawLine(x, y-15, x, y+15);
 	}
 		
-	public void setupListeners(final LevelEditorMain frame) {
-		setFocusable(true);
-		
+	public void setupListeners(final LevelEditorMain frame) {		
+		System.out.println("Adding key listener");
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
+				System.out.println("Key pressed");
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_W:
 						camY -= camSpeed;
@@ -170,6 +170,9 @@ public class Viewport extends JComponent {
                 System.out.printf("X:%.0f Y: %.0f\n", camX, camY);
 			}
 		});
+		
+		setFocusable(true);
+		frame.setFocusable(true);
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
