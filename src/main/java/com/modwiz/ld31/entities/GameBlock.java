@@ -52,11 +52,11 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, Resource<BufferedImage> img) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
-		setImage(img);
+		setImage(img, "NoName");
 	}
 
 	public void resetImage() {
-		setImage(this.source);
+		setImage(this.source, "NoName");
 	}
 	
 	public void setImage(Resource<BufferedImage> img, String imageName) {
