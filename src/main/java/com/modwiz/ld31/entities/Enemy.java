@@ -43,6 +43,7 @@ public class Enemy extends Creature {
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
 		player = Player.getSingleton();
+		normalAnimDelay = 4; // this is a protected value from creature
     }
 
     /**
@@ -105,8 +106,8 @@ public class Enemy extends Creature {
     }
 	
 	public boolean canSeePlayer() {
-		//only can track the player when it's in the same dimension
-		if (player == null || getParent() != player.getParent()) {
+		//only can track the player when it's in the same dimension and the player ins't dead
+		if (player == null || getParent() != player.getParent() || player.isDead()) {
 			return false;
 		}
 		

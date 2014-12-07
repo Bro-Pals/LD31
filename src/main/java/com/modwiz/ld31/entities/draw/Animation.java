@@ -54,7 +54,6 @@ public class Animation {
 	 */
 	public void setTrack(int track) {
 		if (track != trackOn && track >= 0 && track < tracks.length) {
-			frameOn = 0;
 			frameDelayOn = 0;
 			trackOn = track;
 		}	
