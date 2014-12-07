@@ -576,28 +576,30 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void checkSnappageWith(GameBlock sel, GameBlock other) {
-		//Check snappage in the x direction
-		int dis;
-		//Right side of selecting with left side of other
-		dis = Math.abs((int)( sel.getX()+sel.getWidth() - other.getX()));
-		if (dis < 9) {
-			//close enough, snap to it!
-			sel.setX(other.getX()-sel.getWidth());
-		}
-		//Left side of selecting with right side of other
-		dis = Math.abs((int)( sel.getX() - (other.getX()+other.getWidth()) ));
-		if (dis < 9) {
-			sel.setX(other.getX()+other.getWidth());
-		}
-		//Top side of selecting with bottom side of other
-		dis = Math.abs((int)( sel.getY() - (other.getY()+other.getHeight()) ));
-		if (dis < 9) {
-			sel.setY(other.getY()+other.getHeight());
-		}
-		//Bottom side of selecting with top side of other
-		dis = Math.abs((int)( sel.getY()+sel.getHeight() - other.getY() ));
-		if (dis < 9) {
-			sel.setY(other.getY()-sel.getHeight());
+		if (!sel.equals(other)) {
+			//Check snappage in the x direction
+			int dis;
+			//Right side of selecting with left side of other
+			dis = Math.abs((int)( sel.getX()+sel.getWidth() - other.getX()));
+			if (dis < 9) {
+				//close enough, snap to it!
+				sel.setX(other.getX()-sel.getWidth());
+			}
+			//Left side of selecting with right side of other
+			dis = Math.abs((int)( sel.getX() - (other.getX()+other.getWidth()) ));
+			if (dis < 9) {
+				sel.setX(other.getX()+other.getWidth());
+			}
+			//Top side of selecting with bottom side of other
+			dis = Math.abs((int)( sel.getY() - (other.getY()+other.getHeight()) ));
+			if (dis < 9) {
+				sel.setY(other.getY()+other.getHeight());
+			}
+			//Bottom side of selecting with top side of other
+			dis = Math.abs((int)( sel.getY()+sel.getHeight() - other.getY() ));
+			if (dis < 9) {
+				sel.setY(other.getY()-sel.getHeight());
+			}
 		}
 	}
 	
