@@ -41,4 +41,9 @@ public class AssetLoader {
         return (T) loaderMap.get(type).getContent(streamProvider.provideAsset(path), path);
     }
 
+    @Nullable
+    public <T, K extends ILoader<T>> K getLoader(Class<T> type) {
+        return (K) loaderMap.get(type);
+    }
+
 }
