@@ -71,6 +71,9 @@ public class DimensionChangeBlock extends GameBlock {
 	public Object clone() {
 		DimensionChangeBlock dcb = new DimensionChangeBlock(null, getX(), getY(), getWidth(), getHeight(), dimString, getImageForString());
 		dcb.setName(getName());
+		if (getImageForString()!=null) {
+			dcb.setImageString(getImageForString());
+		}
 		return dcb;
 	}
 }

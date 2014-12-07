@@ -1,6 +1,7 @@
 package com.modwiz.ld31.leveleditor;
 
 import java.io.File;
+import com.modwiz.ld31.entities.Player;
 import com.modwiz.ld31.world.GameWorld;
 import com.modwiz.ld31.utils.assets.LevelLoader;
 
@@ -69,6 +70,8 @@ public class FileManager {
 	*/
 	public GameWorld open(File file) {
 		current = file.getAbsoluteFile();
-		return LevelLoader.getLevelFromFile(current);
+		GameWorld w = LevelLoader.getLevelFromFile(current);
+		w.getDimension("MainDimension").addObject(Player.getSingleton());
+		return w;
 	}
 }

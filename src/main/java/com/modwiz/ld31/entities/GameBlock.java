@@ -317,6 +317,9 @@ public class GameBlock extends GameObject {
 	@Override
 	public Object clone() {
 		GameBlock b =new GameBlock(null, getX(), getY(), getWidth(), getHeight());
+		if (getImageForString()!=null) {
+			b.setImageString(getImageForString());
+		}
 		b.setName(getName());
 		return b;
 	}
