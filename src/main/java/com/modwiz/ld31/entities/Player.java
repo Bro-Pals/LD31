@@ -151,12 +151,6 @@ public class Player extends Creature {
 	public void setSneaking(boolean s) {
 		this.sneaking = s;
 	}
-
-	@Override
-	public void useWeapon(int x, int y) {
-		super.useWeapon(x, y);
-		setAttacking(true);
-	}
 	
     /**
      * Gets whether or not the player is in sneaking mode
