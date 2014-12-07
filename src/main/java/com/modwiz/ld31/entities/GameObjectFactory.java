@@ -45,7 +45,7 @@ public class GameObjectFactory {
 	public Enemy createMeleeEnemy() {
 		Enemy enemy = createEnemy();
 		enemy.setName("Melee Enemy");
-		enemy.setWeapon(new Weapon(enemy, 35, 3, 42));
+		enemy.setWeapon(new Weapon(enemy, 35, 10, 42));
 		return enemy;
 	}
 	
@@ -56,7 +56,7 @@ public class GameObjectFactory {
 	public Enemy createRangedEnemy() {
 		Enemy enemy = createEnemy();
 		enemy.setName("Ranged Enemy");
-		enemy.setWeapon(new Weapon(enemy, 444, 3, 83));
+		enemy.setWeapon(new Weapon(enemy, 444, 20, 83));
 		return enemy;
 	}
 	
@@ -130,11 +130,15 @@ public class GameObjectFactory {
 		@return A default DNARepairCell
 	*/
 	public DNARepairCell createDNARepairCell() {
-		return new DNARepairCell(null, 0, 0);
+        DNARepairCell dnar = new DNARepairCell(null, 0, 0);
+        dnar.setImageString("img/generepair.png");
+        return dnar;
 	}
 	
 	public DNARepairCell createDNARepairCell(Dimension parent, float x, float y) {
-		return new DNARepairCell(parent, x, y);
+        DNARepairCell dnar = new DNARepairCell(parent, x, y);
+        dnar.setImageString("img/generepair.png");
+        return dnar;
 	}
 	
 	/**

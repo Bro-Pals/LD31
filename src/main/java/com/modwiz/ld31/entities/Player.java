@@ -18,7 +18,7 @@ public class Player extends Creature {
 	private static Player player;
 	
 	static {
-		player = new Player(null, 0, 0, 60, 120, 10, "anim/player.animation");
+		player = new Player(null, 0, 0, 60, 120, 100, "anim/player.animation");
 		player.setName("ThePlayer");
 	}
 	
@@ -41,7 +41,7 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health);
         sneaking = false;
         radiationLevel = 0;
-        setWeapon(new Weapon(this, 35, 3, 42));
+        setWeapon(new Weapon(this, 35, 30, 42));
     }
 	
     /**
@@ -79,7 +79,7 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health, animationString);
 		sneaking = false;
 		radiationLevel = 0;
-		setWeapon(new Weapon(this, 35, 3, 42));
+		setWeapon(new Weapon(this, 35, 30, 42));
     }
 	
 	@Override
