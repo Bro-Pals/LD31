@@ -322,6 +322,17 @@ public class PropertyPanel extends JPanel {
 			addPosition();
 			addSize();
 			addMessageList();
+		}   else if (entity instanceof DNARepairCell) {
+			addName();
+			addPosition();
+		}   else if (entity instanceof RadiationSucker) {
+			addName();
+			addPosition();
+		}  else if (entity instanceof DimensionChangeBlock) {
+			addName();
+			addPosition();
+			addSize();
+			addDimensionTo();
 		}  else if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
