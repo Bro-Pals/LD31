@@ -178,7 +178,7 @@ public class GameBlock extends GameObject {
 							if (diffForStep > 2 && diffForStep < 7) {
 								setY(getY() - 8);
 							} else if (this instanceof Enemy && diffForStep >= 7 && grounded) {
-								getVelocity().set(1, -10);
+								jump(-15);
 							}
 							getVelocity().set(0, 0);
 						}

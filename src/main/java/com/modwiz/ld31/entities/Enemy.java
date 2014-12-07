@@ -68,7 +68,7 @@ public class Enemy extends Creature {
 		distanceNear = 50;
 		timeOnPoint = 0;
 		timeOnPointMax = 20; // frames
-		normalLOS = 400;
+		normalLOS = 300;
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
 		player = null;
@@ -169,13 +169,20 @@ public class Enemy extends Creature {
 		g.drawLine(startX, startY, startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY));
 		g.drawLine(startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY), 
 			startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
+
+        g.drawLine(startX, startY, startX + endX, startY + (int)((Math.sin(fieldOfView) * normalLOS) - camY));
+        g.drawLine(startX, startY, startX + endX, startY + (int)(-(Math.sin(fieldOfView) * normalLOS) - camY));
+        g.drawLine(startX ,startY, startX + ((facingRight) ? normalLOS: -normalLOS), startY);
 	}
 	
 	@Override
 	public void update() {
 		super.update();
 		float distFromNextX = distFrom(getX());
-			System.out.println(canSeePlayer());
+<<<<<<< HEAD
+		System.out.println(canSeePlayer());
+=======
+>>>>>>> b5092f71c9864737893378ebd715ec907cbf2a22
         if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {

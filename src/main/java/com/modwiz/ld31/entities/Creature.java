@@ -87,6 +87,12 @@ public class Creature extends GameBlock {
 		}
 	}
 
+	public void jump(float vel) {
+		if (isGrounded()) {
+			getVelocity().set(1, -vel); // jumping
+		}
+	}
+	
 	/**
 	 * Handles logic for when a weapon is used on a specific position
 	 * Where refers to the actual attacking, not the position of the creature
