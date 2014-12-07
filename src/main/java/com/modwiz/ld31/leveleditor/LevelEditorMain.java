@@ -386,19 +386,10 @@ public class LevelEditorMain extends JFrame {
 		if (currentLevel!=null && currentLevel.getActiveDimension()!=null) {
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
+				obj = (GameObject)obj.clone();
 				obj.setX(viewport.get2DCursor().getX());
 				obj.setY(viewport.get2DCursor().getY());
-				if (obj instanceof Player) {
-					currentLevel.getActiveDimension().addObject((Player)obj.clone());
-				} else if (obj instanceof Enemy) {
-					currentLevel.getActiveDimension().addObject((Enemy)obj.clone());
-				} else if (obj instanceof Creature) {
-					currentLevel.getActiveDimension().addObject((Creature)obj.clone());
-				} else if (obj instanceof GameBlock) {
-					currentLevel.getActiveDimension().addObject((GameBlock)obj.clone());
-				} else if (obj instanceof GameObject) {
-					currentLevel.getActiveDimension().addObject((GameObject)obj.clone());
-				}
+				currentLevel.getActiveDimension().addObject(obj);
 				viewport.repaint();
 			}
 		}
