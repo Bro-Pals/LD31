@@ -8,6 +8,7 @@ public enum LevelString {
     CREATURE("TEUQOD"),
     BLOCK("TEPZOW"),
     TEXT("TTPZTW"),
+    MESSAGE("MERGRY"),
     OBJECT("LEPZOQ"),
     ENEMY("LEPZVQ"),
     DIM_START("TYPZOW"),

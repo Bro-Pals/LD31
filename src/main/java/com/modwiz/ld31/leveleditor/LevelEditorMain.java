@@ -120,7 +120,8 @@ public class LevelEditorMain extends JFrame {
 			gameObjectFactory.createWall(),
 			gameObjectFactory.createMeleeEnemy(),
 			gameObjectFactory.createRangedEnemy(),
-			gameObjectFactory.createTextBlock()
+			gameObjectFactory.createTextBlock(),
+			gameObjectFactory.createMessageBlock()
 		};
 	}
 	
