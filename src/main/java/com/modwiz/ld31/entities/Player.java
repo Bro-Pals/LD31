@@ -68,8 +68,8 @@ public class Player extends Creature {
 			super.render(g, camX, camY);
 		}
 		// bounding box
-		g.setColor(Color.BLACK);
-		g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
+		//g.setColor(Color.BLACK);
+		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
 	}
 	
 	public void changeRadiation(double amount) {

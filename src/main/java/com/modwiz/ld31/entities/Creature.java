@@ -75,8 +75,9 @@ public class Creature extends GameBlock {
 	 * @param y The y coordinate where the attack was attempted
 	 */
 	public void useWeapon(int x, int y) {
-		facingRight = x > getX();
-		weapon.use((Vector2)(new Vector2(x - getX(), y - getY()).normalize())); // use the weapon if it's within range;
+		facingRight = x > (getX() + (getWidth()/2));
+		weapon.use((Vector2)(new Vector2(x - (getX() + (getWidth()/2)), 
+							y - (getY() + (getHeight()/2))).normalize())); // use the weapon if it's within range;
 	}
 
 	/**
@@ -108,13 +109,17 @@ public class Creature extends GameBlock {
 		return facingRight;
 	}
 	
+	public void setFacingRight(boolean fr) {
+		facingRight = fr;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void update() {
 		super.update(); // collision stuff from GameBlock
-		if (getVelocity().getX() != 0) {
+		if (!(this instanceof Player) && getVelocity().getX() != 0) {
 			facingRight = getVelocity().getX() > 0;
 		}
 		weapon.decreaseCooldown();
@@ -141,8 +146,8 @@ public class Creature extends GameBlock {
 			super.render(g, camX, camY);
 		}
 		// bounding box
-		g.setColor(Color.BLACK);
-		g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
+		//g.setColor(Color.BLACK);
+		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
 	}
 	
 	@Override

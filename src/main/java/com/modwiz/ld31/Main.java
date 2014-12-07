@@ -100,19 +100,22 @@ public class Main {
 			
 			Dimension firstDimension = new Dimension("First");
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true, texture0);
-			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 200, 30, true, texture0);
+			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 100, 30, true, texture0);
 
 			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
-			Creature enemy = new Creature(firstDimension, 500, 80, 60, 100, 50, enemyAnim);
-			enemy.getVelocity().set(0, -0.5f);
+			Creature enemy = new Creature(firstDimension, 450, 80, 60, 100, 50, enemyAnim);
+			//enemy.getVelocity().set(0, -10f);
 			enemy.getAcceleration().set(1, 1); // gravity!
 			
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			firstDimension.getObjects().add(secondBlock);
+			firstDimension.getObjects().add(new GameBlock(firstDimension, 475, 395, 50, 20, true, texture0));
+			firstDimension.getObjects().add(new GameBlock(firstDimension, 525, 389, 50, 20, true, texture0));
+			firstDimension.getObjects().add(new GameBlock(firstDimension, 575, 383, 50, 20, true, texture0));
 			firstDimension.getObjects().add(enemy);
 
 			GameWorld world = new GameWorld();
@@ -130,7 +133,10 @@ public class Main {
 			while(window.exists()) {
 				start = System.currentTimeMillis();
 				Graphics g = window.getDrawGraphics();
-			
+				Point mousePosition = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX() -
+							window.getRawFrame().getLocation().getX() + camX), 
+							(int)(MouseInfo.getPointerInfo().getLocation().getY() -
+							window.getRawFrame().getLocation().getY()+ camY));
 			
 				// handle key events
 				KeyEvent keyEvent;
@@ -143,17 +149,19 @@ public class Main {
 				MouseEvent mouseEvent;
 				while((mouseEvent = window.nextMousePressedEvent() ) != null) {
 					if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-						player.useWeapon((int)window.getMousePosition().getX(), 
-							(int)window.getMousePosition().getY());
+						player.useWeapon((int)mousePosition.getX(), (int)mousePosition.getY());
 					}
 				}
+				
+				// make the player face wherever the mouse is pointing
+				player.setFacingRight(player.getX() + (player.getWidth()/2) < mousePosition.getX());
 				
 				// moving and stuff
 				if (d && !a) {
 					player.getVelocity().set(0, 4);
 				} else if (a && !d) {
 					player.getVelocity().set(0, -4);
-				} 
+				}
 
 				if (w) {
 					if (player.isGrounded()) {

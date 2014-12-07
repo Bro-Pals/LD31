@@ -129,6 +129,10 @@ public class GameBlock extends GameObject {
 							} else {
 								setX(bl.getX() + bl.getWidth());
 							}
+							float diffForStep = this.getY() + this.getHeight() - bl.getY();
+							if (diffForStep > 2 && diffForStep < 7) {
+								setY(getY() - 8);
+							}
 							getVelocity().set(0, 0);
 						}
 					}
