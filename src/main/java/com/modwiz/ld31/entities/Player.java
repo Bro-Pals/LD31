@@ -53,7 +53,7 @@ public class Player extends Creature {
 		radiationLevel = 0;
 		dimensionToGoTo = null;
 		dimensionJumpDamageDuration = 0;
-		setWeapon(new Weapon(this, 35, 3, 42));
+		setWeapon(new Weapon(this, 35, 30, 42));
     }
 
 	@Override

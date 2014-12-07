@@ -90,6 +90,8 @@ public class PropertyPanel extends JPanel {
 			button.addActionListener(this);
 			add(button, BorderLayout.SOUTH);
 			setVisible(true);
+			pack();
+			setLocationRelativeTo(lem);
 		}
 		
 		@Override
@@ -135,7 +137,11 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	public void setImage() {
-		((GameBlock)editing).setImageString(fields[IMAGE].getText());
+		try {
+			((GameBlock)editing).setImageString(fields[IMAGE].getText());
+		} catch(Exception e) {
+			((GameBlock)editing).noImage();
+		}
 		lem.repaintViewport();
 	}
 	

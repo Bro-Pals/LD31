@@ -57,7 +57,7 @@ public class Projectile extends GameBlock {
         // what happens when there is a collision with the other block
         if (!isDead() && other instanceof Creature && other != source) {
             Creature creature = (Creature) other;
-            creature.damage(creature.getWeapon().getDamage());
+            creature.damage(source.getWeapon().getDamage());
             setDead(true);
 			Vector2 pushNormal = (Vector2) getVelocity().normalize();
 			float pushX = pushNormal.getX() * 6;

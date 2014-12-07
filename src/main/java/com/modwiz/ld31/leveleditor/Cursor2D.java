@@ -15,9 +15,11 @@ public class Cursor2D {
 	private float offsetFromObjectY;
 	private GameObject dragging;
 	private DragType type;
+	private Viewport port;
 	
-	public Cursor2D() {
+	public Cursor2D(Viewport port) {
 		x = 0;
+		this.port = port;
 		initialLeftX = 0;
 		initialRightX = 0;
 		initialTopY = 0;
@@ -115,5 +117,6 @@ public class Cursor2D {
 	public void setCursorLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
+		port.getMain().updateCursorLabel(getX(), getY());
 	}
 }

@@ -120,6 +120,7 @@ public class LevelLoader {
         String[] split = splitLine(string);
         switch(LevelString.parseEncoded(split[0])) {
             case PLAYER:
+				System.out.println("Loading Player");
                 return new Player(
                         parent,
                         Float.parseFloat(split[1]),
@@ -130,6 +131,7 @@ public class LevelLoader {
                         null
                 );
             case ENEMY:
+				System.out.println("Loading Enemy");
                 return new Enemy(
                         parent,
                         Float.parseFloat(split[1]),
@@ -140,6 +142,7 @@ public class LevelLoader {
                         null
                 );
             case CREATURE:
+				System.out.println("Loading Creature");
                 return new Creature(
                         parent,
                         Float.parseFloat(split[1]),
@@ -150,6 +153,7 @@ public class LevelLoader {
                         null
                 );
             case BLOCK:
+				System.out.println("Loading Block");
                 return new GameBlock(
                         parent,
                         Float.parseFloat(split[1]),
@@ -160,6 +164,7 @@ public class LevelLoader {
 						split[6]
                 );
             case OBJECT:
+				System.out.println("Loading Object");
                 return new GameObject(
                         parent,
                         Float.parseFloat(split[1]),

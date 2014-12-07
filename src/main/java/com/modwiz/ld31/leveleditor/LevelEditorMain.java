@@ -11,6 +11,7 @@ import com.modwiz.ld31.entities.GameObjectFactory;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -61,6 +62,7 @@ public class LevelEditorMain extends JFrame {
 	private GameWorld currentLevel;
 	private JPanel rightPanel;
 	private JPanel southPanel;
+	private JLabel cursorPos;
 	private JFileChooser fc;
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
@@ -85,7 +87,7 @@ public class LevelEditorMain extends JFrame {
 		snappingToObjects = true;
 		currentLevel = null;
 		fc = new JFileChooser();
-		viewport = new Viewport(600, 400);
+		viewport = new Viewport(this, 600, 400);
 		fileManager = new FileManager();
 		propertyPanel = new PropertyPanel(this);
 		rightPanel = new JPanel();
@@ -99,6 +101,8 @@ public class LevelEditorMain extends JFrame {
 		bar.add(editorMenu);
 		setJMenuBar(bar);
 		makeEverythingElse();
+		cursorPos = new JLabel();
+		add(cursorPos, BorderLayout.NORTH);
 		add(rightPanel, BorderLayout.EAST);
 		add(viewport, BorderLayout.CENTER);
 		add(southPanel, BorderLayout.SOUTH);
@@ -106,6 +110,11 @@ public class LevelEditorMain extends JFrame {
 		pack();
 		viewport.setupListeners(this);
 		setLocationRelativeTo(null);
+	}
+	
+	public void updateCursorLabel(float x, float y) {
+		cursorPos.setText("2D Cursor position (" + x + ", " + y + ")");
+		cursorPos.repaint();
 	}
 	
 	private void makeEverythingElse() {
@@ -422,7 +431,12 @@ public class LevelEditorMain extends JFrame {
 		}
 		int confirm = fc.showOpenDialog(this);
 		if (confirm == JFileChooser.APPROVE_OPTION) {
-			setLevel(fileManager.open(fc.getSelectedFile()));
+			GameWorld world = fileManager.open(fc.getSelectedFile());
+			if (world!=null) {
+				setLevel(world);
+			} else {
+				System.err.println("The world is unable to be loaded");
+			}
 		}
 		viewport.repaint();
 	}

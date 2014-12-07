@@ -54,7 +54,7 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
-		this.image = image;
+		this.source = image;
 		this.imageString = null;
 		resetImage();
 	}
@@ -63,16 +63,21 @@ public class GameBlock extends GameObject {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
 		this.imageString = imageString;
-		this.image = AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString);
+		this.source = AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString);
 		resetImage();
 	}
 
 	public void resetImage() {
-		setImage(this.image);
+		setImage(this.source);
+	}
+	
+	public void noImage() {
+		this.source = null;
+		this.image = null;
 	}
 	
 	public void setImage(BufferedImage img) {
-		source = image;
+		source = img;
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
 		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
