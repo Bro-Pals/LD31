@@ -47,12 +47,14 @@ public class Main {
 			Resource<BufferedImage> playerStab = null;
 			Resource<BufferedImage> projectileImage = null;
 			Resource<BufferedImage> texture0 = null;
+			Resource<BufferedImage> texture1 = null;
 			try {
 				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get();
 				enemy0Moving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/enemy0Move.png").get();
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get();
 				playerStab = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerStab.png").get();
 				texture0 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture0.png").get();
+				texture1 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture1.png").get();
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {

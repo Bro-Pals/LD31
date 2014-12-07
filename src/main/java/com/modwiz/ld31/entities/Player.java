@@ -8,7 +8,10 @@ import java.awt.*;
 public class Player extends Creature {
 
 	private boolean sneaking, stabbing;
-	private double radiationLevel;
+	private double radiationLevel, dimensionJumpDamageDuration;
+	/** If the player is standing on a DimensionChangeBlock, then this is a reference to that
+		block. Otherwise, this value is null. */
+	private Dimension dimensionToGoTo;
 
     /**
      * Creates a new player instance
@@ -26,7 +29,9 @@ public class Player extends Creature {
 		sneaking = false;
 		stabbing = false;
 		radiationLevel = 0;
+		dimensionToGoTo = null;
 		setWeapon(new Weapon(this, 35, 3, 42));
+		dimensionJumpDamageDuration = 0;
     }
 	
     /**
@@ -43,6 +48,12 @@ public class Player extends Creature {
      */
     public Player(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
         super(parent, x, y, w, h, health, anim);
+		sneaking = false;
+		stabbing = false;
+		radiationLevel = 0;
+		dimensionToGoTo = null;
+		dimensionJumpDamageDuration = 0;
+		setWeapon(new Weapon(this, 35, 3, 42));
     }
 
 	@Override
@@ -76,6 +87,29 @@ public class Player extends Creature {
 		this.radiationLevel += amount;
 		if (this.radiationLevel < 0) 
 			this.radiationLevel = 0;
+	}
+	
+	/**
+		If dimensionToGoTo is NOT null, then it jumps a dimension.
+		The Player's parent becomes the new dimension. After this
+		is called, dimensionToGoTo becomes null
+	*/
+	public void jumpDimension() {
+		if (dimensionToGoTo != null) {
+			dimensionJumpDamageDuration += 40; // frames
+			getParent().getObjects().remove(this);
+			setParent(dimensionToGoTo);
+			getParent().getObjects().add(this);
+			dimensionToGoTo = null;
+		}
+	}
+	
+	public Dimension getDimensionToGoTo() {
+		return this.dimensionToGoTo;
+	}
+	
+	public void setDimensionToGoTo(Dimension d) {
+		this.dimensionToGoTo = d;
 	}
 	
     /**

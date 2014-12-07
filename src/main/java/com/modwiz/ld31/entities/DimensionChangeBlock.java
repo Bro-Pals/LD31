@@ -16,8 +16,19 @@ public class DimensionChangeBlock extends GameBlock {
 		dimensionTo = dimTo;
 	}
 	
+	/**
+	 * Represents the functionality when collided with
+	 * @param other The {@link com.modwiz.ld31.entities.GameBlock} we are colliding with
+	 */
+	public void onCollide(GameBlock other) {
+		if (other instanceof Player) {
+			((Player)other).setDimensionToGoTo(dimensionTo);
+		}
+	}
+	
 	public Dimension getDimensionTo() {
 		return dimensionTo;
 	}
+
 
 }
