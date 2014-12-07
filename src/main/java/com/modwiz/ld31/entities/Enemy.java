@@ -8,9 +8,12 @@ import com.modwiz.ld31.entities.draw.Animation;
  */
 public class Enemy extends Creature {
 
-	private int[][] patrolPoints;
-	private int patrolPointOn, timeOnPoint, timeOnPointMax;
-	/** How close the Enemy needs to be near a point before they start going to the next one*/
+    private int frame;
+	private int patrolPoint;
+    private int spawnX;
+	private int timeOnPoint, timeOnPointMax;
+    private boolean patrolPointOn;
+    /** How close the Enemy needs to be near a point before they start going to the next one*/
 	private int distanceNear;
 
     /**
@@ -26,8 +29,8 @@ public class Enemy extends Creature {
      */
     public Enemy(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
-		patrolPoints = null; // no patrol path
-		patrolPointOn = 0;
+		spawnX = (int) x;
+		patrolPointOn = true;
 		distanceNear = 50;
 		timeOnPoint = 0;
 		timeOnPointMax = 20; // frames
@@ -46,37 +49,34 @@ public class Enemy extends Creature {
      * @see com.modwiz.ld31.entities.Creature
      */
     public Enemy(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
+
         super(parent, x, y, w, h, health, anim);
-		patrolPoints = null; // no patrol paths
-		patrolPointOn = 0;
+        spawnX = (int) x;
+		patrolPointOn = true;
 		distanceNear = 50;
     }
 	
 	@Override
 	public void update() {
 		super.update();
-		
-		float distFromNextX = (getX() + (getWidth()/2)) - patrolPoints[patrolPointOn][0];
-		float distFromNextY = (getY() + (getHeight()/2)) - patrolPoints[patrolPointOn][1];
-		if ((distanceNear * distanceNear) < (distFromNextX * distFromNextX) + (distFromNextY * distFromNextY)) {
-			timeOnPoint--;
-			if (timeOnPoint < 0) {
-				timeOnPoint = timeOnPointMax;
-				patrolPointOn++;
-				if (patrolPointOn >= patrolPoints.length)
-					patrolPointOn = 0;
-			}
-		} else {
+		float distFromNextX = Math.abs(getX() - (patrolPointOn ? patrolPoint : spawnX));
 			System.out.println("I am going to move towards it now");
 			System.out.println("Distance from on X: " + distFromNextX);
-			if (distFromNextX < 0) {
-				getVelocity().set(0, -3);
-			} else {
-				getVelocity().set(0, 3);
-			}
-			
-		}
-	}
+        if (patrolPointOn) {
+
+            getVelocity().set(0, -3);
+
+		} else {
+            getVelocity().set(0, 3);
+
+        }
+        if ((int)distFromNextX <= 5 && frame > 1){
+            patrolPointOn = !patrolPointOn;
+        }
+
+        frame++;
+    }
+
 	
 	/**
 	 * Set the patrol path for the Enemy object.
@@ -86,7 +86,7 @@ public class Enemy extends Creature {
 	 * one.
 	 * @param path The patrol path in the format described above.
 	 */
-	public void setPatrolPath(int[][] path) {
-		patrolPoints = path;
+	public void setPatrolPath(int path) {
+		patrolPoint = path;
 	}
 }
