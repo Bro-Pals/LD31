@@ -2,10 +2,7 @@ package com.modwiz.ld31.leveleditor;
 
 import com.modwiz.ld31.entities.*;
 
-import com.modwiz.ld31.utils.assets.AssetRegistry;
-import com.modwiz.ld31.utils.assets.CachedLoader;
 import com.modwiz.ld31.utils.assets.AssetLoader;
-import com.modwiz.ld31.utils.assets.AssetRegistry;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,10 +38,8 @@ public class PropertyPanel extends JPanel {
 	private JButton imageBrowse, animationBrowse;
 	private LevelEditorMain lem;
 	private JButton updateAll;
-	private CachedLoader cachedLoader;
 	
 	public PropertyPanel(final LevelEditorMain lem) {
-		cachedLoader = (CachedLoader)AssetLoader.getAssetLoader();
 		this.lem = lem;
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));

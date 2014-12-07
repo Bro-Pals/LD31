@@ -32,7 +32,6 @@ public class Main {
 	// Projectile speed ratio, gravity -> speed for projectiles is important
 
     public static void main(String[] args) {
-		loadAssets();
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();

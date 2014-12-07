@@ -113,6 +113,7 @@ public class LevelLoader {
 	 * Creates a GameObject from a string found in a GameWorld file, essentially converting it from text
 	 * format into an Object format.
 	 * @param parent The Dimension that this game object is in.
+	 * @param 
 	 */
     public static GameObject readGameObject(Dimension parent, String string) {
         String[] split = splitLine(string);
@@ -154,8 +155,7 @@ public class LevelLoader {
                         Float.parseFloat(split[2]),
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
-						Boolean.parseBoolean(split[5]),
-						AssetRegistry.bufferedImageRegistry.getAsset(split[6]).get()
+						Boolean.parseBoolean(split[5])
                 );
             case OBJECT:
                 return new GameObject(
