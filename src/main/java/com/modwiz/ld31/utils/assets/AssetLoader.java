@@ -28,7 +28,7 @@ public class AssetLoader {
     public AssetLoader(File rootDir) {
         streamProvider = new ProviderBase(rootDir);
         registerLoader(BufferedImage.class, new BufferedImageLoader());
-        registerLoader(Animation.class, new AnimationLoader(this));
+        registerLoader(Animation.class, new AnimationLoader());
     }
 
     public boolean registerLoader(@NotNull Class typeToLoad, @NotNull ILoader assetLoader) {

@@ -43,7 +43,7 @@ public class Main {
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
 
-			AssetLoader assetLoader = new AssetLoader(new File("assets"));
+			AssetLoader assetLoader = AssetLoader.getSingleton();
 			// loading all the animations
 			BufferedImage playerMoving = null;
 			BufferedImage enemy0Moving = null;
@@ -56,8 +56,17 @@ public class Main {
 			Animation enemyAnim = null;
 			
 			try {
-				playerAnim = assetLoader.loadAsset(Animation.class,"anim/player.txt");
-				enemyAnim = assetLoader.loadAsset(Animation.class,"anim/enemy0.txt");
+				playerMoving = assetLoader.loadAsset(BufferedImage.class,"img/playerMove.png");
+				enemy0Moving = assetLoader.loadAsset(BufferedImage.class,"img/enemy0Move.png");
+				playerStab = assetLoader.loadAsset(BufferedImage.class,"img/playerStab.png");
+				projectileImage = assetLoader.loadAsset(BufferedImage.class,"img/golden_projectile.png");;
+				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
+				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
+				
+				playerAnim = assetLoader.loadAsset(Animation.class, "anim/player.txt");
+				enemyAnim = assetLoader.loadAsset(Animation.class, "anim/enemy0.txt");
+				System.out.println(playerAnim);
+				System.out.println(enemyAnim);
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {

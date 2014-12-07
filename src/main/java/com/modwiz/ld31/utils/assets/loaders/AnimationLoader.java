@@ -28,12 +28,6 @@ public class AnimationLoader implements ILoader<Animation> {
 	
 	private Cache<String, Animation> cache = CacheBuilder.newBuilder().build();
 	
-	private AssetLoader assetLoader;
-	
-	public AnimationLoader(AssetLoader al) {
-		assetLoader = al;
-	}
-	
 	 /**
      * {@inheritDoc}
      */
@@ -49,9 +43,14 @@ public class AnimationLoader implements ILoader<Animation> {
 					BufferedImage[][] tracks = null;
 					String nextLine;
 					while((nextLine = reader.readLine()) != null) {
+						if (nextLine.startsWith("amount")) {
+							String[] tokens = nextLine.split(" ");
+							tracks = new BufferedImage[Integer.parseInt(tokens[1])][];
+							continue;
+						}
 						if (!nextLine.startsWith("#")) { // otherwise a comment
 							String[] tokens = nextLine.split(" ");
-							BufferedImage entireImage = assetLoader.loadAsset(BufferedImage.class, tokens[1]);
+							BufferedImage entireImage = AssetLoader.getSingleton().loadAsset(BufferedImage.class, tokens[1]);
 							int imgNum = Integer.parseInt(tokens[2]);
 							int imgWidth = Integer.parseInt(tokens[3]);
 							int imgHeight = Integer.parseInt(tokens[4]);
@@ -64,16 +63,15 @@ public class AnimationLoader implements ILoader<Animation> {
 									track[i] = flipImage(track[i], true);
 								}
 							}
-							tracks[imgNum] = track;
-						} else if (nextLine.startsWith("amount")) {
-							String[] tokens = nextLine.split(" ");
-							tracks = new BufferedImage[Integer.parseInt(tokens[1])][];
+							tracks[Integer.parseInt(tokens[0])] = track;
 						}
 					}
 					anim = new Animation(tracks, 7);
+					System.out.println(anim);
                     return anim;
                 }
             });
+			return animatation;
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
