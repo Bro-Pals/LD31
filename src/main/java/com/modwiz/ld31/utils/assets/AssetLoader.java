@@ -31,39 +31,5 @@ public abstract class AssetLoader {
      */
     public abstract Optional<Resource<BufferedImage>> getBufferedImage(String imagePath);
 
-    /**
-     * Load a level from specified path
-     * @param levelPath The path to the level
-     * @return An object representing a game level
-     */
-    public abstract Optional<Resource<GameWorld>> getLevel(String levelPath);
-	
-	 /**
-     * Load a level from specific file; for the level editor
-     * @param levelFile The file that holds the level data
-     * @return An object representing a game level
-     */
-    public abstract Optional<Resource<GameWorld>> getLevelFromFile(File levelFile);
-	
-	 /**
-     * Load a level from specific file; for the level editor
-     * @param levelFile The file that holds the level data
-     * @return An object representing a game level
-     */
-    public abstract void saveLevel(File levelFile, GameWorld world);
-	
-	/**
-	* Creates a parse string for saving a GameObject.
-	* @param object The object to be converted into a String.
-	* @return The object in String form.
-	*/
-	public abstract String writeGameObject(GameObject object);
-	
-	/**
-	* Creates a GameObject from a parse string; reverse of writeGameObject.
-	* @param string The string to be converted into a GameObject.
-	* @return The String in object form.
-	*/
-	public abstract GameObject readGameObject(Dimension parent, String string);
 
 }
