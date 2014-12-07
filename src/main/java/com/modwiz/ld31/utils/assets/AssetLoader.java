@@ -4,6 +4,8 @@ import com.modwiz.ld31.utils.annotations.NotNull;
 import com.modwiz.ld31.utils.annotations.Nullable;
 import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
 import com.modwiz.ld31.utils.assets.loaders.ILoader;
+import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
+import com.modwiz.ld31.entities.draw.Animation;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +18,7 @@ public class AssetLoader {
     public AssetLoader(File rootDir) {
         streamProvider = new ProviderBase(rootDir);
         registerLoader(BufferedImage.class, new BufferedImageLoader());
+        registerLoader(Animation.class, new AnimationLoader(this));
     }
 
     public boolean registerLoader(@NotNull Class typeToLoad, @NotNull ILoader assetLoader) {

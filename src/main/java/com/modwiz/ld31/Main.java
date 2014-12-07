@@ -203,19 +203,5 @@ public class Main {
 			case KeyEvent.VK_SHIFT: shift = value; break;
 		}
 	}
-	
-	private static BufferedImage flipImage(BufferedImage img, boolean horiz) {
-		BufferedImage flipped = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TRANSLUCENT);
-		Graphics g = flipped.getGraphics();
-		if (horiz) {
-			for (int i=0; i<img.getWidth(); i++) {
-				g.drawImage(img.getSubimage(img.getWidth() - i - 1, 0, 1, img.getHeight()), i, 0, null);
-			}
-		} else {
-			for (int i=0; i<img.getHeight(); i++) {
-				g.drawImage(img.getSubimage(0, img.getHeight() - i - 1, img.getWidth(), 1), 0, i, null);
-			}
-		}
-		return flipped;
-	}
+
 }
