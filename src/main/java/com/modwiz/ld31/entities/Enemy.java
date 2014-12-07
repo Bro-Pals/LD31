@@ -42,13 +42,9 @@ public class Enemy extends Creature {
 		normalLOS = 400;
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
-		player = null;
+		player = Player.getSingleton();
     }
 
-	public void givePlayerRef(Player p) {
-		this.player = p;
-	}
-	
     /**
      * Creates a new entity with an {@link com.modwiz.ld31.entities.draw.Animation}
      *
@@ -71,7 +67,7 @@ public class Enemy extends Creature {
 		normalLOS = 300;
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
-		player = null;
+		player = Player.getSingleton();
     }
 	
 	/**
@@ -102,7 +98,7 @@ public class Enemy extends Creature {
 		normalLOS = 300;
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
-		player = null;
+		player = Player.getSingleton();
     }
 	
 	public boolean canSeePlayer() {
