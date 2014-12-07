@@ -13,6 +13,17 @@ public class Player extends Creature {
 		block. Otherwise, this value is null. */
 	private Dimension dimensionToGoTo;
 
+	private static Player player;
+	
+	static {
+		player = new Player(null, 0, 0, 60, 120, 10, "anim/player.animation");
+		player.setName("ThePlayer");
+	}
+	
+	public static Player getSingleton() {
+		return player;
+	}
+	
     /**
      * Creates a new player instance
      *

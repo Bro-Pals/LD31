@@ -35,6 +35,7 @@ public class GameBlock extends GameObject {
 		imageString = null;
 		this.canCollide = true;
 	}
+	
 	/**
 	 * Represents a {@link GameObject} with a width and height
 	 * @param parent The dimension for this object to be loaded into
@@ -51,6 +52,17 @@ public class GameBlock extends GameObject {
 		imageString = null;
 	}
 	
+	/**
+	 * Represents a {@link GameObject} with a width and height
+	 * @param parent The dimension for this object to be loaded into
+	 * @param x The initial x position of this GameBlock
+	 * @param y The initial y position of this GameBlock
+	 * @param w The width of this GameBlock
+	 * @param h The height of this GameBlock
+	 * @param staticBlock True for ground blocks
+	 * @param image the image for this block
+	 * @see com.modwiz.ld31.entities.GameObject
+	 */
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
@@ -59,6 +71,17 @@ public class GameBlock extends GameObject {
 		resetImage();
 	}
 	
+	/**
+	 * Represents a {@link GameObject} with a width and height
+	 * @param parent The dimension for this object to be loaded into
+	 * @param x The initial x position of this GameBlock
+	 * @param y The initial y position of this GameBlock
+	 * @param w The width of this GameBlock
+	 * @param h The height of this GameBlock
+	 * @param staticBlock True for ground blocks
+	 * @param image the image string for this block
+	 * @see com.modwiz.ld31.entities.GameObject
+	 */
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, String imageString) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;

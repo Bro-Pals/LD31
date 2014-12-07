@@ -69,6 +69,6 @@ public class FileManager {
 	*/
 	public GameWorld open(File file) {
 		current = file.getAbsoluteFile();
-		return LevelLoader.getLevelFromFile(current);
+		return LevelLoader.getLevelFromFile(new File(current, "assets"));
 	}
 }

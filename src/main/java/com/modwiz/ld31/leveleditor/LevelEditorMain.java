@@ -118,7 +118,8 @@ public class LevelEditorMain extends JFrame {
 		return new GameObject[] {
 			gameObjectFactory.createWall(),
 			gameObjectFactory.createMeleeEnemy(),
-			gameObjectFactory.createRangedEnemy()
+			gameObjectFactory.createRangedEnemy(),
+			gameObjectFactory.createTextBlock()
 		};
 	}
 	
@@ -330,7 +331,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedDimension() {
 		System.out.println("Removing selected dimension");
-		if (this.currentLevel!=null && dimList.getSelectedValue()!=null) {
+		if (this.currentLevel!=null && dimList.getSelectedValue()!=null && !dimList.getSelectedValue().equals("MainDimension")) {
 			currentLevel.removeDimension(dimList.getSelectedValue());
 			dimList.setListData(currentLevel.getDimensions());
 			dimListViewport.revalidate();
@@ -407,7 +408,8 @@ public class LevelEditorMain extends JFrame {
 			clearLevel();
 		}
 		currentLevel = new GameWorld();
-		Dimension dim = new Dimension("Dimension1");
+		Dimension dim = new Dimension("MainDimension");
+		dim.addObject(Player.getSingleton());
 		currentLevel.addDimension(dim);
 		Dimension[] dimensions = currentLevel.getDimensions();
 		dimList.setListData(dimensions);
@@ -433,6 +435,12 @@ public class LevelEditorMain extends JFrame {
 	private void saveLevelAs() {
 		if (currentLevel!=null) {
 			System.out.println("Save the current level as");
+			if (fileManager.hasCurrent()) {
+				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
+			} else {
+				File loc = new File("assets/Levels");
+				fc.setCurrentDirectory(loc.getAbsoluteFile());
+			}
 			int confirm = fc.showSaveDialog(this);
 			if (confirm == JFileChooser.APPROVE_OPTION) {
 				fileManager.saveAs(fc.getSelectedFile(), currentLevel);
@@ -453,6 +461,12 @@ public class LevelEditorMain extends JFrame {
 			}
 			clearLevel();
 		}
+		if (fileManager.hasCurrent()) {
+				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
+		} else {
+			File loc = new File("assets/Levels");
+			fc.setCurrentDirectory(loc.getAbsoluteFile());
+		}
 		int confirm = fc.showOpenDialog(this);
 		if (confirm == JFileChooser.APPROVE_OPTION) {
 			GameWorld world = fileManager.open(fc.getSelectedFile());
@@ -466,7 +480,7 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void selectGameObject(GameObject selecting) {
-		if (selecting!=null) {
+		if (selecting!=null && !selecting.getName().equals("ThePlayer")) {
 			viewport.setSelected(selecting);
 			this.selecting = selecting;
 			propertyPanel.loadObject(selecting);
@@ -475,10 +489,12 @@ public class LevelEditorMain extends JFrame {
 	}
 
 	private void clearSelectedGameObject() {
-		viewport.setSelected(null);
-		this.selecting = null;
-		propertyPanel.clear();
-		viewport.repaint();
+		if (!selecting.getName().equals("ThePlayer")) {
+			viewport.setSelected(null);
+			this.selecting = null;
+			propertyPanel.clear();
+			viewport.repaint();
+		}
 	}
 
 	public void checkSelection(Cursor2D cursor) {

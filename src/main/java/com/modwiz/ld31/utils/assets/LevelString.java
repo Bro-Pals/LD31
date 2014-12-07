@@ -7,6 +7,7 @@ public enum LevelString {
     PLAYER("TEUZOD"),
     CREATURE("TEUQOD"),
     BLOCK("TEPZOW"),
+    TEXT("TTPZTW"),
     OBJECT("LEPZOQ"),
     ENEMY("LEPZVQ"),
     DIM_START("TYPZOW"),
