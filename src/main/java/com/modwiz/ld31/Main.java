@@ -35,7 +35,11 @@ public class Main {
 	
 	// Ratio of our 1 to real 9.8
 	public static final double GRAVITY_RATIO = 1.1;
-    public static void main(String[] args) {
+	private static boolean manualCam = false;
+	private static int manualCamCooldown;
+	private static final float camMoveRate = 2;
+
+	public static void main(String[] args) {
         GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
         GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
 		GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
@@ -171,30 +175,7 @@ public class Main {
 					player.jump(15);
 				}
 
-				boolean flag = false;
-				if (keys[KeyEvent.VK_NUMPAD5]) {
-					camX = 0;
-					flag = true;
-				} else if (keys[KeyEvent.VK_NUMPAD4]) {
-					camX -= 1;
-					flag = true;
-				} else if (keys[KeyEvent.VK_NUMPAD6]) {
-					camX += 1;
-					flag = true;
-				}
-
-
-				camX = player.getX() - (width/2.0f);
-
-				if (camX < 0) {
-					camX = 0;
-				} else if (camX > (width/2.0)) {
-					System.out.println(camX);
-				}
-
-				if (flag) {
-					System.out.println(camX);
-				}
+				doCameraUpdate(player, width, height);
 
 				player.setSneaking(shift);
 				
@@ -212,6 +193,57 @@ public class Main {
 			}
 		}
     }
+
+	private static void doCameraUpdate(final Player player, final int width, final int height) {
+		if (keys[KeyEvent.VK_NUMPAD5]) {
+			camX = player.getX() - (width / 2.0f);
+			if (camX < 0) {
+				camX = 0;
+			}
+			camY = player.getY() - (height / 2.0f);
+		} else if (keys[KeyEvent.VK_NUMPAD4]) {
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD6]) {
+			camX += 1;
+		} else if (keys[KeyEvent.VK_NUMPAD0]) {
+			if (manualCamCooldown <= 0) {
+				manualCam = !manualCam;
+				manualCamCooldown = 20;
+			}
+		} else if (keys[KeyEvent.VK_NUMPAD2]) {
+			camY += camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD8]) {
+			camY -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD1]) {
+			camY += camMoveRate;
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD3]) {
+			camY += camMoveRate;
+			camX += camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD7]) {
+			camY -= camMoveRate;
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD9]) {
+			camY -= camMoveRate;
+			camX += camMoveRate;
+		}
+		manualCamCooldown--;
+
+		if (!manualCam) {
+			camX = player.getX() - (width / 2.0f);
+
+			if (camX < 0) {
+				camX = 0;
+			} else if (camX > (width / 2.0)) {
+				System.out.println(camX);
+			}
+
+			if (camX < 0) {
+				camX = 0;
+			}
+			camY = player.getY() - (height / 2.0f);
+		}
+	}
 
 	/**
 	 * Makes the game play in the given level.
