@@ -80,6 +80,13 @@ public class PropertyPanel extends JPanel {
 				openImageDialog();
 			}
 		});
+		
+		animationBrowse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				openAnimationDialog();
+			}
+		});
 	}
 	
 	class ImageDialog extends JDialog implements ActionListener {
@@ -136,7 +143,7 @@ public class PropertyPanel extends JPanel {
 			String str = list.getSelectedValue();
 			if (str!=null) {
 				fields[ANIMATION].setText(str);
-				setImage();
+				setAnimation();
 			}
 			dispose();
 		}
