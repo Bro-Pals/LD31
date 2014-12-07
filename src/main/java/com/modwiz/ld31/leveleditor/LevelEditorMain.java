@@ -179,6 +179,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void makeSnapToGrid() {
 		snapToGrid = new JCheckBoxMenuItem("Snap to Grid");
+		snapToGrid.setState(snappingToGrid);
 		snapToGrid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -193,6 +194,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void makeSnapToObjects() {
 		snapToObjects = new JCheckBoxMenuItem("Snap to Object");
+		snapToObjects.setState(snappingToObjects);
 		snapToObjects.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
