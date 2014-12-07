@@ -236,4 +236,18 @@ public class Enemy extends Creature {
 	public int getFinalPoint() {
 		return patrolPoint;
 	}
+	
+	@Override
+	public Object clone() {
+		//TO DO : Copy the animation
+		Enemy e;
+		if (animString!=null) {
+			e = new Enemy(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString, spawnX, path);
+		} else {
+			e = new Enemy(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
+			e.setPatrolPath(spawnX, path);
+		}
+		e.setName(getName());
+		return e;
+	}
 }
