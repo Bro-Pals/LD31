@@ -77,7 +77,7 @@ public class Projectile extends GameBlock {
         if (projectileImage != null) {
             g.drawImage(projectileImage, (int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight(), null);
         } else {
-            super.render(g, camX, camY);
+          //  super.render(g, camX, camY);
         }
         // bounding box
         //g.setColor(Color.BLACK);

@@ -76,7 +76,7 @@ public class Main {
 			
 			
 			Dimension firstDimension = new Dimension("First");
-			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true, texture0);
+			GameBlock firstBlock = new GameBlock(firstDimension, 20, 430, 300, 30, true, texture0);
 			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 100, 30, true, texture0);
 
 			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
@@ -96,6 +96,7 @@ public class Main {
 			firstDimension.getObjects().add(new GameBlock(firstDimension, 475, 395, 50, 20, true, texture0));
 			firstDimension.getObjects().add(new GameBlock(firstDimension, 525, 389, 50, 20, true, texture0));
 			firstDimension.getObjects().add(new GameBlock(firstDimension, 575, 383, 50, 20, true, texture0));
+			firstDimension.getObjects().add(new GameBlock(firstDimension, 350, 360, 50, 50, true, texture0));
 			firstDimension.getObjects().add(enemy);
 
 			GameWorld world = new GameWorld();
