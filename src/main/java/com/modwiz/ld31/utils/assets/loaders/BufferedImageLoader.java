@@ -29,6 +29,7 @@ public class BufferedImageLoader implements ILoader<BufferedImage>{
                     return image;
                 }
             });
+            return image;
         } catch (ExecutionException e) {
             e.printStackTrace();
         }

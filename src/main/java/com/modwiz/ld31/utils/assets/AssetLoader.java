@@ -5,6 +5,7 @@ import com.modwiz.ld31.utils.annotations.Nullable;
 import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
 import com.modwiz.ld31.utils.assets.loaders.ILoader;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 
@@ -14,19 +15,19 @@ public class AssetLoader {
 
     public AssetLoader(File rootDir) {
         streamProvider = new ProviderBase(rootDir);
-        registerLoader(new BufferedImageLoader());
+        registerLoader(BufferedImage.class, new BufferedImageLoader());
     }
 
-    public boolean registerLoader(@NotNull ILoader assetLoader) {
+    public boolean registerLoader(@NotNull Class typeToLoad, @NotNull ILoader assetLoader) {
         if (assetLoader == null) {
             return false;
         }
 
-        if (loaderMap.containsKey(assetLoader.getClass())) {
+        if (loaderMap.containsKey(typeToLoad)) {
             return false;
         }
 
-        loaderMap.put(assetLoader.getClass(), assetLoader);
+        loaderMap.put(typeToLoad, assetLoader);
         return true;
     }
 
