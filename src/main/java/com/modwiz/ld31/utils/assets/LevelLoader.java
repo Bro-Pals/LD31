@@ -42,7 +42,6 @@ public class LevelLoader {
                         //Parse a game object
 						if (!currentLine.equals("NO_LOAD")) {
 							GameObject obj = readGameObject(current, currentLine);
-							obj.getAcceleration().set(0, 1);
 							current.addObject(obj);
 						}
                         System.out.println("Read " + currentLine);
