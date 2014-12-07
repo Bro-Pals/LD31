@@ -10,11 +10,13 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 public class BufferedImageLoader implements ILoader<BufferedImage>{
     private Cache<String, BufferedImage> cache = CacheBuilder.newBuilder().build();
+
     /**
      * {@inheritDoc}
      */
@@ -34,5 +36,9 @@ public class BufferedImageLoader implements ILoader<BufferedImage>{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Set<String> getKeys() {
+        return cache.asMap().keySet();
     }
 }

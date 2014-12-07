@@ -15,6 +15,16 @@ public class AssetLoader {
     private HashMap<Class, ILoader> loaderMap = new HashMap<>();
     private ProviderBase streamProvider;
 
+    private static AssetLoader singleton;
+
+    public static AssetLoader getSingleton() {
+        if (singleton != null) {
+            return singleton;
+        }
+        singleton = new AssetLoader(new File("assets"));
+        return singleton;
+    }
+
     public AssetLoader(File rootDir) {
         streamProvider = new ProviderBase(rootDir);
         registerLoader(BufferedImage.class, new BufferedImageLoader());
@@ -42,6 +52,11 @@ public class AssetLoader {
         }
 
         return (T) loaderMap.get(type).getContent(streamProvider.provideAsset(path), path);
+    }
+
+    @Nullable
+    public <T, K extends ILoader<T>> K getLoader(Class<T> type) {
+        return (K) loaderMap.get(type);
     }
 
 }
