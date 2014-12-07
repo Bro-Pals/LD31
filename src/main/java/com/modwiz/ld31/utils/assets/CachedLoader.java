@@ -113,7 +113,7 @@ public class CachedLoader extends AssetLoader {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight();
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageName();
         } else {
             //Must be a game object then
             return "" + LevelString.OBJECT + LevelString.SEP + object.getX() +
@@ -167,7 +167,9 @@ public class CachedLoader extends AssetLoader {
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2]),
                         Float.parseFloat(split[3]),
-                        Float.parseFloat(split[4])
+                        Float.parseFloat(split[4]),
+						Boolean.parseBoolean(split[5]),
+						AssetRegistry.bufferedImageRegistry.getAsset(split[6]).get()
                 );
             case OBJECT:
                 return new GameObject(
