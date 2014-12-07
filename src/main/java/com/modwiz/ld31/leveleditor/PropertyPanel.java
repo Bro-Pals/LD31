@@ -42,19 +42,19 @@ public class PropertyPanel extends JPanel {
 		checkboxes = new JCheckBox[2];
 		fields = new JTextField[5];
 		
-		fields[POSITION] = new JTextField(10);
+		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
-		fields[SIZE] = new JTextField(10);
+		fields[SIZE] = new JTextField(6);
 		fields[SIZE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setSize();  } });
-		fields[NAME] = new JTextField(10);
+		fields[NAME] = new JTextField(6);
 		fields[NAME].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setName();  } });
 		checkboxes[STATIC] = new JCheckBox("Static");
 		checkboxes[STATIC].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setStatic();  } });
 		checkboxes[CAN_COLLIDE] = new JCheckBox("Can collide");
 		checkboxes[CAN_COLLIDE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setCanCollide();  } });
-		fields[IMAGE] = new JTextField(10);
+		fields[IMAGE] = new JTextField(6);
 		fields[IMAGE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setImage();  } });
-		fields[ANIMATION] = new JTextField(10);
+		fields[ANIMATION] = new JTextField(6);
 		fields[ANIMATION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setAnimation();  } });
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
@@ -111,6 +111,7 @@ public class PropertyPanel extends JPanel {
 	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Add more fields to this
+		System.out.println("Property panel alerted of selection");
 		if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
@@ -124,31 +125,35 @@ public class PropertyPanel extends JPanel {
 			addAnimation();
 			lem.repaintViewport();
 		}
-		revalidate();
-		repaint();
+		lem.revalidate();
 	}
 	
 	private void addPosition() {
 		add(new JLabel("Position (x, y)"));
 		add(fields[POSITION]);
+		fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
 	}
 	
 	private void addSize() {
 		add(new JLabel("Size (width, height)"));
 		add(fields[SIZE]);
+		fields[SIZE].setText("" + ((GameBlock)editing).getWidth() + "," + ((GameBlock)editing).getHeight());
 	}
 	
 	private void addName() {
 		add(new JLabel("Name"));
 		add(fields[NAME]);
+		fields[NAME].setText(editing.getName());
 	}
 	
 	private void addStatic() {
 		add(checkboxes[STATIC]);
+		checkboxes[STATIC].setSelected(((GameBlock)editing).isStaticBlock());
 	}
 	
 	private void addCanCollide() {
 		add(checkboxes[CAN_COLLIDE]);
+		checkboxes[CAN_COLLIDE].setSelected(((GameBlock)editing).getCanCollide());
 	}
 	
 	private void addImage() {
