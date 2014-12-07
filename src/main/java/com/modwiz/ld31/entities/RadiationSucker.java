@@ -23,4 +23,11 @@ public class RadiationSucker extends GameBlock {
 			setDead(true);
 		}
 	}
+	
+	@Override
+	public Object clone() {
+		RadiationSucker rs = new RadiationSucker(null, getX(), getY());
+		rs.setName(getName());
+		return rs;
+	}
 }

@@ -23,4 +23,11 @@ public class DNARepairCell extends GameBlock {
 			setDead(true);
 		}
 	}
+	
+	@Override
+	public Object clone() {
+		DNARepairCell cell = new DNARepairCell(null, getX(), getY());
+		cell.setName(getName());
+		return cell;
+	}
 }
