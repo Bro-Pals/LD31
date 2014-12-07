@@ -62,7 +62,7 @@ public class Player extends Creature {
 			int rightAnim = stabbing ? 2 : 0;
 			int leftAnim = stabbing ? 3 : 1;
 			int delay = stabbing ? 2 : 8;
-			if (stabbing && getAnimation().getFrameOn() >= 5) {
+			if (stabbing && getAnimation().getFrameOn() >= 4) {
 				rightAnim = 0;
 				leftAnim = 1;
 				delay = 8;
