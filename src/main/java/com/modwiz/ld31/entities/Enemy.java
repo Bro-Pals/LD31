@@ -4,6 +4,7 @@ import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
 import java.awt.geom.Rectangle2D;
 import horsentpmath.Vector2;
+import java.awt.Graphics;
 
 /**
  * A generic baddie
@@ -23,7 +24,7 @@ public class Enemy extends Creature {
     /**
      * Creates a new Enemy instance
      *
-     * @param parent Dimension in the game world to be loaded into
+     * @param parent Dimension in the game world to bde loaded into
      * @param x      The x position of the entity
      * @param y      The y position of the entity
      * @param w      The bounding width of the entity
@@ -109,8 +110,8 @@ public class Enemy extends Creature {
 		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 		Vector2 posVect = (Vector2)((new Vector2(diffX, diffY)).normalize());
 		double angle = Math.acos(enemyLOS.dot(posVect));
-		if (angle > fieldOfView) {
-			System.out.println(angle + " > " + fieldOfView);
+		if (angle > 0 && angle > fieldOfView) {
+			//System.out.println(angle + " > " + fieldOfView);
 			return false;
 		}
 		
@@ -129,11 +130,25 @@ public class Enemy extends Creature {
 	}
 	
 	@Override
+	public void render(Graphics g, float camX, float camY) {
+		super.render(g, camX, camY);
+		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
+		
+		int startX = (int)(getX() - camX);
+		int startY = (int)(getY() - camY);
+		int endX = (int)((enemyLOS.getX() * sneakLOS) - camX);
+		
+		g.drawLine(startX, startY, startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
+		g.drawLine(startX, startY, startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY));
+		g.drawLine(startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY), 
+			startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
+	}
+	
+	@Override
 	public void update() {
 		super.update();
 		float distFromNextX = distFrom(getX());
-			System.out.println("I am going to move towards it now");
-			System.out.println("Distance from on X: " + distFromNextX);
+			System.out.println(canSeePlayer());
         if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {
