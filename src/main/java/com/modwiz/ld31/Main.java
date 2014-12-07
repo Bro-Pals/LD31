@@ -69,7 +69,6 @@ public class Main {
 				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
 				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
 				
-				playerAnim = assetLoader.loadAsset(Animation.class, "anim/player.animation");
 				enemyAnim = assetLoader.loadAsset(Animation.class, "anim/enemy0.animation");
 				System.out.println(playerAnim);
 				System.out.println(enemyAnim);
@@ -85,7 +84,6 @@ public class Main {
 
 			Player player = Player.getSingleton();
 			player.setParent(world.getActiveDimension());
-			player.setAnimation(playerAnim);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
