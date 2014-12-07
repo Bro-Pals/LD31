@@ -74,11 +74,11 @@ public class Main {
 				System.exit(0);
 			}
 
-            GameWorld world = LevelLoader.getLevel("assets/Levels/levelTest.txt");
+            GameWorld world = LevelLoader.getLevel("Levels/levelTest.txt");
             world.setActiveDimension("Dimension1");
 
 			Player player = Player.getSingleton();
-			player.setParent(firstDimension);
+			player.setParent(world.getActiveDimension());
 			player.setAnimation(playerAnim);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!

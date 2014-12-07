@@ -116,10 +116,12 @@ public class PropertyPanel extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String str = list.getSelectedValue();
-			if (str!=null) {
-				fields[IMAGE].setText(str);
-				setImage();
+			if (editing!=null) {
+				String str = list.getSelectedValue();
+				if (str!=null) {
+					fields[IMAGE].setText(str);
+					setImage();
+				}
 			}
 			dispose();
 		}
@@ -146,10 +148,12 @@ public class PropertyPanel extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String str = list.getSelectedValue();
-			if (str!=null) {
-				fields[ANIMATION].setText(str);
-				setAnimation();
+			if (editing!=null) {
+				String str = list.getSelectedValue();
+				if (str!=null) {
+					fields[ANIMATION].setText(str);
+					setAnimation();
+				}
 			}
 			dispose();
 		}

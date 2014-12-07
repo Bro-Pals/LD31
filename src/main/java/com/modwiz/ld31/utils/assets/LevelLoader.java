@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class LevelLoader {
 	
     public static GameWorld getLevel(String levelPath) {
-        return getLevelFromFile(new File(levelPath));
+        return getLevelFromFile(new File("assets/" + levelPath));
     }
     
     public static GameWorld getLevelFromFile(File levelFile) {

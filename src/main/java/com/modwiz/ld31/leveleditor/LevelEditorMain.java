@@ -106,6 +106,7 @@ public class LevelEditorMain extends JFrame {
 		add(southPanel, BorderLayout.SOUTH);
 		setJMenuBar(bar);
 		pack();
+		setVisible(true);
 		viewport.setupListeners(this);
 		setLocationRelativeTo(null);
 	}
@@ -331,7 +332,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedDimension() {
 		System.out.println("Removing selected dimension");
-		if (this.currentLevel!=null && dimList.getSelectedValue()!=null && !dimList.getSelectedValue().equals("MainDimension")) {
+		if (this.currentLevel!=null && dimList.getSelectedValue()!=null && !dimList.getSelectedValue().getName().equals("MainDimension")) {
 			currentLevel.removeDimension(dimList.getSelectedValue());
 			dimList.setListData(currentLevel.getDimensions());
 			dimListViewport.revalidate();
@@ -489,7 +490,7 @@ public class LevelEditorMain extends JFrame {
 	}
 
 	private void clearSelectedGameObject() {
-		if (!selecting.getName().equals("ThePlayer")) {
+		if (selecting != null && !selecting.getName().equals("ThePlayer")) {
 			viewport.setSelected(null);
 			this.selecting = null;
 			propertyPanel.clear();
@@ -564,7 +565,7 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedObject() {
 		System.out.println("Removing the selected object");
-		if (selecting!=null) {
+		if (selecting!=null && !selecting.getName().equals("ThePlayer")) {
 			currentLevel.getActiveDimension().removeObject(selecting);
 			viewport.repaint();
 		}
