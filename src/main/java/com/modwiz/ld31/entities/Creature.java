@@ -74,7 +74,10 @@ public class Creature extends GameBlock {
 	 * @see com.modwiz.ld31.entities.GameBlock
 	 */
 	public Creature(Dimension parent, float x, float y, float w, float h, double health, String animString) {
-		this(parent, x, y, w, h, health, AssetLoader.getSingleton().loadAsset(Animation.class, animString));
+		this(parent, x, y, w, h, health, (Animation)null);
+		if (animString!=null && !animString.equals("null")) {
+			animation = AssetLoader.getSingleton().loadAsset(Animation.class, animString);
+		}
 		this.animString = animString;
 	}
 

@@ -22,7 +22,7 @@ public class BufferedImageLoader implements ILoader<BufferedImage>{
      */
     @Override
     public BufferedImage getContent(final InputStream stream, final String key) {
-		if (key==null) {
+		if (key==null || key.equals("null")) {
 			return null;
 		}
         try {

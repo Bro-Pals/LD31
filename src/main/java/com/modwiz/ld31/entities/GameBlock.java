@@ -112,7 +112,13 @@ public class GameBlock extends GameObject {
 	
 	public void setImageString(String imageString) {
 		this.imageString = imageString;
-		setImage(AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString));
+		BufferedImage b = null;
+		if (imageString!=null && !imageString.equals("null")) {
+			b = AssetLoader.getSingleton().loadAsset(BufferedImage.class, this.imageString);
+		}
+		if (b!=null) {
+			setImage(b);
+		}
 	}
 	
     /**

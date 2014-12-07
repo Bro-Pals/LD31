@@ -193,13 +193,15 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void setDimensionTo() {
-		
+		((DimensionChangeBlock)editing).setJumpingToDimension(fields[DIMENSION_TO].getText());
 	}
 	
 	private void addDimensionTo() {
 		add(new JLabel("Jumps to Dimension"));
 		add(fields[DIMENSION_TO]);
-		//TO DO Dimension 
+		try {
+			fields[DIMENSION_TO].setText(((DimensionChangeBlock)editing).getJumpingToDimension());
+		} catch(Exception e) { }
 	}
 	
 	private void setMessageList() {
@@ -321,6 +323,7 @@ public class PropertyPanel extends JPanel {
 			addName();
 			addPosition();
 			addSize();
+			addImage();
 			addMessageList();
 		}   else if (entity instanceof DNARepairCell) {
 			addName();
@@ -332,6 +335,7 @@ public class PropertyPanel extends JPanel {
 			addName();
 			addPosition();
 			addSize();
+			addImage();
 			addDimensionTo();
 		}  else if (entity instanceof GameBlock) {
 			addName();

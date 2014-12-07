@@ -34,7 +34,7 @@ public class AnimationLoader implements ILoader<Animation> {
      */
 	 @Override
 	public Animation getContent(final InputStream stream, final String key) {
-		if (key==null) {
+		if (key==null || key.equals("null")) {
 			return null;
 		}
 		try {

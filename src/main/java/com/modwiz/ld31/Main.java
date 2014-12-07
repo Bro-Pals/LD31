@@ -28,6 +28,10 @@ public class Main {
 	private static float camX = 0;
 	private static float camY = 0; 
 
+	private static GameWorld world;
+	
+	public static GameWorld getCurrentWorld() { return world; }
+	
 	// Ratio of our 1 to real 9.8
 	private static final double GRAVITY_RATIO = 0.1020408163265306;
     public static void main(String[] args) {
@@ -80,7 +84,7 @@ public class Main {
 				System.exit(0);
 			}
 
-            GameWorld world = level1;
+            world = level1;
             world.setActiveDimension("MainDimension");
 
 			Player player = Player.getSingleton();

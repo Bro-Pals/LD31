@@ -48,21 +48,21 @@ public class Cursor2D {
 				dragging.setY(getY() - offsetFromObjectY);
 				break;
 			case RESIZE_LEFT:
-				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell || dragging instanceof Creature)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setX(getX());
 					gb.setWidth(initialRightX - getX());
 				}
 				break;
 			case RESIZE_UP:
-				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell || dragging instanceof Creature)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setY(getY());
 					gb.setHeight(initialBottomY - getY());
 				}
 				break;
 			case RESIZE_RIGHT:
-				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell || dragging instanceof Creature)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setWidth(-initialLeftX + getX());
 				}
