@@ -110,6 +110,10 @@ public class LevelEditorMain extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	/**
+	 * Add objects to the Object Library for the level editor; the more we stuff
+	 * in here the better. DOn't forget to change the object's name
+	 */
 	private GameObject[] makeObjectsInLibrary() {
 		return new GameObject[] {
 			gameObjectFactory.createWall(),
