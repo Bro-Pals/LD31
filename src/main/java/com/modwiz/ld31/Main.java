@@ -42,11 +42,13 @@ public class Main {
 			
 			// loading all the animations
 			BufferedImage playerMoving = null;
+			BufferedImage enemy0Moving = null;
 			BufferedImage playerStab = null;
 			BufferedImage projectileImage = null;
 			BufferedImage texture0 = null;
 			try {
 				projectileImage = AssetLoader.getAssetLoader().getBufferedImage("assets/img/golden_projectile.png").get().getContent();
+				enemy0Moving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/enemy0Move.png").get().getContent();
 				playerMoving = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerMove.png").get().getContent();
 				playerStab = AssetLoader.getAssetLoader().getBufferedImage("assets/img/playerStab.png").get().getContent();
 				texture0 = AssetLoader.getAssetLoader().getBufferedImage("assets/img/texture0.png").get().getContent();
@@ -58,6 +60,7 @@ public class Main {
 			}
 			
 			BufferedImage[][] playerAnimations = new BufferedImage[4][];
+			BufferedImage[][] enemyAnimations = new BufferedImage[2][4];
 			/*
 				track | description
 				0     | walk right
@@ -83,7 +86,17 @@ public class Main {
 			}
 			playerAnimations[2][5] = playerAnimations[2][5];
 			playerAnimations[3][5] = playerAnimations[3][5];
-			Animation playerAnim = new Animation(playerAnimations, 8);
+			
+			if (enemy0Moving != null) {
+				for (int i=0; i<4; i++) {
+					enemyAnimations[0][i] = enemy0Moving.getSubimage(i * 60, 0, 60, 100);
+					enemyAnimations[1][i] = flipImage(enemyAnimations[0][i], true);
+				}
+			}
+
+			
+			Animation playerAnim = new Animation(playerAnimations, 7);
+			Animation enemyAnim = new Animation(enemyAnimations, 7);
 			
 			Dimension firstDimension = new Dimension("First");
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true, texture0);
@@ -93,9 +106,14 @@ public class Main {
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
+			Creature enemy = new Creature(firstDimension, 500, 80, 60, 100, 50, enemyAnim);
+			enemy.getVelocity().set(0, -0.5f);
+			enemy.getAcceleration().set(1, 1); // gravity!
+			
 			firstDimension.getObjects().add(player); // our first block!!
 			firstDimension.getObjects().add(firstBlock); // our first block!!
 			firstDimension.getObjects().add(secondBlock);
+			firstDimension.getObjects().add(enemy);
 
 			GameWorld world = new GameWorld();
 			world.addDimension(firstDimension);
