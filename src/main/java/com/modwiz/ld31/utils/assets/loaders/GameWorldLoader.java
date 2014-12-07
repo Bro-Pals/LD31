@@ -31,11 +31,11 @@ public class GameWorldLoader extends CacheLoader<String, GameWorld> {
             while ( (currentLine = rdr.readLine()) != null) {
                 //Initial processing
                 String[] ln = splitLine(currentLine);
-                if (ln[0].equals(LevelString.DIM_START)) {
+                if (ln[0].equals(LevelString.DIM_START.string)) {
                     readingDimension = true;
                     current = new Dimension();
                     current.setName(ln[1]);
-                } else if (ln[0].equals(LevelString.DIM_END)) {
+                } else if (ln[0].equals(LevelString.DIM_END.string)) {
                     readingDimension = false;
                     dieWelt.addDimension(current);
                     current = null;
