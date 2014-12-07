@@ -78,7 +78,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void openImageDialog() {
-		ImageDialog id = new ImageDialog(lem, fields[IMAGE]);
+		ImageDialog id = new ImageDialog(lem, fields[IMAGE], this);
 	}
 	
 	private void setPosition() {
@@ -108,7 +108,7 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
-	private void setImage() {
+	public void setImage() {
 		((GameBlock)editing).setImage(AssetRegistry.bufferedImageRegistry.getAsset(fields[IMAGE].getText()).get());
 		lem.repaintViewport();
 	}
