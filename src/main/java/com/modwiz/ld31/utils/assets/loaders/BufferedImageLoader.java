@@ -22,6 +22,9 @@ public class BufferedImageLoader implements ILoader<BufferedImage>{
      */
     @Override
     public BufferedImage getContent(final InputStream stream, final String key) {
+		if (key==null) {
+			return null;
+		}
         try {
             BufferedImage image = cache.get(key, new Callable<BufferedImage>() {
                 @Override
