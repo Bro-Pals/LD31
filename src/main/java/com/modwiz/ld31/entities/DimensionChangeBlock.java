@@ -13,7 +13,14 @@ public class DimensionChangeBlock extends GameBlock {
 
 	public DimensionChangeBlock(Dimension parent, float x, float y, float width, float height, Dimension dimTo) {
 		super(parent, x, y, width, height, true);
+		setName("Dimension Change Block");
 		dimensionTo = dimTo;
+	}
+	
+	public DimensionChangeBlock(Dimension parent, float x, float y, float width, float height, String dimTo) {
+		super(parent, x, y, width, height, true);
+		setName("Dimension Change Block");
+		dimensionTo = null;
 	}
 	
 	/**
@@ -22,7 +29,7 @@ public class DimensionChangeBlock extends GameBlock {
 	 */
 	public void onCollide(GameBlock other) {
 		if (other instanceof Player) {
-			((Player)other).setDimensionToGoTo(dimensionTo);
+            ((Player) other).jumpDimension(dimensionTo);
 		}
 	}
 	
@@ -30,5 +37,11 @@ public class DimensionChangeBlock extends GameBlock {
 		return dimensionTo;
 	}
 
-
+	public String getJumpingToDimension() {
+		return "";
+	}
+	
+	public void setJumpingToDimension(String jumpingTo) {
+		
+	}
 }

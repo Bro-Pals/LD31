@@ -1,7 +1,6 @@
 package com.modwiz.ld31.leveleditor;
 
-import com.modwiz.ld31.entities.GameObject;
-import com.modwiz.ld31.entities.GameBlock;
+import com.modwiz.ld31.entities.*;
 
 public class Cursor2D {
 	
@@ -49,27 +48,27 @@ public class Cursor2D {
 				dragging.setY(getY() - offsetFromObjectY);
 				break;
 			case RESIZE_LEFT:
-				if (dragging instanceof GameBlock) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setX(getX());
 					gb.setWidth(initialRightX - getX());
 				}
 				break;
 			case RESIZE_UP:
-				if (dragging instanceof GameBlock) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setY(getY());
 					gb.setHeight(initialBottomY - getY());
 				}
 				break;
 			case RESIZE_RIGHT:
-				if (dragging instanceof GameBlock) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setWidth(-initialLeftX + getX());
 				}
 				break;
 			case RESIZE_DOWN:
-				if (dragging instanceof GameBlock) {
+				if (dragging instanceof GameBlock && !(dragging instanceof RadiationSucker || dragging instanceof DNARepairCell)) {
 					GameBlock gb = (GameBlock)dragging;
 					gb.setHeight(-initialTopY + getY());
 				}

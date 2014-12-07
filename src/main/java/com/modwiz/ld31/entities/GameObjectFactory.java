@@ -154,7 +154,7 @@ public class GameObjectFactory {
 		@return A default DimensionChangeBlock
 	*/
 	public DimensionChangeBlock createDimensionChangeBlock() {
-		return new DimensionChangeBlock(null, 0, 0, 100, 100, null);
+		return new DimensionChangeBlock(null, 0, 0, 100, 100, (String)null);
 	}
 	
 	public DimensionChangeBlock createDimensionChangeBlock(Dimension parent, float x, float y, float width, float height, Dimension dimTo) {
