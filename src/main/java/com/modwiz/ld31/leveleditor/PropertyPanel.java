@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 
+
 /**
 	Edit the properties of an object from the property panel.
 	Loading an object changes what the properties are, depending on 
@@ -36,7 +37,8 @@ public class PropertyPanel extends JPanel {
 		WEAPON = 6,
 		TEXT_LABEL = 7,
 		FONT_SIZE = 8,
-		MESSAGE_LIST = 9
+		MESSAGE_LIST = 9,
+		DIMENSION_TO = 10
 	;
 	
 	private JViewport view;
@@ -53,7 +55,7 @@ public class PropertyPanel extends JPanel {
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[10];
+		fields = new JTextField[11];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -79,6 +81,8 @@ public class PropertyPanel extends JPanel {
 		fields[FONT_SIZE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setFontSize();  } });
 		fields[MESSAGE_LIST] = new JTextField(6);
 		fields[MESSAGE_LIST].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setMessageList();  } });
+		fields[DIMENSION_TO] = new JTextField(6);
+		fields[DIMENSION_TO].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setDimensionTo();  } });
 		
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
@@ -109,7 +113,12 @@ public class PropertyPanel extends JPanel {
 				(String[])((BufferedImageLoader)AssetLoader.getSingleton().getLoader(BufferedImage.class)).getKeys().toArray(new String[0])
 			);
 			setLayout(new BorderLayout());
-			add(list, BorderLayout.CENTER);
+			JScrollPane pane = new JScrollPane(
+				list,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+			);
+			add(pane, BorderLayout.CENTER);
 			JButton button = new JButton("Accept");
 			button.addActionListener(this);
 			add(button, BorderLayout.SOUTH);
@@ -141,7 +150,12 @@ public class PropertyPanel extends JPanel {
 				(String[])((AnimationLoader)AssetLoader.getSingleton().getLoader(Animation.class)).getKeys().toArray(new String[0])
 			);
 			setLayout(new BorderLayout());
-			add(list, BorderLayout.CENTER);
+			JScrollPane pane = new JScrollPane(
+				list,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+			);
+			add(pane, BorderLayout.CENTER);
 			JButton button = new JButton("Accept");
 			button.addActionListener(this);
 			add(button, BorderLayout.SOUTH);
@@ -176,6 +190,16 @@ public class PropertyPanel extends JPanel {
 			fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
 		}
 		lem.repaintViewport();
+	}
+	
+	private void setDimensionTo() {
+		
+	}
+	
+	private void addDimensionTo() {
+		add(new JLabel("Jumps to Dimension"));
+		add(fields[DIMENSION_TO]);
+		//TO DO Dimension 
 	}
 	
 	private void setMessageList() {

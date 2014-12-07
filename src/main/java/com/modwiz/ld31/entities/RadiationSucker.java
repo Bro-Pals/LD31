@@ -9,6 +9,7 @@ public class RadiationSucker extends GameBlock {
 	
 	public RadiationSucker(Dimension parent, float x, float y) {
 		super(parent, x, y, 30, 30, true);
+		setName("Radiation Sucker");
 		setCanCollide(false);
 	}
 	

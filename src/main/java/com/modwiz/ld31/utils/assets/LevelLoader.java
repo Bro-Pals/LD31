@@ -41,7 +41,9 @@ public class LevelLoader {
                     if (readingDimension) {
                         //Parse a game object
 						if (!currentLine.equals("NO_LOAD")) {
-							current.addObject(readGameObject(current, currentLine));
+							GameObject obj = readGameObject(current, currentLine);
+							obj.getAcceleration().set(0, 1);
+							current.addObject(obj);
 						}
                         System.out.println("Read " + currentLine);
                     }
@@ -113,7 +115,21 @@ public class LevelLoader {
 				str += ("" + LevelString.SEP + p.getMessages()[i]);
 			}
 			return str;
-        } else if (object instanceof GameBlock) {
+        } else if (object instanceof RadiationSucker) {
+            RadiationSucker p = (RadiationSucker)object;
+            return "" + LevelString.RADIATION_SUCKER + LevelString.SEP + p.getX() + LevelString.SEP +
+                    p.getY();
+        }  else if (object instanceof DNARepairCell) {
+            DNARepairCell p = (DNARepairCell)object;
+            return "" + LevelString.DNA_REPAIR_CELL + LevelString.SEP + p.getX() + LevelString.SEP +
+                    p.getY();
+        }  else if (object instanceof DimensionChangeBlock) {
+            DimensionChangeBlock p = (DimensionChangeBlock)object;
+            return "" + LevelString.DIMENSION_CHANGE_BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
+                    p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageForString()
+					+ LevelString.SEP + p.getJumpingToDimension();
+        }  else if (object instanceof GameBlock) {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
@@ -194,6 +210,31 @@ public class LevelLoader {
 				}
 				mb.setMessages(messages);
 				return mb;
+			case DIMENSION_CHANGE_BLOCK:
+				System.out.println("Loading Dimension Change Block");
+                return new TextBlock(
+                        parent,
+                        Float.parseFloat(split[1]),
+                        Float.parseFloat(split[2]),
+                        Float.parseFloat(split[3]),
+                        Float.parseFloat(split[4]),
+						split[5],
+						Integer.parseInt(split[6])
+                );
+			case DNA_REPAIR_CELL:
+				System.out.println("Loading DNA Repair cell");
+                return new DNARepairCell(
+                        parent,
+                        Float.parseFloat(split[1]),
+                        Float.parseFloat(split[2])
+                );
+			case RADIATION_SUCKER:
+				System.out.println("Loading Radiation Sucker");
+                return new RadiationSucker(
+                        parent,
+                        Float.parseFloat(split[1]),
+                        Float.parseFloat(split[2])
+                );
             case BLOCK:
 				System.out.println("Loading Block");
                 return new GameBlock(

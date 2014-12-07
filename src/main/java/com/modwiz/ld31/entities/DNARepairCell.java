@@ -9,6 +9,7 @@ public class DNARepairCell extends GameBlock {
 	
 	public DNARepairCell(Dimension parent, float x, float y) {
 		super(parent, x, y, 30, 30, true);
+		setName("DNA Repair Cell");
 		setCanCollide(false);
 	}
 	
