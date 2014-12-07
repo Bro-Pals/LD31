@@ -344,6 +344,9 @@ public class PropertyPanel extends JPanel {
 		p.add(animationBrowse);
 		add(p);
 		add(fields[ANIMATION]);
+		if (((Creature)editing).getAnimationString() != null) {
+			fields[ANIMATION].setText(((Creature)editing).getAnimationString());
+		}	
 	}
 	
 	public void clear() {
