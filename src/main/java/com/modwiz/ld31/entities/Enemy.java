@@ -56,6 +56,27 @@ public class Enemy extends Creature {
 		distanceNear = 50;
     }
 	
+	public boolean canSeePlayer() {
+		Player player = null;
+		for (GameObject obj : getParent().getObjects()) {
+			if (obj instanceof Player) {
+				player = (Player) obj;
+				break;
+			}
+		}
+		if (player == null) {
+			return false;
+		}
+		
+		// do some checks
+		// maybe check:
+		// * Is the player in the direction Enemy is facing
+		// * Is the player close enough to the Enemy
+		// * Does the enemy have line of sight of the player
+		
+		return true;
+	}
+	
 	@Override
 	public void update() {
 		super.update();

@@ -129,6 +129,10 @@ public class GameBlock extends GameObject {
 				float penX = largestMinX - smallestMaxX;
 				float penY = largestMinY - smallestMaxY;
 
+				if (this instanceof Player) {
+					((Player)this).setDimensionToGoTo(null); // reset it every frame
+				}
+				
 				if (penX < 0 && penY < 0) {
 					if (bl.getCanCollide() && canCollide) {
 						if (Math.abs(penY) < Math.abs(penX)) {
