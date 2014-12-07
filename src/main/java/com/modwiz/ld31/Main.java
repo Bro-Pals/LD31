@@ -44,6 +44,7 @@ public class Main {
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();
 			editor.setVisible(true);
+			editor.postInit();
 			//The level editor is now OK
 		} else {
 			System.out.println("This shows that it is working!");
