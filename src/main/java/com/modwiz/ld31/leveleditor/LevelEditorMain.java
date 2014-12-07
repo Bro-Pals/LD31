@@ -576,7 +576,7 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void checkSnappageWith(GameBlock sel, GameBlock other) {
-		if (!sel.equals(other))
+		if (!sel.equals(other)) {
 			//Check snappage in the x direction
 			int dis;
 			//Right side of selecting with left side of other
