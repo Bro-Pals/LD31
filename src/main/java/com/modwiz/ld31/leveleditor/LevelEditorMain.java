@@ -572,6 +572,9 @@ public class LevelEditorMain extends JFrame {
 				}
 			}
 			propertyPanel.updateFields();
+			if (selecting instanceof GameBlock && ((GameBlock)selecting).hasImage()) {
+				((GameBlock)selecting).resetImage();
+			}
 		}
 	}
 	
