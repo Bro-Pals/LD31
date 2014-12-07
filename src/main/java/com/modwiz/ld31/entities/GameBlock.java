@@ -3,6 +3,7 @@ package com.modwiz.ld31.entities;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import com.modwiz.ld31.world.Dimension;
+import com.modwiz.ld31.utils.assets.AssetLoader;
 
 /**
 	The basic block with width, height, and collision
@@ -14,6 +15,7 @@ public class GameBlock extends GameObject {
 	private boolean staticBlock; // Platform
 	private BufferedImage image;
 	private BufferedImage source;
+	private String imageString;
 
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -30,7 +32,7 @@ public class GameBlock extends GameObject {
 		this.height = h;
 		this.grounded = false;
 		this.staticBlock = false;
-		image = null;
+		imageString = null;
 		this.canCollide = true;
 	}
 	/**
@@ -46,13 +48,22 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock) {
 		this(parent, x, y, w, h);
 		this.staticBlock = true;
-		image = null;
+		imageString = null;
 	}
 	
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
 		this.image = image;
+		this.imageString = null;
+		resetImage();
+	}
+	
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, String imageString) {
+		this(parent, x, y, w, h, staticBlock);
+		this.staticBlock = true;
+		this.imageString = imageString;
+		this.image = AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString);
 		resetImage();
 	}
 
@@ -69,6 +80,19 @@ public class GameBlock extends GameObject {
 				g.drawImage(img, x, y, null);
 			}
 		}
+	}
+	
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
+		setImage(AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString));
+	}
+	
+    /**
+	 * Get the String that represents the image for this GameBlock.
+	 * @return The String that represents the image for this GameBlock.
+	 */
+	public String getImageForString() {
+		return imageString;
 	}
 	
 	public boolean hasImage() {
