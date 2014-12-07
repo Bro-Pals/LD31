@@ -84,6 +84,7 @@ public class Main {
 
 			Player player = Player.getSingleton();
 			player.setParent(world.getActiveDimension());
+            world.getActiveDimension().addObject(player);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
