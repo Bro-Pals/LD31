@@ -1,3 +1,4 @@
 TYPZOW$MainDimension
 TEPZOW$-782.0$120.0$2148.0$350.0$true$img/dirt.png
+TEPZOW$-595.0$-180.0$458.0$300.0$false$img/log_cabin.png
 TWPZOW

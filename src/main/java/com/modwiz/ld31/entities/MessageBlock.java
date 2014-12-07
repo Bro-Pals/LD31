@@ -38,6 +38,9 @@ public class MessageBlock extends GameBlock {
 	public Object clone() {
 		MessageBlock t =  new MessageBlock(null, getX(), getY(), getWidth(), getHeight(), getMessages(), getImageForString());
 		t.setName(getName());
+		if (getImageForString()!=null) {
+			t.setImageString(getImageForString());
+		}
 		return t;
 	}
 }

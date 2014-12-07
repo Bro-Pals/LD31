@@ -61,6 +61,8 @@ public class LevelEditorMain extends JFrame {
 	private JPanel rightPanel;
 	private JPanel southPanel;
 	private JLabel cursorPos;
+	private JMenu editMenu;
+	private JMenuItem cloneSelected;
 	private JFileChooser fc;
 	private boolean snappingToGrid;
 	private boolean snappingToObjects;
@@ -95,8 +97,10 @@ public class LevelEditorMain extends JFrame {
 		JMenuBar bar = new JMenuBar();
 		makeFileMenu();
 		makeEditorMenu();
+		makeEditMenu();
 		bar.add(fileMenu);
 		bar.add(editorMenu);
+		bar.add(editMenu);
 		setJMenuBar(bar);
 		makeEverythingElse();
 		cursorPos = new JLabel();
@@ -131,6 +135,24 @@ public class LevelEditorMain extends JFrame {
 			gameObjectFactory.createRadiationSucker(),
 			gameObjectFactory.createDNARepairCell()
 		};
+	}
+	
+	private void makeEditMenu() {
+		editMenu = new JMenu("Edit");
+		cloneSelected = new JMenuItem("Clone Selected");
+		cloneSelected.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (currentLevel!=null && currentLevel.getActiveDimension()!=null && selecting!=null) {
+					GameObject obj = (GameObject)selecting.clone();
+					obj.setX(selecting.getX() + 25);
+					obj.setY(selecting.getY() + 25);
+					currentLevel.getActiveDimension().addObject(obj);
+					viewport.repaint();
+				}
+			}
+		});
+		editMenu.add(cloneSelected);
 	}
 	
 	public void updateCursorLabel(float x, float y) {
