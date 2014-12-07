@@ -79,7 +79,9 @@ public class Main {
 			GameBlock firstBlock = new GameBlock(firstDimension, 20, 430, 300, 30, true, texture0);
 			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 100, 30, true, texture0);
 
-			Player player = new Player(firstDimension, 100, 20, 65, 120, 50, playerAnim);
+			Player player = Player.getSingleton();
+			player.setParent(firstDimension);
+			player.setAnimation(playerAnim);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
