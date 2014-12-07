@@ -3,9 +3,7 @@ package com.modwiz.ld31.utils.assets;
 import com.google.common.base.Optional;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Pretty names for assets
@@ -86,7 +84,7 @@ public class AssetRegistry<T> {
 	 * Returns a list of all the keys for all the loaded BufferedImages.
 	 * @return The array of loaded images.
 	 */
-	public String[] getAssetKeys() {
-		return (String[])map.keySet().toArray(new String[0]);
+	public Set<String> getAssetKeys() {
+        return map.keySet();
 	}
 }
