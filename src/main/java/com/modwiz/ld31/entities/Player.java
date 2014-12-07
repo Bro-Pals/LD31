@@ -94,27 +94,7 @@ public class Player extends Creature {
 	
 	@Override
 	public void render(Graphics g, float camX, float camY) {
-		if (getAnimation() != null) {
-			int rightAnim = stabbing ? 2 : 0;
-			int leftAnim = stabbing ? 3 : 1;
-			int delay = stabbing ? 2 : 8;
-			if (stabbing && getAnimation().getFrameOn() >= 4) {
-				rightAnim = 0;
-				leftAnim = 1;
-				delay = 8;
-				stabbing = false;
-			}
-			if (isFacingRight()) { 
-				getAnimation().setTrack(rightAnim, delay); // won't reset the frame if the track it's changing to is the same as it already was
-					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
-			} else {
-				getAnimation().setTrack(leftAnim, delay);
-				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX-20), (int)(getY()-camY), null);
-			}
-		} else {
-			super.render(g, camX, camY);
-		}
-		renderHealthBar(g, camX, camY);
+		super.render(g, camX, camY);
 		
 		// render the message from a MessageBlock
 		if (messagesViewing != null) {
