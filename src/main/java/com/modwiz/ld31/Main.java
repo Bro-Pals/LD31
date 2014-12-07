@@ -52,11 +52,11 @@ public class Main {
 			
 			try {
 				projectileImage = assetLoader.loadAsset(BufferedImage.class, "img/golden_projectile.png");
-				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "assets/img/enemy0Move.png");
-				playerMoving = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerMove.png");
-				playerStab = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerStab.png");
-				texture0 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture0.png");
-				texture1 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture1.png");
+				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "img/enemy0Move.png");
+				playerMoving = assetLoader.loadAsset(BufferedImage.class,"img/playerMove.png");
+				playerStab = assetLoader.loadAsset(BufferedImage.class,"img/playerStab.png");
+				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
+				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
