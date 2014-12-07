@@ -1,18 +1,37 @@
 package com.modwiz.ld31.utils.assets.loaders;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.modwiz.ld31.utils.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
-public class BufferedImageLoader extends CacheLoader<String, BufferedImage>{
+public class BufferedImageLoader implements ILoader<BufferedImage>{
+    private Cache<String, BufferedImage> cache = CacheBuilder.newBuilder().build();
     /**
      * {@inheritDoc}
      */
     @Override
-    public BufferedImage load(String key) throws Exception {
-        BufferedImage image = ImageIO.read(new File(key));
-        return image;
+    public BufferedImage getContent(final InputStream stream, final String key) {
+        try {
+            BufferedImage image = cache.get(key, new Callable<BufferedImage>() {
+                @Override
+                @Nullable
+                public BufferedImage call() throws Exception {
+                    BufferedImage image = ImageIO.read(stream);
+                    return image;
+                }
+            });
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
