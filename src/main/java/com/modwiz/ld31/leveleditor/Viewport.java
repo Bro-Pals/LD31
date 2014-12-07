@@ -182,9 +182,9 @@ public class Viewport extends JComponent {
 					frame.checkSelection(cursor);
 					repaint();
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					camMoving = true;
-					camStartX = cursor.getX();
-					camStartY = cursor.getY();
+					camX = cursor.getX() - (getWidth()/2);
+					camY = cursor.getY() - (getHeight()/2);
+					cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 					repaint();
 				}
 			}
@@ -192,9 +192,6 @@ public class Viewport extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				cursor.endDrag();
-				if (e.getButton() == MouseEvent.BUTTON3) {
-					camMoving = false;
-				}
 			}
 		});
 		
@@ -203,6 +200,7 @@ public class Viewport extends JComponent {
 			public void mouseDragged(MouseEvent e) {
 				cursor.setCursorLocation(e.getX()+camX,e.getY()+ camY);
 				frame.mouseDragged(cursor);
+				
 				repaint();
 			}
 		});
