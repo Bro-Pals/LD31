@@ -86,10 +86,14 @@ public class Enemy extends Creature {
      * @param anim   The animation for the entity
 	 * @param initialPatrolPoint The initial patrol point.
 	 * @param finalPatrolPoint The final patrol point.
+	 * @param weaponRange This enemy's weapon's range
+	 * @param weaponDamage This enemy's weapon's damage
+	 * @param weaponCooldown This enemy's weapon's cooldown
      * @see com.modwiz.ld31.entities.Creature
      */
-    public Enemy(Dimension parent, float x, float y, float w, float h, double health, String animString, int initialPatrolPoint, int finalPatrolPoint) {
+    public Enemy(Dimension parent, float x, float y, float w, float h, double health, String animString, int initialPatrolPoint, int finalPatrolPoint, double weaponRange, double weaponDamage, int weaponCooldown) {
         super(parent, x, y, w, h, health, animString);
+		setWeapon(new Weapon(this, weaponRange, weaponDamage, weaponCooldown));
         setPatrolPath(initialPatrolPoint, finalPatrolPoint);
 		patrolPointOn = true;
 		distanceNear = 50;
@@ -241,11 +245,11 @@ public class Enemy extends Creature {
 	public Object clone() {
 		//TO DO : Copy the animation
 		Enemy e;
-		if (animString!=null) {
-			e = new Enemy(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString, spawnX, path);
+		if (getAnimationString()!=null) {
+			e = new Enemy(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), getAnimationString(), getInitialPoint(),getFinalPoint(), getWeapon().getRange(), getWeapon().getDamage(), getWeapon().getCooldown());
 		} else {
 			e = new Enemy(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
-			e.setPatrolPath(spawnX, path);
+			e.setPatrolPath(getInitialPoint(),getFinalPoint());
 		}
 		e.setName(getName());
 		return e;

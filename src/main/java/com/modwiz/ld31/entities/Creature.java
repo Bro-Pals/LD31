@@ -210,10 +210,11 @@ public class Creature extends GameBlock {
 	@Override
 	public Object clone() {
 		//TO DO : Copy the animation
+		Creature c;
 		if (animString!=null) {
-			Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString);
+			c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth(), animString);
 		} else {
-			Creature c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
+			c = new Creature(null, getX(), getY(), getWidth(), getHeight(), (int)getHealth());
 		}
 		c.setName(getName());
 		return c;

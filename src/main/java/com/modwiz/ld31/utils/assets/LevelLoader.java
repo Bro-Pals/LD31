@@ -89,7 +89,9 @@ public class LevelLoader {
             return "" + LevelString.ENEMY + LevelString.SEP + e.getX() + LevelString.SEP +
                     e.getY() + LevelString.SEP + e.getWidth() + LevelString.SEP +
                     e.getHeight() + LevelString.SEP + e.getHealth() + LevelString.SEP + e.getAnimationString() +
-					LevelString.SEP + e.getInitialPoint() + LevelString.SEP + e.getFinalPoint();
+					LevelString.SEP + e.getInitialPoint() + LevelString.SEP + e.getFinalPoint() +
+					LevelString.SEP + e.getWeapon().getRange() + LevelString.SEP + e.getWeapon().getDamage() + 
+					LevelString.SEP + e.getWeapon().getCooldown();
         } else if (object instanceof Creature) {
             Creature p = (Creature)object;
             return "" + LevelString.CREATURE + LevelString.SEP + p.getX() + LevelString.SEP +
@@ -142,7 +144,10 @@ public class LevelLoader {
                         (int)Double.parseDouble(split[5]),
                         split[6],
 						Integer.parseInt(split[7]),
-						Integer.parseInt(split[8])
+						Integer.parseInt(split[8]),
+						Double.parseDouble(split[9]),
+						Double.parseDouble(split[10]),
+						Integer.parseInt(split[11])
                 );
             case CREATURE:
 				System.out.println("Loading Creature");

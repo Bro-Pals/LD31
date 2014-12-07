@@ -32,7 +32,8 @@ public class PropertyPanel extends JPanel {
 		CAN_COLLIDE = 1,
 		IMAGE = 3,
 		ANIMATION = 4,
-		PATROL_PATH = 5
+		PATROL_PATH = 5,
+		WEAPON = 6
 	;
 	
 	private JViewport view;
@@ -49,7 +50,7 @@ public class PropertyPanel extends JPanel {
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[6];
+		fields = new JTextField[7];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -67,6 +68,8 @@ public class PropertyPanel extends JPanel {
 		fields[ANIMATION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setAnimation();  } });
 		fields[PATROL_PATH] = new JTextField(6);
 		fields[PATROL_PATH].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPatrolPath();  } });
+		fields[WEAPON] = new JTextField(6);
+		fields[WEAPON].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setWeapon();  } });
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
@@ -215,27 +218,33 @@ public class PropertyPanel extends JPanel {
 	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Add more fields to this
+		removeAll();
 		if (entity instanceof Enemy) {
 			addName();
 			addPosition();
 			addSize();
 			addAnimation();
+			addStatic();
+			addCanCollide();
 			addPatrolPath();
-			lem.repaintViewport();
+			addWeapon();
 		} else if (entity instanceof Creature) {
 			addName();
 			addPosition();
 			addSize();
 			addAnimation();
-			lem.repaintViewport();
+			addStatic();
+			addCanCollide();
 		} else if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
 			addSize();
 			addImage();
-			lem.repaintViewport();
+			addStatic();
+			addCanCollide();
 		} 
 		lem.revalidate();
+		lem.repaintViewport();
 	}
 	
 	private void addPosition() {
@@ -283,6 +292,30 @@ public class PropertyPanel extends JPanel {
 	private void addCanCollide() {
 		add(checkboxes[CAN_COLLIDE]);
 		checkboxes[CAN_COLLIDE].setSelected(((GameBlock)editing).getCanCollide());
+	}
+	
+	private void addWeapon() {
+		add(new JLabel("Weapon (Range,Damage,Cooldown)"));
+		add(fields[WEAPON]);
+		fields[WEAPON].setText( "" + 
+			((Enemy)editing).getWeapon().getRange() + "," +
+			((Enemy)editing).getWeapon().getDamage() + "," + 
+			((Enemy)editing).getWeapon().getCooldown()
+		);
+	}
+	
+	private void setWeapon() {
+		try {
+			String[] wep = fields[WEAPON].getText().split(Pattern.quote(","));
+			((Enemy)editing).setWeapon(new Weapon(
+				((Enemy)editing),
+				Double.parseDouble(wep[0]),
+				Double.parseDouble(wep[1]),
+				Integer.parseInt(wep[2])
+			));
+		} catch(Exception e) {
+			//Nothing
+		}	
 	}
 	
 	private void addImage() {

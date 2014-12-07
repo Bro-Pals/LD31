@@ -5,9 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JList;
 
-import com.modwiz.ld31.entities.GameObject;
-import com.modwiz.ld31.entities.GameBlock;
-import com.modwiz.ld31.entities.GameObjectFactory;
+import com.modwiz.ld31.entities.*;
 import com.modwiz.ld31.world.*;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -379,10 +377,19 @@ public class LevelEditorMain extends JFrame {
 		if (currentLevel!=null && currentLevel.getActiveDimension()!=null) {
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
-				obj = (GameObject)obj.clone();
 				obj.setX(viewport.get2DCursor().getX());
 				obj.setY(viewport.get2DCursor().getY());
-				currentLevel.getActiveDimension().addObject(obj);
+				if (obj instanceof Player) {
+					currentLevel.getActiveDimension().addObject((Player)obj.clone());
+				} else if (obj instanceof Enemy) {
+					currentLevel.getActiveDimension().addObject((Enemy)obj.clone());
+				} else if (obj instanceof Creature) {
+					currentLevel.getActiveDimension().addObject((Creature)obj.clone());
+				} else if (obj instanceof GameBlock) {
+					currentLevel.getActiveDimension().addObject((GameBlock)obj.clone());
+				} else if (obj instanceof GameObject) {
+					currentLevel.getActiveDimension().addObject((GameObject)obj.clone());
+				}
 				viewport.repaint();
 			}
 		}
