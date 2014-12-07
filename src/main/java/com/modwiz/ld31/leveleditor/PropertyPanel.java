@@ -73,7 +73,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void openImageDialog() {
-		ImageDialog id = new ImageDialog(lem, fields[IMAGE], this);
+		
 	}
 	
 	private void setPosition() {
