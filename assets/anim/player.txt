@@ -1,5 +1,6 @@
 #track file numImgs width height [boolean]flipped
 #player move right and left
+amount 4
 0 img/playerMove.png 3 80 120 false
 1 img/playerMove.png 3 80 120 true
 #player stab right and left

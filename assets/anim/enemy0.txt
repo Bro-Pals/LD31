@@ -1,4 +1,5 @@
 #track file numImgs width height [boolean]flipped
 #enemy0 moving
+amount 2
 0 img/enemy0Move.png 4 60 100 false
 1 img/enemy0Move.png 4 60 100 true

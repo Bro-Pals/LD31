@@ -46,7 +46,7 @@ public class AnimationLoader implements ILoader<Animation> {
                 public Animation call() throws Exception {
                     Animation anim = null;
 					BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-					ArrayList<BufferedImage[]> list = new ArrayList<>();
+					BufferedImage[][] tracks = null;
 					String nextLine;
 					while((nextLine = reader.readLine()) != null) {
 						if (!nextLine.startsWith("#")) { // otherwise a comment
@@ -64,9 +64,13 @@ public class AnimationLoader implements ILoader<Animation> {
 									track[i] = flipImage(track[i], true);
 								}
 							}
+							tracks[imgNum] = track;
+						} else if (nextLine.startsWith("amount")) {
+							String[] tokens = nextLine.split(" ");
+							tracks = new BufferedImage[Integer.parseInt(tokens[1])][];
 						}
 					}
-					anim = new Animation((BufferedImage[][])list.toArray(), 7);
+					anim = new Animation(tracks, 7);
                     return anim;
                 }
             });
