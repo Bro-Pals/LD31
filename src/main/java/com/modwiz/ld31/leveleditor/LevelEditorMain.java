@@ -349,6 +349,7 @@ public class LevelEditorMain extends JFrame {
 	private void choseDimension() {
 		//Set the current dimension to the chosen one
 		if (currentLevel!=null && dimList.getSelectedValue()!=null) {
+			clearSelectedGameObject();
 			currentLevel.setActiveDimension(dimList.getSelectedValue().getName());
 			System.out.println("Selected a dimension");
 			viewport.repaint();
@@ -454,6 +455,7 @@ public class LevelEditorMain extends JFrame {
 							cursor.getY() > gb.getY() &&
 							cursor.getY() < gb.getY() + gb.getHeight()
 						) {
+							clearSelectedGameObject();
 							selectGameObject(gb);
 							found = true;
 						}
@@ -483,6 +485,7 @@ public class LevelEditorMain extends JFrame {
 		System.out.println("Snapping to grid");
 		snappingToObjects = false;
         snappingToGrid = true;
+		gridVisible.setState(true);
 		viewport.setGridVisible(true);
 		viewport.repaint();
 	}
@@ -505,6 +508,10 @@ public class LevelEditorMain extends JFrame {
 	
 	private void removeSelectedObject() {
 		System.out.println("Removing the selected object");
+		if (selecting!=null) {
+			currentLevel.getActiveDimension().removeObject(selecting);
+			viewport.repaint();
+		}
 	}
 	
 	public void onClose() {
@@ -562,6 +569,7 @@ public class LevelEditorMain extends JFrame {
 					}
 				}
 			}
+			propertyPanel.updateFields();
 		}
 	}
 	

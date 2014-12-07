@@ -111,7 +111,6 @@ public class PropertyPanel extends JPanel {
 	public void loadObject(GameObject entity) {
 		this.editing = entity;
 		//Add more fields to this
-		System.out.println("Property panel alerted of selection");
 		if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
@@ -134,10 +133,23 @@ public class PropertyPanel extends JPanel {
 		fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
 	}
 	
+	public void updatePositionField() {
+		fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
+	}
+	
 	private void addSize() {
 		add(new JLabel("Size (width, height)"));
 		add(fields[SIZE]);
 		fields[SIZE].setText("" + ((GameBlock)editing).getWidth() + "," + ((GameBlock)editing).getHeight());
+	}
+	
+	public void updateSizeField() {
+		fields[SIZE].setText("" + ((GameBlock)editing).getWidth() + "," + ((GameBlock)editing).getHeight());
+	}
+	
+	public void updateFields() {
+		updatePositionField();
+		updateSizeField();
 	}
 	
 	private void addName() {
