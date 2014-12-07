@@ -68,7 +68,7 @@ public class LevelLoader {
             for (Dimension dim : dimensions) {
                 writer.println("" + LevelString.DIM_START + LevelString.SEP + dim.getName());
                 for (GameObject obj : dim.getObjects()) {
-                    if (obj instanceof Player) {
+                    if (!(obj instanceof Player)) {
 						writer.println(writeGameObject(obj));
 					}
                 }
