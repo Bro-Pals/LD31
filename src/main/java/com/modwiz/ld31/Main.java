@@ -32,7 +32,6 @@ public class Main {
 	// Projectile speed ratio, gravity -> speed for projectiles is important
 
     public static void main(String[] args) {
-		loadAssets();
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();
@@ -113,7 +112,7 @@ public class Main {
 			player.getAcceleration().set(1, 1); // gravity!
 
 			Enemy enemy = new Enemy(firstDimension, 450, 80, 60, 100, 50, enemyAnim);
-			enemy.setPatrolPath(50);
+			enemy.setPatrolPath(100);
 			enemy.givePlayerRef(player);
 			//enemy.getVelocity().set(0, -10f);
 			enemy.getAcceleration().set(1, 1); // gravity!

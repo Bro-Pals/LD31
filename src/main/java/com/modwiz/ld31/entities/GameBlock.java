@@ -3,7 +3,6 @@ package com.modwiz.ld31.entities;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import com.modwiz.ld31.world.Dimension;
-import com.modwiz.ld31.utils.assets.Resource;
 
 /**
 	The basic block with width, height, and collision
