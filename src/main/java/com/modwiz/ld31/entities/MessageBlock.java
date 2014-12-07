@@ -11,8 +11,11 @@ public class MessageBlock extends GameBlock {
 	 * @param messages The messages in this block that will be seen when the 
 			player is colliding with MessageBlock.
 	 */
-	public MessageBlock(Dimension parent, float x, float y, float w, float h, String[] msgs) {
+	public MessageBlock(Dimension parent, float x, float y, float w, float h, String[] msgs, String imageString) {
 		super(parent, x, y, w, h, true);
+		if (imageString!=null && !imageString.equals("null")) {
+			setImageString(imageString);
+		}
 		setCanCollide(false);
 		messages = msgs;
 	}
@@ -33,7 +36,7 @@ public class MessageBlock extends GameBlock {
 	
 	@Override
 	public Object clone() {
-		MessageBlock t =  new MessageBlock(null, getX(), getY(), getWidth(), getHeight(), getMessages());
+		MessageBlock t =  new MessageBlock(null, getX(), getY(), getWidth(), getHeight(), getMessages(), getImageForString());
 		t.setName(getName());
 		return t;
 	}

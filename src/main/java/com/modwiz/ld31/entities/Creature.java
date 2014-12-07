@@ -76,7 +76,10 @@ public class Creature extends GameBlock {
 	 * @see com.modwiz.ld31.entities.GameBlock
 	 */
 	public Creature(Dimension parent, float x, float y, float w, float h, double health, String animString) {
-		this(parent, x, y, w, h, health, AssetLoader.getSingleton().loadAsset(Animation.class, animString));
+		this(parent, x, y, w, h, health, (Animation)null);
+		if (animString!=null && !animString.equals("null")) {
+			animation = AssetLoader.getSingleton().loadAsset(Animation.class, animString);
+		}
 		this.animString = animString;
 	}
 
@@ -167,6 +170,14 @@ public class Creature extends GameBlock {
 	 */
 	public double getHealth() {
 		return health;
+	}
+	
+	/**
+	 * Set the current health for the creature
+	 * @param health The new health
+	 */
+	public void setHealth(double health) {
+		this.health = health;
 	}
 
 	/**

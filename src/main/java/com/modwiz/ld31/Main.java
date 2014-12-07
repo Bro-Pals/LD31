@@ -9,6 +9,7 @@ import com.modwiz.ld31.world.*;
 import com.modwiz.ld31.world.Dimension;
 import horsentp.simpledrawing.DrawWindow;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,16 +29,26 @@ public class Main {
 	private static float camX = 0;
 	private static float camY = 0; 
 
+	private static GameWorld world;
+	
+	public static GameWorld getCurrentWorld() { return world; }
+	
 	// Ratio of our 1 to real 9.8
 	public static final double GRAVITY_RATIO = 1.1;
-    public static void main(String[] args) {
+	private static boolean manualCam = false;
+	private static int manualCamCooldown;
+	private static final float camMoveRate = 2;
+
+	public static void main(String[] args) {
         GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
         GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
-        GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
+		GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
+		GameWorld testLevel = LevelLoader.getLevel("Levels/testLevel.txt");
         ArrayList<GameWorld> worlds = new ArrayList<GameWorld>();
         worlds.add(level1);
         worlds.add(level2);
         worlds.add(level3);
+		worlds.add(testLevel);
 
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			preloadAssets(); //For the level editor
@@ -80,7 +91,7 @@ public class Main {
 				System.exit(0);
 			}
 
-            GameWorld world = level1;
+            world = level1;
             world.setActiveDimension("MainDimension");
 
 			Player player = Player.getSingleton();
@@ -97,6 +108,22 @@ public class Main {
 
 			window.getRawFrame().setBackground(Color.gray);
 
+			window.getRawFrame().addKeyListener(new KeyListener() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+
+				}
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					keys[e.getKeyCode()] = true;
+				}
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+					keys[e.getKeyCode()] = false;
+				}
+			});
 			while(window.exists()) {
 				start = System.currentTimeMillis();
                 if(world.getActiveDimension() != player.getParent()){
@@ -107,30 +134,26 @@ public class Main {
 							window.getRawFrame().getLocation().getX() + camX), 
 							(int)(MouseInfo.getPointerInfo().getLocation().getY() -
 							window.getRawFrame().getLocation().getY()+ camY));
-			
-				// handle key events
-				KeyEvent keyEvent;
-				while ((keyEvent = window.nextKeyPressedEvent()) != null) {
-					changeKey(keyEvent.getKeyCode(), true);
-					if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
-						player.cycleMessages();
-					} else if (keyEvent.getKeyCode() == KeyEvent.VK_1){
-                        world.getActiveDimension().removeObject(player);
-                        world.setActiveDimension("MainDimension");
-                        world.getActiveDimension().addObject(player);
-                    } else if (keyEvent.getKeyCode() == KeyEvent.VK_2){
-                        world.getActiveDimension().removeObject(player);
-                        world.setActiveDimension("future");
-                        world.getActiveDimension().addObject(player);
-                    } else if (keyEvent.getKeyCode() == KeyEvent.VK_3){
-                        world.getActiveDimension().removeObject(player);
-                        world.setActiveDimension("past");
-                        world.getActiveDimension().addObject(player);
-                    }
+				if (keys[KeyEvent.VK_S]) {
+					player.cycleMessages();
 				}
-				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
-					changeKey(keyEvent.getKeyCode(), false);
+
+				if (keys[KeyEvent.VK_1]) {
+					world.getActiveDimension().removeObject(player);
+					world.setActiveDimension("past");
+					world.getActiveDimension().addObject(player);
+				} else if (keys[KeyEvent.VK_2]) {
+					world.getActiveDimension().removeObject(player);
+					world.setActiveDimension("MainDimension");
+					world.getActiveDimension().addObject(player);
+				} else if (keys[KeyEvent.VK_3]) {
+					world.getActiveDimension().removeObject(player);
+					world.setActiveDimension("future");
+					world.getActiveDimension().addObject(player);
 				}
+
+				changeKey();
+
 				MouseEvent mouseEvent;
 				while((mouseEvent = window.nextMousePressedEvent() ) != null) {
 					if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
@@ -151,6 +174,9 @@ public class Main {
 				if (w) {
 					player.jump(15);
 				}
+
+				doCameraUpdate(player, width, height);
+
 				player.setSneaking(shift);
 				
 				world.updateDimension();
@@ -168,9 +194,60 @@ public class Main {
 		}
     }
 
+	private static void doCameraUpdate(final Player player, final int width, final int height) {
+		if (keys[KeyEvent.VK_NUMPAD5]) {
+			camX = player.getX() - (width / 2.0f);
+			if (camX < 0) {
+				camX = 0;
+			}
+			camY = player.getY() - (height / 2.0f);
+		} else if (keys[KeyEvent.VK_NUMPAD4]) {
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD6]) {
+			camX += 1;
+		} else if (keys[KeyEvent.VK_NUMPAD0]) {
+			if (manualCamCooldown <= 0) {
+				manualCam = !manualCam;
+				manualCamCooldown = 20;
+			}
+		} else if (keys[KeyEvent.VK_NUMPAD2]) {
+			camY += camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD8]) {
+			camY -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD1]) {
+			camY += camMoveRate;
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD3]) {
+			camY += camMoveRate;
+			camX += camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD7]) {
+			camY -= camMoveRate;
+			camX -= camMoveRate;
+		} else if (keys[KeyEvent.VK_NUMPAD9]) {
+			camY -= camMoveRate;
+			camX += camMoveRate;
+		}
+		manualCamCooldown--;
+
+		if (!manualCam) {
+			camX = player.getX() - (width / 2.0f);
+
+			if (camX < 0) {
+				camX = 0;
+			} else if (camX > (width / 2.0)) {
+				System.out.println(camX);
+			}
+
+			if (camX < 0) {
+				camX = 0;
+			}
+			camY = player.getY() - (height / 2.0f);
+		}
+	}
+
 	/**
 	 * Makes the game play in the given level.
-	 * @param the path to the playing level relative to the assets directory.
+	 * @param wrld path to the playing level relative to the assets directory.
 	 */
 	public GameWorld setPlayingLevel(GameWorld wrld, ArrayList<GameWorld> wrlds) {
 		if (wrld!=null) {
@@ -185,16 +262,15 @@ public class Main {
 		}
         return wrld;
 	}
+
+	private static final boolean[] keys = new boolean[65535];
 	
-	private static void changeKey(int keyCode, boolean value) {
-		switch(keyCode) {
-			case KeyEvent.VK_SPACE: // Space should jump too.
-			case KeyEvent.VK_W: w = value; break;
-			case KeyEvent.VK_A: a = value; break;
-			case KeyEvent.VK_S: s = value; break;
-			case KeyEvent.VK_D: d = value; break;
-			case KeyEvent.VK_SHIFT: shift = value; break;
-		}
+	private static void changeKey() {
+		w = keys[KeyEvent.VK_SPACE] || keys[KeyEvent.VK_W];
+		a = keys[KeyEvent.VK_A];
+		s = keys[KeyEvent.VK_S];
+		d = keys[KeyEvent.VK_D];
+		shift = keys[KeyEvent.VK_SHIFT];
 	}
 	
 	private static void preloadAssets() {

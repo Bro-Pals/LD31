@@ -19,7 +19,7 @@ public class DNARepairCell extends GameBlock {
 	 */
 	public void onCollide(GameBlock other) {
 		if (!isDead() && other instanceof Player) {
-			((Player)other).damage(-5); // heal 5 health
+			((Player)other).damage(-20); // heal 5 health
 			setDead(true);
 		}
 	}

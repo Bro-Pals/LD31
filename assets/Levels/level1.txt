@@ -1,10 +1,10 @@
 TYPZOW$future
-TEPZOW$0.0$200.0$337.0$50.0$true$img/metal.png
+TEPZOW$0.0$200.0$1000.0$50.0$true$img/metal.png
 TWPZOW
 TYPZOW$past
-TEPZOW$0.0$200.0$246.0$50.0$true$img/wood.png
+TEPZOW$0.0$200.0$1000.0$50.0$true$img/wood.png
 TWPZOW
 TYPZOW$MainDimension
 TEPZOW$-11.0$207.0$596.0$53.0$true$img/brick.png
-LEPZVQ$404.0$107.0$26.0$100.0$10.0$anim/modernGuard.animation$50$100$55.0$3.0$12
+LEPZVQ$404.0$107.0$26.0$100.0$10.0$anim/modernGuard.animation$50$100$55.0$10.0$40
 TWPZOW

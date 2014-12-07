@@ -45,7 +45,7 @@ public class GameObjectFactory {
 	public Enemy createMeleeEnemy() {
 		Enemy enemy = createEnemy();
 		enemy.setName("Melee Enemy");
-		enemy.setWeapon(new Weapon(enemy, 35, 3, 42));
+		enemy.setWeapon(new Weapon(enemy, 35, 10, 42));
 		return enemy;
 	}
 	
@@ -56,7 +56,7 @@ public class GameObjectFactory {
 	public Enemy createRangedEnemy() {
 		Enemy enemy = createEnemy();
 		enemy.setName("Ranged Enemy");
-		enemy.setWeapon(new Weapon(enemy, 444, 3, 83));
+		enemy.setWeapon(new Weapon(enemy, 444, 20, 83));
 		return enemy;
 	}
 	
@@ -130,11 +130,15 @@ public class GameObjectFactory {
 		@return A default DNARepairCell
 	*/
 	public DNARepairCell createDNARepairCell() {
-		return new DNARepairCell(null, 0, 0);
+        DNARepairCell dnar = new DNARepairCell(null, 0, 0);
+        dnar.setImageString("img/generepair.png");
+        return dnar;
 	}
 	
 	public DNARepairCell createDNARepairCell(Dimension parent, float x, float y) {
-		return new DNARepairCell(parent, x, y);
+        DNARepairCell dnar = new DNARepairCell(parent, x, y);
+        dnar.setImageString("img/generepair.png");
+        return dnar;
 	}
 	
 	/**
@@ -154,7 +158,7 @@ public class GameObjectFactory {
 		@return A default DimensionChangeBlock
 	*/
 	public DimensionChangeBlock createDimensionChangeBlock() {
-		return new DimensionChangeBlock(null, 0, 0, 100, 100, (String)null);
+		return new DimensionChangeBlock(null, 0, 0, 100, 100, null, null);
 	}
 	
 	public DimensionChangeBlock createDimensionChangeBlock(Dimension parent, float x, float y, float width, float height, Dimension dimTo) {
@@ -167,13 +171,13 @@ public class GameObjectFactory {
 		@return A default DimensionChangeBlock
 	*/
 	public MessageBlock createMessageBlock() {
-		MessageBlock mb = new MessageBlock(null, 0, 0, 100, 100, new String[]{"Default message", "Another default message"});
+		MessageBlock mb = new MessageBlock(null, 0, 0, 100, 100, new String[]{"Default message", "Another default message"}, null);
 		mb.setName("Message Block");
 		return  mb;
 	}
 	
 	public MessageBlock createMessageBlock(Dimension parent, float x, float y, float width, float height, String[] msgs) {
-		MessageBlock mb = new MessageBlock(parent, x, y, width, height, msgs);
+		MessageBlock mb = new MessageBlock(parent, x, y, width, height, msgs, null);
 		mb.setName("Message Block");
 		return  mb;
 	}

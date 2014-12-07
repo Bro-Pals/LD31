@@ -80,6 +80,7 @@ public class LevelLoader {
             System.out.println("Successfully saved level: " + file.getPath());
         } catch(Exception e) {
             System.err.println("Could not save level " + file.getPath());
+			e.printStackTrace();
         }
     }
 
@@ -108,7 +109,7 @@ public class LevelLoader {
             MessageBlock p = (MessageBlock)object;
             String str = "" + LevelString.MESSAGE + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight();
+                    p.getHeight() + LevelString.SEP + p.getImageForString();
 			str += ("" + LevelString.SEP + (p.getMessages().length-1));
 			for (int i=0; i<p.getMessages().length; i++) {
 				str += ("" + LevelString.SEP + p.getMessages()[i]);
@@ -126,8 +127,8 @@ public class LevelLoader {
             DimensionChangeBlock p = (DimensionChangeBlock)object;
             return "" + LevelString.DIMENSION_CHANGE_BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageForString()
-					+ LevelString.SEP + p.getJumpingToDimension();
+                    p.getHeight()
+					+ LevelString.SEP + p.getJumpingToDimension() + LevelString.SEP + p.getImageForString();
         }  else if (object instanceof GameBlock) {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
@@ -199,27 +200,29 @@ public class LevelLoader {
                         Float.parseFloat(split[2]),
                         Float.parseFloat(split[3]),
                         Float.parseFloat(split[4]),
-						null
+						null,
+						split[5]
                 );
 				//Parse the message block
-				int msgCount = Integer.parseInt(split[5]);
-				String[] messages = new String[split.length-5];
+				int msgCount = Integer.parseInt(split[6]);
+				String[] messages = new String[split.length-6];
 				for (int i=0; i<msgCount; i++) {
-					messages[i] = split[5+i];
+					messages[i] = split[6+i];
 				}
 				mb.setMessages(messages);
 				return mb;
 			case DIMENSION_CHANGE_BLOCK:
 				System.out.println("Loading Dimension Change Block");
-                return new TextBlock(
-                        parent,
-                        Float.parseFloat(split[1]),
-                        Float.parseFloat(split[2]),
-                        Float.parseFloat(split[3]),
-                        Float.parseFloat(split[4]),
-						split[5],
-						Integer.parseInt(split[6])
-                );
+                DimensionChangeBlock dcb= new DimensionChangeBlock(
+					parent,
+					Float.parseFloat(split[1]),
+					Float.parseFloat(split[2]),
+					Float.parseFloat(split[3]),
+					Float.parseFloat(split[4]),
+					split[5],
+					split[6]
+				);
+				return dcb;
 			case DNA_REPAIR_CELL:
 				System.out.println("Loading DNA Repair cell");
                 return new DNARepairCell(
