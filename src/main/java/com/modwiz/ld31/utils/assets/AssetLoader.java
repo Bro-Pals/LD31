@@ -4,6 +4,8 @@ import com.modwiz.ld31.utils.annotations.NotNull;
 import com.modwiz.ld31.utils.annotations.Nullable;
 import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
 import com.modwiz.ld31.utils.assets.loaders.ILoader;
+import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
+import com.modwiz.ld31.entities.draw.Animation;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,9 +15,20 @@ public class AssetLoader {
     private HashMap<Class, ILoader> loaderMap = new HashMap<>();
     private ProviderBase streamProvider;
 
+    private static AssetLoader singleton;
+
+    public static AssetLoader getSingleton() {
+        if (singleton != null) {
+            return singleton;
+        }
+        singleton = new AssetLoader(new File("assets"));
+        return singleton;
+    }
+
     public AssetLoader(File rootDir) {
         streamProvider = new ProviderBase(rootDir);
         registerLoader(BufferedImage.class, new BufferedImageLoader());
+        registerLoader(Animation.class, new AnimationLoader(this));
     }
 
     public boolean registerLoader(@NotNull Class typeToLoad, @NotNull ILoader assetLoader) {
@@ -39,6 +52,11 @@ public class AssetLoader {
         }
 
         return (T) loaderMap.get(type).getContent(streamProvider.provideAsset(path), path);
+    }
+
+    @Nullable
+    public <T, K extends ILoader<T>> K getLoader(Class<T> type) {
+        return (K) loaderMap.get(type);
     }
 
 }

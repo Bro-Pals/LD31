@@ -52,11 +52,11 @@ public class Main {
 			
 			try {
 				projectileImage = assetLoader.loadAsset(BufferedImage.class, "img/golden_projectile.png");
-				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "assets/img/enemy0Move.png");
-				playerMoving = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerMove.png");
-				playerStab = assetLoader.loadAsset(BufferedImage.class,"assets/img/playerStab.png");
-				texture0 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture0.png");
-				texture1 = assetLoader.loadAsset(BufferedImage.class,"assets/img/texture1.png");
+				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "img/enemy0Move.png");
+				playerMoving = assetLoader.loadAsset(BufferedImage.class,"img/playerMove.png");
+				playerStab = assetLoader.loadAsset(BufferedImage.class,"img/playerStab.png");
+				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
+				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -203,19 +203,5 @@ public class Main {
 			case KeyEvent.VK_SHIFT: shift = value; break;
 		}
 	}
-	
-	private static BufferedImage flipImage(BufferedImage img, boolean horiz) {
-		BufferedImage flipped = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TRANSLUCENT);
-		Graphics g = flipped.getGraphics();
-		if (horiz) {
-			for (int i=0; i<img.getWidth(); i++) {
-				g.drawImage(img.getSubimage(img.getWidth() - i - 1, 0, 1, img.getHeight()), i, 0, null);
-			}
-		} else {
-			for (int i=0; i<img.getHeight(); i++) {
-				g.drawImage(img.getSubimage(0, img.getHeight() - i - 1, img.getWidth(), 1), 0, i, null);
-			}
-		}
-		return flipped;
-	}
+
 }
