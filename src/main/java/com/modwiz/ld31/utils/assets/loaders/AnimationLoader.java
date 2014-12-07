@@ -34,6 +34,9 @@ public class AnimationLoader implements ILoader<Animation> {
      */
 	 @Override
 	public Animation getContent(final InputStream stream, final String key) {
+		if (key==null) {
+			return null;
+		}
 		try {
             Animation animatation = cache.get(key, new Callable<Animation>() {
                 @Override
