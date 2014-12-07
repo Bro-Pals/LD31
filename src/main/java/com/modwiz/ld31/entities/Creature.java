@@ -115,7 +115,6 @@ public class Creature extends GameBlock {
 	 * @param y The y coordinate where the attack was attempted
 	 */
 	public void useWeapon(int x, int y) {
-		System.out.println("WEAPON USE");
 		facingRight = x > (getX() + (getWidth()/2));
 		weapon.use((Vector2)(new Vector2(x - (getX() + (getWidth()/2)), 
 							y - (getY() + (getHeight()/2))).normalize())); // use the weapon if it's within range;
@@ -187,6 +186,9 @@ public class Creature extends GameBlock {
 	@Override
 	public void update() {
 		super.update(); // collision stuff from GameBlock
+        if (getY()> 1000){
+            this.setDead(true);
+        }
 		if (!(this instanceof Player) && getVelocity().getX() != 0) {
 			facingRight = getVelocity().getX() > 0;
 		}
