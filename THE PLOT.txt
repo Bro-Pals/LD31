@@ -2,3 +2,44 @@ FizzBuzz Enterprise is trying to buy all of the stocks
 in the world, he already has 80% of them. The CEO of the company
 is guarded by his office managers. You are an Interdimensional
 Assassin hired to kill him, in order to save the Free World.
+
+
+Dimension 1: Present dimension
+-Enemies: Human guards
+-Floor / blocks: Cement
+-Background: cement wall
+
+
+-----Level 1-----
+Dimension 2: Future dimension
+-Enemies: Gangsters that have taken over the building
+-Floor / blocks: Overgrown building
+
+Dimension 3: Past dimension
+-Enemies: 1920s Person in a suit
+-Floor / Blocks: fancier wood / carpet floor
+
+
+
+-----Level 2----
+Dimension 2: Future dimension
+-Enemies: Stronger and tougher looking guards
+-Floor / blocks: Newer different office building. (carpeting?)
+
+Dimension 3: Past dimension
+-Enemies: Colonist!
+-Floor / Blocks: dirt floor / cobblestone road
+- Background: old town area
+
+
+
+-----Level 3----
+Dimension 2: Future dimension
+-Enemies: Death Robots
+-Floor / blocks: metallic metal stuff
+
+
+Dimension 3: Past dimension
+-Enemies: Cavemen!
+-Floor / Blocks: jungle/dirt floor
+- Background: Forest / old town area
