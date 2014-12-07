@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Player extends Creature {
 
-	private boolean sneaking, stabbing;
+	private boolean sneaking;
 	private double radiationLevel, dimensionJumpDamageDuration;
 	/** If the player is standing on a DimensionChangeBlock, then this is a reference to that
 		block. Otherwise, this value is null. */
@@ -41,7 +41,6 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
 		sneaking = false;
-		stabbing = false;
 		radiationLevel = 0;
 		dimensionToGoTo = null;
 		setWeapon(new Weapon(this, 35, 3, 42));
@@ -63,7 +62,6 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
         super(parent, x, y, w, h, health, anim);
 		sneaking = false;
-		stabbing = false;
 		radiationLevel = 0;
 		dimensionToGoTo = null;
 		dimensionJumpDamageDuration = 0;
@@ -85,7 +83,6 @@ public class Player extends Creature {
     public Player(Dimension parent, float x, float y, float w, float h, double health, String animationString) {
         super(parent, x, y, w, h, health, animationString);
 		sneaking = false;
-		stabbing = false;
 		radiationLevel = 0;
 		dimensionToGoTo = null;
 		dimensionJumpDamageDuration = 0;
@@ -176,7 +173,7 @@ public class Player extends Creature {
 	@Override
 	public void useWeapon(int x, int y) {
 		super.useWeapon(x, y);
-		stabbing = true;
+		setAttacking(true);
 	}
 	
     /**
