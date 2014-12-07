@@ -59,7 +59,7 @@ public class GameBlock extends GameObject {
 		setImage(this.source);
 	}
 	
-	public void setImage(Resource<BufferedImage> img, String imageName) {
+	public void setImage(Resource<BufferedImage> img) {
 		source = img;
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
