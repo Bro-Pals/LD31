@@ -175,7 +175,6 @@ public class GameBlock extends GameObject {
 				float penY = largestMinY - smallestMaxY;
 
 				if (this instanceof Player) {
-					((Player)this).setDimensionToGoTo(null); // reset it every frame
 					((Player)this).setMessages(null); 
 				}
 				

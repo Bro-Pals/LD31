@@ -22,7 +22,7 @@ public class DimensionChangeBlock extends GameBlock {
 	 */
 	public void onCollide(GameBlock other) {
 		if (other instanceof Player) {
-			((Player)other).setDimensionToGoTo(dimensionTo);
+            ((Player) other).jumpDimension(dimensionTo);
 		}
 	}
 	

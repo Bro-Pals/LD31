@@ -8,10 +8,9 @@ import java.awt.*;
 public class Player extends Creature {
 
 	private boolean sneaking;
-	private double radiationLevel, dimensionJumpDamageDuration;
+	private double radiationLevel;
 	/** If the player is standing on a DimensionChangeBlock, then this is a reference to that
 		block. Otherwise, this value is null. */
-	private Dimension dimensionToGoTo;
 	/** The message the player is currently viewing. If this is null, there is no messages*/
 	private String[] messagesViewing;
 	private int messageOn;
@@ -40,11 +39,9 @@ public class Player extends Creature {
      */
     public Player(Dimension parent, float x, float y, float w, float h, double health) {
         super(parent, x, y, w, h, health);
-		sneaking = false;
-		radiationLevel = 0;
-		dimensionToGoTo = null;
-		setWeapon(new Weapon(this, 35, 3, 42));
-		dimensionJumpDamageDuration = 0;
+        sneaking = false;
+        radiationLevel = 0;
+        setWeapon(new Weapon(this, 35, 3, 42));
     }
 	
     /**
@@ -63,8 +60,6 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health, anim);
 		sneaking = false;
 		radiationLevel = 0;
-		dimensionToGoTo = null;
-		dimensionJumpDamageDuration = 0;
 		setWeapon(new Weapon(this, 35, 30, 42));
     }
 
@@ -84,8 +79,6 @@ public class Player extends Creature {
         super(parent, x, y, w, h, health, animationString);
 		sneaking = false;
 		radiationLevel = 0;
-		dimensionToGoTo = null;
-		dimensionJumpDamageDuration = 0;
 		setWeapon(new Weapon(this, 35, 3, 42));
     }
 	
@@ -126,15 +119,12 @@ public class Player extends Creature {
 		The Player's parent becomes the new dimension. After this
 		is called, dimensionToGoTo becomes null
 	*/
-	public void jumpDimension() {
-		if (dimensionToGoTo != null) {
-			dimensionJumpDamageDuration += 40; // frames
+	public void jumpDimension(Dimension dim) {
 			getParent().getObjects().remove(this);
-			setParent(dimensionToGoTo);
-			getParent().getObjects().add(this);
-			dimensionToGoTo = null;
-		}
-	}
+			setParent(dim);
+            getParent().addObject(this);
+    }
+
 	
 	/**
 		View the next message
@@ -153,15 +143,7 @@ public class Player extends Creature {
 			messageOn = 0;
 		}
 	}
-	
-	public Dimension getDimensionToGoTo() {
-		return this.dimensionToGoTo;
-	}
-	
-	public void setDimensionToGoTo(Dimension d) {
-		this.dimensionToGoTo = d;
-	}
-	
+
     /**
      * Set sneaking mode, this reduces enemy detection? TODO: Clarify what this does
      * @param s Whether or not the player is sneaking

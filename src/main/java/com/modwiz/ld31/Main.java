@@ -100,6 +100,9 @@ public class Main {
 
 			while(window.exists()) {
 				start = System.currentTimeMillis();
+                if(world.getActiveDimension() != player.getParent()){
+                    world.setActiveDimension(player.getParent().getName());
+                }
 				Graphics g = window.getDrawGraphics();
 				Point mousePosition = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX() -
 							window.getRawFrame().getLocation().getX() + camX), 
