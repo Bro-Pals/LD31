@@ -132,8 +132,6 @@ public class Enemy extends Creature {
 	public void update() {
 		super.update();
 		float distFromNextX = distFrom(getX());
-			System.out.println("I am going to move towards it now");
-			System.out.println("Distance from on X: " + distFromNextX);
         if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {
@@ -142,13 +140,19 @@ public class Enemy extends Creature {
         if ((int)distFromNextX <= 5 && frame > 1){
             patrolPointOn = !patrolPointOn;
         }
-
+        if(canSeePlayer()){
+            if(Math.abs(getX()-player.getX())>(Math.abs(getX()-1-player.getX()))){
+                getVelocity().set(0,-3);
+            } else {
+                getVelocity().set(0,3);
+            }
+        }
         frame++;
 
     }
 
     public float distFrom(float x){
-        return Math.abs(x - (patrolPointOn ? patrolPoint : spawnX));
+        return Math.abs(x - (patrolPointOn ? spawnX + patrolPoint : spawnX));
     }
 
 	
