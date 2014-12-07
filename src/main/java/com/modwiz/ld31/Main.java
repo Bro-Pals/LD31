@@ -112,7 +112,7 @@ public class Main {
 			player.getAcceleration().set(1, 1); // gravity!
 
 			Enemy enemy = new Enemy(firstDimension, 450, 80, 60, 100, 50, enemyAnim);
-			enemy.setPatrolPath(new int[][]{{100, 350}, {400, 350}});
+			enemy.setPatrolPath(100);
 			enemy.givePlayerRef(player);
 			//enemy.getVelocity().set(0, -10f);
 			enemy.getAcceleration().set(1, 1); // gravity!
