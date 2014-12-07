@@ -49,7 +49,7 @@ public class Main {
 			BufferedImage projectileImage = null;
 			BufferedImage texture0 = null;
 			BufferedImage texture1 = null;
-
+			
 			try {
 				projectileImage = assetLoader.loadAsset(BufferedImage.class, "img/golden_projectile.png");
 				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "assets/img/enemy0Move.png");

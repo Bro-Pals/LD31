@@ -50,30 +50,26 @@ public class GameBlock extends GameObject {
 		image = null;
 	}
 	
-	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, String imageKey) {
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, BufferedImage image) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
-		setImage(null, imageKey);
+		this.image = image;
 	}
 
 	public void resetImage() {
-		setImage(this.image, this.imageKey);
+		setImage(this.image);
 	}
 	
-	public void setImage(String imageKey) {
+	public void setImage(BufferedImage image) {
 		this.imageKey = imageKey;
 		BufferedImage img = null; //Need to get the image here?
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
 		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
 			for (int y=0; y < (int)getHeight() + img.getHeight(); y += img.getHeight()) {
-				g.drawImage(img.getContent(), x, y, null);
+				g.drawImage(img, x, y, null);
 			}
 		}
-	}
-	
-	public String getImageKey() { 
-		return imageKey;
 	}
 	
 	public boolean hasImage() {
