@@ -30,6 +30,9 @@ public class Main {
 	// Ratio of our 1 to real 9.8
 	private static final double GRAVITY_RATIO = 0.1020408163265306;
 
+	//The currently played level
+	private static GameWorld level = null;
+	
 	// Projectile speed ratio, gravity -> speed for projectiles is important
 
     public static void main(String[] args) {
@@ -145,6 +148,22 @@ public class Main {
 		}
     }
 
+	/**
+	 * Makes the game play in the given level.
+	 * @param the path to the playing level relative to the assets directory.
+	 */
+	public static void setPlayingLevel(String levelPath) {
+		if (level!=null) {
+			level.getDimension("MainDimension").removeObject(Player.getSingleton());
+		}
+		GameWorld dieWelt = LevelLoader.getLevel(levelPath);
+		Player.getSingleton().setX(0);
+		Player.getSingleton().setY(0);
+		dieWelt.getDimension("MainDimension").addObject(Player.getSingleton());
+		dieWelt.setActiveDimension("MainDimension");
+		level = dieWelt;
+	}
+	
 	private static void changeKey(int keyCode, boolean value) {
 		switch(keyCode) {
 			case KeyEvent.VK_SPACE: // Space should jump too.
