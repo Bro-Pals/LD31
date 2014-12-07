@@ -182,7 +182,6 @@ public class Enemy extends Creature {
 	@Override
 	public void update() {
 		super.update();
-        System.out.println(canSeePlayer());
         float distFromNextX = distFrom(getX());
 		if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
@@ -199,10 +198,7 @@ public class Enemy extends Creature {
             } else {
                 getVelocity().set(0,3);
             }
-			System.out.println("I HAVE MOVED TOWARDS TEH PLAYER");
-			System.out.println("RANGE " + getWeapon().getRange());
 			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
-				System.out.println("I'M GOING TO ATTACK U PALYER");
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
 			}
         } else {
