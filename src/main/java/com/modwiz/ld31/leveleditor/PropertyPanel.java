@@ -2,12 +2,15 @@ package com.modwiz.ld31.leveleditor;
 
 import com.modwiz.ld31.entities.*;
 
+import com.modwiz.ld31.utils.assets.AssetRegistry;
 import com.modwiz.ld31.utils.assets.CachedLoader;
 import com.modwiz.ld31.utils.assets.AssetLoader;
 import com.modwiz.ld31.utils.assets.AssetRegistry;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import java.awt.GridLayout;
@@ -69,13 +72,13 @@ public class PropertyPanel extends JPanel {
 		imageBrowse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] keySet = AssetRegistry.bufferedImageRegistry.getAssetKeys();
+				Set<String> keySet = AssetRegistry.bufferedImageRegistry.getAssetKeys();
 				final JDialog log = new JDialog(lem);
 				log.setVisible(true);
 				log.pack();
 				log.setLocationRelativeTo(lem);
 				log.setTitle("Chooser an image");
-				final JList<String> list = new JList<String>(keySet);
+				final JList<String> list = new JList<String>((String[]) keySet.toArray());
 				final JButton button = new JButton("Accept");
 				button.addActionListener(new ActionListener() {
 					@Override
@@ -88,8 +91,6 @@ public class PropertyPanel extends JPanel {
 						}
 					}
 				});
-				log.add(list);
-				log.add(button);
 			}
 		});
 	}
