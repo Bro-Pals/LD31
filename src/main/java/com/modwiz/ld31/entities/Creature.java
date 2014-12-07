@@ -38,7 +38,7 @@ public class Creature extends GameBlock {
 		animation = null; // no animation :(
 		this.health = health;
 		this.maxHealth = health;
-		weapon = new Weapon(this, 35, 3, 12); // default weapon
+		weapon = new Weapon(this, 50, 3, 20); // default weapon
 		animString = null;
 		attacking = false;
 		attackAnimDelay = 2;
@@ -115,9 +115,11 @@ public class Creature extends GameBlock {
 	 * @param y The y coordinate where the attack was attempted
 	 */
 	public void useWeapon(int x, int y) {
+		System.out.println("WEAPON USE");
 		facingRight = x > (getX() + (getWidth()/2));
 		weapon.use((Vector2)(new Vector2(x - (getX() + (getWidth()/2)), 
 							y - (getY() + (getHeight()/2))).normalize())); // use the weapon if it's within range;
+		setAttacking(true);
 	}
 
 	/**

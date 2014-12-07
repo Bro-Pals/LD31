@@ -87,9 +87,11 @@ public class Enemy extends Creature {
 	 * @param weaponCooldown This enemy's weapon's cooldown
      * @see com.modwiz.ld31.entities.Creature
      */
-    public Enemy(Dimension parent, float x, float y, float w, float h, double health, String animString, int initialPatrolPoint, int finalPatrolPoint, double weaponRange, double weaponDamage, int weaponCooldown) {
+    public Enemy(Dimension parent, float x, float y, float w, float h, double health, String animString, int initialPatrolPoint, 
+			int finalPatrolPoint, double weaponRange, double weaponDamage, int weaponCooldown) {
         super(parent, x, y, w, h, health, animString);
 		setWeapon(new Weapon(this, weaponRange, weaponDamage, weaponCooldown));
+		System.out.println("WEAPON RANGE: "  + getWeapon().getRange());
         setPatrolPath(initialPatrolPoint, finalPatrolPoint);
 		patrolPointOn = true;
 		distanceNear = 50;
@@ -195,6 +197,12 @@ public class Enemy extends Creature {
             } else {
                 getVelocity().set(0,3);
             }
+			System.out.println("I HAVE MOVED TOWARDS TEH PLAYER");
+			System.out.println("RANGE " + getWeapon().getRange());
+			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
+				System.out.println("I'M GOING TO ATTACK U PALYER");
+				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
+			}
         }
         frame++;
 
