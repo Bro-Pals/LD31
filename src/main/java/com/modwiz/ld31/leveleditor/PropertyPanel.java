@@ -135,7 +135,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	public void setImage() {
-		
+		((GameBlock)editing).setImageString(fields[IMAGE].getText());
 		lem.repaintViewport();
 	}
 	

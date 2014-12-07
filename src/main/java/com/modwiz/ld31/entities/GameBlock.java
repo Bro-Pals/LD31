@@ -82,6 +82,11 @@ public class GameBlock extends GameObject {
 		}
 	}
 	
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
+		setImage(AssetLoader.getSingleton().loadAsset(BufferedImage.class, imageString));
+	}
+	
     /**
 	 * Get the String that represents the image for this GameBlock.
 	 * @return The String that represents the image for this GameBlock.
