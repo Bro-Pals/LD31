@@ -1,73 +1,59 @@
 package com.modwiz.ld31.utils.assets;
 
-
-import com.google.common.base.Optional;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.modwiz.ld31.entities.*;
-import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
-import com.modwiz.ld31.utils.assets.loaders.GameWorldLoader;
-import com.modwiz.ld31.world.Dimension;
-import com.modwiz.ld31.world.GameWorld;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.PrintWriter;
+import com.modwiz.ld31.entities.*;
+import com.modwiz.ld31.world.*;
 import java.util.regex.Pattern;
 
 /**
- * Uses a {@link com.google.common.cache.LoadingCache} to prevent excessive io and such
- */
-public class CachedLoader extends AssetLoader {
-    private LoadingCache<String, BufferedImage> bufferedImageCache;
-    private LoadingCache<String, GameWorld> gameWorldLoadingCache;
-
-    public CachedLoader() {
-        bufferedImageCache = CacheBuilder.newBuilder().build(new BufferedImageLoader());
-        gameWorldLoadingCache = CacheBuilder.newBuilder().build(new GameWorldLoader());
+	Loads levels.
+*/
+public class LevelLoader {
+	
+    public static GameWorld getLevel(String levelPath) {
+        return getLevelFromFile(new File(levelPath));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T> Optional<Resource<T>> getResource(String resourcePath, Class<T> resourceType) {
-        if (resourceType == BufferedImage.class) {
-            return Optional.fromNullable(new Resource<>(resourcePath, (T) bufferedImageCache.getUnchecked(resourcePath)));
-        } else if (resourceType == GameWorld.class) {
-            return Optional.fromNullable(new Resource<>(resourcePath, (T) gameWorldLoadingCache.getUnchecked(resourcePath)));
+    
+    public static GameWorld getLevelFromFile(File levelFile) {
+        try {
+            GameWorld dieWelt = new GameWorld();
+            BufferedReader rdr = new BufferedReader(new FileReader(levelFile));
+            String currentLine;
+            boolean readingDimension = false;
+            Dimension current = null;
+            while ( (currentLine = rdr.readLine()) != null) {
+                //Initial processing
+                String[] ln = splitLine(currentLine);
+                if (ln[0].equals(LevelString.DIM_START.string)) {
+                    readingDimension = true;
+                    current = new Dimension();
+                    current.setName(ln[1]);
+                } else if (ln[0].equals(LevelString.DIM_END.string)) {
+                    readingDimension = false;
+                    dieWelt.addDimension(current);
+                    current = null;
+                } else {
+                    //Next step processing
+                    if (readingDimension) {
+                        //Parse a game object
+                        current.addObject(readGameObject(current, currentLine));
+                        System.out.println("Read " + currentLine);
+                    }
+                }
+            }
+            rdr.close();
+            System.out.println("Successfully loaded level: " + levelFile.getPath());
+            return dieWelt;
+        } catch(Exception e) {
+            System.err.println("Could not load level "  + levelFile.getPath() + ": " + e.toString());
+            return null;
         }
-        return Optional.absent();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Resource<BufferedImage>> getBufferedImage(String imagePath) {
-        return getResource(imagePath, BufferedImage.class);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Resource<GameWorld>> getLevel(String levelPath) {
-        return getResource(levelPath, GameWorld.class);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Resource<GameWorld>> getLevelFromFile(File levelFile) {
-        return getResource(levelFile.getPath(), GameWorld.class);
-    }
-
-    @Override
-    public void saveLevel(File file, GameWorld level) {
+    
+    public static void saveLevel(File file, GameWorld level) {
         //Write stuff
         try {
             if (level==null) {
@@ -85,15 +71,13 @@ public class CachedLoader extends AssetLoader {
             }
             writer.flush();
             writer.close();
-            gameWorldLoadingCache.put(file.getPath(), level);
             System.out.println("Successfully saved level: " + file.getPath());
         } catch(Exception e) {
             System.err.println("Could not save level " + file.getPath());
         }
     }
 
-    @Override
-    public String writeGameObject(GameObject object) {
+    public static String writeGameObject(GameObject object) {
         if (object instanceof Player) {
             Player p = (Player)object;
             return "" + LevelString.PLAYER + LevelString.SEP + p.getX() + LevelString.SEP +
@@ -113,22 +97,24 @@ public class CachedLoader extends AssetLoader {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageName();
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageKey();
         } else {
             //Must be a game object then
             return "" + LevelString.OBJECT + LevelString.SEP + object.getX() +
                     LevelString.SEP + object.getY();
         }
     }
-
-    private String[] splitLine(String line) {
+	
+    private static String[] splitLine(String line) {
         return line.split(Pattern.quote("" + LevelString.SEP));
     }
+   
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GameObject readGameObject(Dimension parent, String string) {
+	 * Creates a GameObject from a string found in a GameWorld file, essentially converting it from text
+	 * format into an Object format.
+	 * @param parent The Dimension that this game object is in.
+	 */
+    public static GameObject readGameObject(Dimension parent, String string) {
         String[] split = splitLine(string);
         switch(LevelString.parseEncoded(split[0])) {
             case PLAYER:

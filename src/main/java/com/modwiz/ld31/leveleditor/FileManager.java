@@ -2,7 +2,7 @@ package com.modwiz.ld31.leveleditor;
 
 import java.io.File;
 import com.modwiz.ld31.world.GameWorld;
-import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.LevelLoader;
 
 /**
 *	Manages the currently opened file for the level editor.
@@ -27,7 +27,7 @@ public class FileManager {
 	*/
 	public void save(GameWorld world) {
 		if (current!=null) {
-			AssetLoader.getAssetLoader().saveLevel(current, world);
+			LevelLoader.saveLevel(current, world);
 		}
 	}
 	
@@ -69,6 +69,6 @@ public class FileManager {
 	*/
 	public GameWorld open(File file) {
 		current = file.getAbsoluteFile();
-		return AssetLoader.getAssetLoader().getLevelFromFile(current).get().getContent();
+		return LevelLoader.getLevelFromFile(current);
 	}
 }

@@ -13,8 +13,8 @@ public class GameBlock extends GameObject {
 	private float width, height;
 	private boolean grounded, canCollide; // has this object collided with something below it?
 	private boolean staticBlock; // Platform
-	private Resource<BufferedImage> source;
 	private BufferedImage image;
+	private String imageKey;
 
 	/**
 	 * Represents a {@link GameObject} with a width and height
@@ -47,39 +47,38 @@ public class GameBlock extends GameObject {
 	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock) {
 		this(parent, x, y, w, h);
 		this.staticBlock = true;
+		imageKey = null;
+		image = null;
 	}
 	
-	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, Resource<BufferedImage> img) {
+	public GameBlock(Dimension parent, float x, float y, float w, float h, boolean staticBlock, String imageKey) {
 		this(parent, x, y, w, h, staticBlock);
 		this.staticBlock = true;
-		setImage(img);
+		setImage(null, imageKey);
 	}
 
 	public void resetImage() {
-		setImage(this.source);
+		setImage(this.image, this.imageKey);
 	}
 	
-	public void setImage(Resource<BufferedImage> img) {
-		source = img;
+	public void setImage(String imageKey) {
+		this.imageKey = imageKey;
+		BufferedImage img = null; //Need to get the image here?
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
-		for (int x=0; x < (int)getWidth() + img.getContent().getWidth(); x += img.getContent().getWidth()) {
-			for (int y=0; y < (int)getHeight() + img.getContent().getHeight(); y += img.getContent().getHeight()) {
+		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {
+			for (int y=0; y < (int)getHeight() + img.getHeight(); y += img.getHeight()) {
 				g.drawImage(img.getContent(), x, y, null);
 			}
 		}
 	}
 	
-	public String getImageName() { 
-		if (source!=null) {
-			return source.getPath(); 
-		} else {
-			return "no-image";
-		}
+	public String getImageKey() { 
+		return imageKey;
 	}
 	
 	public boolean hasImage() {
-		return source != null;
+		return image != null;
 	}
 	
 	/**

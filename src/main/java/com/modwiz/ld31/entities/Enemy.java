@@ -2,6 +2,8 @@ package com.modwiz.ld31.entities;
 
 import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
+import java.awt.geom.Rectangle2D;
+import horsentpmath.Vector2;
 
 /**
  * A generic baddie
@@ -11,10 +13,12 @@ public class Enemy extends Creature {
     private int frame;
 	private int patrolPoint;
     private int spawnX;
-	private int timeOnPoint, timeOnPointMax;
+	private int timeOnPoint, timeOnPointMax, normalLOS, sneakLOS; // field of view in radians
     private boolean patrolPointOn;
     /** How close the Enemy needs to be near a point before they start going to the next one*/
 	private int distanceNear;
+	private float fieldOfView;
+	private Player player;
 
     /**
      * Creates a new Enemy instance
@@ -34,8 +38,16 @@ public class Enemy extends Creature {
 		distanceNear = 50;
 		timeOnPoint = 0;
 		timeOnPointMax = 20; // frames
+		normalLOS = 400;
+		sneakLOS = 100;
+		fieldOfView = (float)(Math.PI / 6);
+		player = null;
     }
 
+	public void givePlayerRef(Player p) {
+		this.player = p;
+	}
+	
     /**
      * Creates a new entity with an {@link com.modwiz.ld31.entities.draw.Animation}
      *
@@ -49,30 +61,69 @@ public class Enemy extends Creature {
      * @see com.modwiz.ld31.entities.Creature
      */
     public Enemy(Dimension parent, float x, float y, float w, float h, double health, Animation anim) {
-
         super(parent, x, y, w, h, health, anim);
         spawnX = (int) x;
 		patrolPointOn = true;
 		distanceNear = 50;
+		timeOnPoint = 0;
+		timeOnPointMax = 20; // frames
+		normalLOS = 400;
+		sneakLOS = 100;
+		fieldOfView = (float)(Math.PI / 6);
+		player = null;
     }
 	
 	public boolean canSeePlayer() {
-		Player player = null;
-		for (GameObject obj : getParent().getObjects()) {
-			if (obj instanceof Player) {
-				player = (Player) obj;
-				break;
-			}
-		}
-		if (player == null) {
+		//only can track the player when it's in the same dimension
+		if (player == null || getParent() != player.getParent()) {
 			return false;
 		}
 		
 		// do some checks
 		// maybe check:
 		// * Is the player in the direction Enemy is facing
+		if (isFacingRight()) {
+			if (player.getX() + (player.getWidth()/2) < (getX() + (getWidth()/2))) {
+				return false;
+			}
+		} else {
+			if (player.getX() + (player.getWidth()/2) > (getX() + (getWidth()/2))) {
+				return false;
+			}
+		} 
+		
 		// * Is the player close enough to the Enemy
-		// * Does the enemy have line of sight of the player
+		float diffX = player.getX() - getX();
+		float diffY = player.getY() - getY();
+		float distanceFromSqred = (diffX * diffX) + (diffY * diffY);
+		if (player.isSneaking()) {
+			if (distanceFromSqred > sneakLOS * sneakLOS) {
+				return false;
+			}
+		}
+		if (distanceFromSqred > normalLOS * normalLOS) {
+			return false;
+		}
+		
+		// * is the player in the enemy's field of view?
+		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
+		Vector2 posVect = (Vector2)((new Vector2(diffX, diffY)).normalize());
+		double angle = Math.acos(enemyLOS.dot(posVect));
+		if (angle > fieldOfView) {
+			System.out.println(angle + " > " + fieldOfView);
+			return false;
+		}
+		
+		// * Does the enemy have line of sight of the player?
+		for (GameObject obj : getParent().getObjects()) {
+			if (obj != this && obj instanceof GameBlock && !(obj instanceof Creature)) {
+				GameBlock bl = (GameBlock) obj;
+				if ((new Rectangle2D.Float(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight())).intersectsLine(
+					(int)getX(), (int)getY(), (int)player.getX(), (int)player.getY())) {
+						return false;
+				}
+			}			
+		}
 		
 		return true;
 	}
@@ -84,18 +135,16 @@ public class Enemy extends Creature {
 			System.out.println("I am going to move towards it now");
 			System.out.println("Distance from on X: " + distFromNextX);
         if (patrolPointOn) {
-
             getVelocity().set(0, -3);
-
 		} else {
             getVelocity().set(0, 3);
-
         }
         if ((int)distFromNextX <= 5 && frame > 1){
             patrolPointOn = !patrolPointOn;
         }
 
         frame++;
+
     }
 
 	
