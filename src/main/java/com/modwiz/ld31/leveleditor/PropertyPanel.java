@@ -4,6 +4,7 @@ import com.modwiz.ld31.entities.*;
 
 import com.modwiz.ld31.utils.assets.CachedLoader;
 import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.AssetRegistry;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,21 +70,28 @@ public class PropertyPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] keySet = AssetRegistry.bufferedImageRegistry.getAssetKeys();
-				JDialog log = new JDialog(lem);
+				final JDialog log = new JDialog(lem);
+				log.setVisible(true);
+				log.pack();
+				log.setLocationRelativeTo(lem);
 				log.setTitle("Chooser an image");
-				JList<String> list = new JList<String>(keySet);
-				JButton button = new JButton("Accept");
-				
+				final JList<String> list = new JList<String>(keySet);
+				final JButton button = new JButton("Accept");
+				button.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String str = list.getSelectedValue();
+						log.dispose();
+						if (str!=null) {
+							fields[IMAGE].setText(str);
+							setImage();
+						}
+					}
+				});
 				log.add(list);
-				
+				log.add(button);
 			}
 		});
-		
-		String str = new String() {
-			public void updateForNoReason() {
-				System.out.println("sdsd");
-			}
-		};
 	}
 	
 	private void setPosition() {
@@ -114,7 +122,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void setImage() {
-		
+		((GameBlock)editing).setImage(AssetRegistry.bufferedImageRegistry.getAsset(fields[IMAGE].getText()).get());
 		lem.repaintViewport();
 	}
 	
