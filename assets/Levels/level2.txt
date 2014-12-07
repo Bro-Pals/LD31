@@ -1,4 +1,11 @@
 TYPZOW$MainDimension
-TEPZOW$-782.0$120.0$2148.0$350.0$true$img/dirt.png
-TEPZOW$-595.0$-180.0$458.0$300.0$false$img/log_cabin.png
+TEPZOW$-782.0$140.0$2887.0$350.0$true$img/dirt.png$true
+TEPZOW$-623.0$-180.0$458.0$300.0$true$img/log_cabin.png$true
+TEPZOW$69.0$-180.0$458.0$300.0$true$img/log_cabin.png$true
+TEPZOW$1211.0$-180.0$450.0$300.0$true$img/log_cabin.png$true
+TEPZOW$553.0$-130.0$140.0$250.0$true$img/tree0.png$true
+TEPZOW$1033.0$-130.0$140.0$250.0$true$img/tree0.png$true
+TEPZOW$-99.0$-130.0$140.0$250.0$true$img/tree0.png$true
+TEPZOW$-680.0$120.0$2353.0$20.0$true$img/cobblestone.png$true
+TEPZOW$824.0$-30.0$95.0$150.0$true$img/well.png$true
 TWPZOW
