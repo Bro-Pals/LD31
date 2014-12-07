@@ -9,6 +9,7 @@ public class RadiationSucker extends GameBlock {
 	
 	public RadiationSucker(Dimension parent, float x, float y) {
 		super(parent, x, y, 30, 30, true);
+		setName("Radiation Sucker");
 		setCanCollide(false);
 	}
 	
@@ -21,5 +22,12 @@ public class RadiationSucker extends GameBlock {
 			((Player)other).changeRadiation(-5); // reduces radiation by 5
 			setDead(true);
 		}
+	}
+	
+	@Override
+	public Object clone() {
+		RadiationSucker rs = new RadiationSucker(null, getX(), getY());
+		rs.setName(getName());
+		return rs;
 	}
 }

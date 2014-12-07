@@ -9,6 +9,7 @@ public class DNARepairCell extends GameBlock {
 	
 	public DNARepairCell(Dimension parent, float x, float y) {
 		super(parent, x, y, 30, 30, true);
+		setName("DNA Repair Cell");
 		setCanCollide(false);
 	}
 	
@@ -21,5 +22,12 @@ public class DNARepairCell extends GameBlock {
 			((Player)other).damage(-5); // heal 5 health
 			setDead(true);
 		}
+	}
+	
+	@Override
+	public Object clone() {
+		DNARepairCell cell = new DNARepairCell(null, getX(), getY());
+		cell.setName(getName());
+		return cell;
 	}
 }

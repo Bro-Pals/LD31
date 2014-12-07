@@ -126,7 +126,10 @@ public class LevelEditorMain extends JFrame {
 			gameObjectFactory.createMeleeEnemy(),
 			gameObjectFactory.createRangedEnemy(),
 			gameObjectFactory.createTextBlock(),
-			gameObjectFactory.createMessageBlock()
+			gameObjectFactory.createMessageBlock(),
+			gameObjectFactory.createDimensionChangeBlock(),
+			gameObjectFactory.createRadiationSucker(),
+			gameObjectFactory.createDNARepairCell()
 		};
 	}
 	
@@ -337,8 +340,8 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void removeSelectedDimension() {
-		System.out.println("Removing selected dimension");
 		if (this.currentLevel!=null && dimList.getSelectedValue()!=null && !dimList.getSelectedValue().getName().equals("MainDimension")) {
+			System.out.println("Removing selected dimension");
 			currentLevel.removeDimension(dimList.getSelectedValue());
 			dimList.setListData(currentLevel.getDimensions());
 			dimListViewport.revalidate();
@@ -385,8 +388,8 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void addToWorldFromObjectLib() {
-		System.out.println("Add to world from object lib");
 		if (currentLevel!=null && currentLevel.getActiveDimension()!=null) {
+			System.out.println("Add to world from object lib");
 			GameObject obj = (GameObject)objectLib.getSelectedValue();
 			if (obj!=null) {
 				obj = (GameObject)obj.clone();
@@ -561,8 +564,8 @@ public class LevelEditorMain extends JFrame {
 	}
 	
 	private void removeSelectedObject() {
-		System.out.println("Removing the selected object");
 		if (selecting!=null && !selecting.getName().equals("ThePlayer")) {
+			System.out.println("Removing the selected object");
 			currentLevel.getActiveDimension().removeObject(selecting);
 			viewport.repaint();
 		}
