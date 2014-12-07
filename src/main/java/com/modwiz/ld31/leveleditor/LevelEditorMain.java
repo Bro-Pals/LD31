@@ -118,7 +118,8 @@ public class LevelEditorMain extends JFrame {
 		return new GameObject[] {
 			gameObjectFactory.createWall(),
 			gameObjectFactory.createMeleeEnemy(),
-			gameObjectFactory.createRangedEnemy()
+			gameObjectFactory.createRangedEnemy(),
+			gameObjectFactory.createTextBlock()
 		};
 	}
 	
@@ -433,6 +434,12 @@ public class LevelEditorMain extends JFrame {
 	private void saveLevelAs() {
 		if (currentLevel!=null) {
 			System.out.println("Save the current level as");
+			if (fileManager.hasCurrent()) {
+				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
+			} else {
+				File loc = new File("assets/levels");
+				fc.setCurrentDirectory(loc.getAbsoluteFile());
+			}
 			int confirm = fc.showSaveDialog(this);
 			if (confirm == JFileChooser.APPROVE_OPTION) {
 				fileManager.saveAs(fc.getSelectedFile(), currentLevel);
@@ -452,6 +459,12 @@ public class LevelEditorMain extends JFrame {
 				saveLevel();
 			}
 			clearLevel();
+		}
+		if (fileManager.hasCurrent()) {
+				fc.setCurrentDirectory(fileManager.getCurrent().getParentFile());
+		} else {
+			File loc = new File("assets/levels");
+			fc.setCurrentDirectory(loc.getAbsoluteFile());
 		}
 		int confirm = fc.showOpenDialog(this);
 		if (confirm == JFileChooser.APPROVE_OPTION) {

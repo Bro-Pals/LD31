@@ -60,6 +60,16 @@ public class GameObjectFactory {
 		return enemy;
 	}
 	
+	/**
+	 * Creates a basic text block
+	 * @return a basic text block
+	 */
+	public TextBlock createTextBlock() {
+		TextBlock block = new TextBlock(null, 0, 0, 75, 75, "Text", 12);
+		block.setName("Text Block");
+		return block;
+	}
+	
 	public GameBlock createGameBlock(Dimension parent, float x, float y, float w, float h) {
 		return new GameBlock(parent, x, y, w, h);
 	}

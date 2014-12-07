@@ -33,7 +33,9 @@ public class PropertyPanel extends JPanel {
 		IMAGE = 3,
 		ANIMATION = 4,
 		PATROL_PATH = 5,
-		WEAPON = 6
+		WEAPON = 6,
+		TEXT_LABEL = 7,
+		FONT_SIZE = 8
 	;
 	
 	private JViewport view;
@@ -50,7 +52,7 @@ public class PropertyPanel extends JPanel {
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
 		checkboxes = new JCheckBox[2];
-		fields = new JTextField[7];
+		fields = new JTextField[9];
 		
 		fields[POSITION] = new JTextField(6);
 		fields[POSITION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPosition();  } });
@@ -70,6 +72,10 @@ public class PropertyPanel extends JPanel {
 		fields[PATROL_PATH].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setPatrolPath();  } });
 		fields[WEAPON] = new JTextField(6);
 		fields[WEAPON].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setWeapon();  } });
+		fields[TEXT_LABEL] = new JTextField(6);
+		fields[TEXT_LABEL].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setTextLabel();  } });
+		fields[FONT_SIZE] = new JTextField(6);
+		fields[FONT_SIZE].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setFontSize();  } });
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
@@ -212,6 +218,22 @@ public class PropertyPanel extends JPanel {
 		lem.repaintViewport();
 	}
 	
+	private void setTextLabel() {
+		((TextBlock)editing).setTextLabel(fields[TEXT_LABEL].getText());
+		lem.repaintViewport();
+	}
+	
+	private void setFontSize() {
+		try {
+			((TextBlock)editing).setFontSize(
+				Integer.parseInt(fields[FONT_SIZE].getText())
+			);
+		} catch(Exception e) {
+			
+		}
+		lem.repaintViewport();
+	}
+	
 	private void setStatic() {
 		((GameBlock)editing).setStaticBlock(checkboxes[STATIC].isSelected());
 		lem.repaintViewport();
@@ -242,6 +264,12 @@ public class PropertyPanel extends JPanel {
 			addAnimation();
 			addStatic();
 			addCanCollide();
+		}  else if (entity instanceof TextBlock) {
+			addName();
+			addPosition();
+			addSize();
+			addTextLabel();
+			addFontSize();
 		} else if (entity instanceof GameBlock) {
 			addName();
 			addPosition();
@@ -274,6 +302,18 @@ public class PropertyPanel extends JPanel {
 		add(new JLabel("Size (width,height)"));
 		add(fields[SIZE]);
 		fields[SIZE].setText("" + ((GameBlock)editing).getWidth() + "," + ((GameBlock)editing).getHeight());
+	}
+	
+	private void addTextLabel() {
+		add(new JLabel("Text Label"));
+		add(fields[TEXT_LABEL]);
+		fields[TEXT_LABEL].setText(((TextBlock)editing).getTextLabel());
+	}
+	
+	private void addFontSize() {
+		add(new JLabel("Font Size"));
+		add(fields[FONT_SIZE]);
+		fields[FONT_SIZE].setText("" + ((TextBlock)editing).getFontSize());
 	}
 	
 	public void updateSizeField() {

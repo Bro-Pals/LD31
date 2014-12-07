@@ -97,7 +97,12 @@ public class LevelLoader {
             return "" + LevelString.CREATURE + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
                     p.getHeight() + LevelString.SEP + p.getHealth() + LevelString.SEP + p.getAnimationString();
-        } else if (object instanceof GameBlock) {
+        } else if (object instanceof TextBlock) {
+            TextBlock p = (TextBlock)object;
+            return "" + LevelString.TEXT + LevelString.SEP + p.getX() + LevelString.SEP +
+                    p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
+                    p.getHeight() + LevelString.SEP + p.getTextLabel() + LevelString.SEP + p.getFontSize();
+        }  else if (object instanceof GameBlock) {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
@@ -159,6 +164,17 @@ public class LevelLoader {
                         Float.parseFloat(split[4]),
                         (int)Double.parseDouble(split[5]),
                         split[6]
+                );
+			case TEXT:
+				System.out.println("Loading Text");
+                return new TextBlock(
+                        parent,
+                        Float.parseFloat(split[1]),
+                        Float.parseFloat(split[2]),
+                        Float.parseFloat(split[3]),
+                        Float.parseFloat(split[4]),
+						split[5],
+						Integer.parseInt(split[6])
                 );
             case BLOCK:
 				System.out.println("Loading Block");
