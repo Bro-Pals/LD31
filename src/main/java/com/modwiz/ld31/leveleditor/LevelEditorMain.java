@@ -107,10 +107,13 @@ public class LevelEditorMain extends JFrame {
 		setJMenuBar(bar);
 		pack();
 		setVisible(true);
-		viewport.setupListeners(this);
 		setLocationRelativeTo(null);
 		revalidate();
 		viewport.revalidate();
+	}
+	
+	public void postInit() {
+		viewport.setupListeners(this);
 	}
 	
 	/**

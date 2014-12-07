@@ -1,9 +1,10 @@
 TYPZOW$future
-TEPZOW$0.0$200.0$337.0$50.0$false$img/metal.png
+TEPZOW$0.0$200.0$337.0$50.0$true$img/metal.png
 TWPZOW
 TYPZOW$past
-TEPZOW$0.0$200.0$246.0$50.0$false$img/wood.png
+TEPZOW$0.0$200.0$246.0$50.0$true$img/wood.png
 TWPZOW
 TYPZOW$MainDimension
-TEPZOW$0.0$150.0$212.0$53.0$false$img/brick.png
+TEPZOW$-11.0$207.0$596.0$53.0$true$img/brick.png
+LEPZVQ$404.0$107.0$26.0$100.0$10.0$anim/enemy0.animation$50$100$35.0$3.0$12
 TWPZOW

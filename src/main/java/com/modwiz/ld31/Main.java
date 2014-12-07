@@ -44,6 +44,7 @@ public class Main {
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();
 			editor.setVisible(true);
+			editor.postInit();
 			//The level editor is now OK
 		} else {
 			System.out.println("This shows that it is working!");
@@ -111,7 +112,19 @@ public class Main {
 					changeKey(keyEvent.getKeyCode(), true);
 					if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
 						player.cycleMessages();
-					}
+					} else if (keyEvent.getKeyCode() == KeyEvent.VK_1){
+                        world.getActiveDimension().removeObject(player);
+                        world.setActiveDimension("MainDimension");
+                        world.getActiveDimension().addObject(player);
+                    } else if (keyEvent.getKeyCode() == KeyEvent.VK_2){
+                        world.getActiveDimension().removeObject(player);
+                        world.setActiveDimension("future");
+                        world.getActiveDimension().addObject(player);
+                    } else if (keyEvent.getKeyCode() == KeyEvent.VK_3){
+                        world.getActiveDimension().removeObject(player);
+                        world.setActiveDimension("past");
+                        world.getActiveDimension().addObject(player);
+                    }
 				}
 				while ((keyEvent = window.nextKeyReleasedEvent()) != null) {
 					changeKey(keyEvent.getKeyCode(), false);
