@@ -167,11 +167,15 @@ public class GameObjectFactory {
 		@return A default DimensionChangeBlock
 	*/
 	public MessageBlock createMessageBlock() {
-		return new MessageBlock(null, 0, 0, 100, 100, new String[]{"Default message", "Another default message"});
+		MessageBlock mb = new MessageBlock(null, 0, 0, 100, 100, new String[]{"Default message", "Another default message"});
+		mb.setName("Message Block");
+		return  mb;
 	}
 	
 	public MessageBlock createMessageBlock(Dimension parent, float x, float y, float width, float height, String[] msgs) {
-		return new MessageBlock(parent, x, y, width, height, msgs);
+		MessageBlock mb = new MessageBlock(parent, x, y, width, height, msgs);
+		mb.setName("Message Block");
+		return  mb;
 	}
 	
 }
