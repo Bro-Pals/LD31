@@ -221,6 +221,9 @@ public class PropertyPanel extends JPanel {
 		p.add(imageBrowse);
 		add(p);
 		add(fields[IMAGE]);
+		if (((GameBlock)editing).getImageForString() != null) {
+			fields[IMAGE].setText(((GameBlock)editing).getImageForString());
+		}
 	}
 	
 	private void addAnimation() {
