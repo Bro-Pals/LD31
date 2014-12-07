@@ -68,11 +68,16 @@ public class GameBlock extends GameObject {
 	}
 
 	public void resetImage() {
-		setImage(this.image);
+		setImage(this.source);
+	}
+	
+	public void noImage() {
+		this.source = null;
+		this.image = null;
 	}
 	
 	public void setImage(BufferedImage img) {
-		source = image;
+		source = img;
 		this.image = new BufferedImage((int)getWidth(), (int)getHeight(), BufferedImage.TRANSLUCENT);
 		Graphics g = image.getGraphics();
 		for (int x=0; x < (int)getWidth() + img.getWidth(); x += img.getWidth()) {

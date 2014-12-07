@@ -28,12 +28,24 @@ public class Viewport extends JComponent {
 	private final int maxX = 4000;
 	private final int minY = -4000;
 	private final int maxY = 4000;
+	private boolean camMoving;
+	private float camStartX;
+	private float camStartY;
+	private LevelEditorMain main;
 	
-	public Viewport(int viewPortWidth, int viewPortHeight) {
-		cursor = new Cursor2D();
+	public LevelEditorMain getMain() {
+		return main;
+	}
+	
+	public Viewport(LevelEditorMain main, int viewPortWidth, int viewPortHeight) {
+		this.main = main;
+		cursor = new Cursor2D(this);
 		camX = 0;
 		camY = 0;
-		camSpeed = 40;
+		camStartX = 0;
+		camStartY = 0;
+		camSpeed = 200;
+		camMoving = false;
 		setPreferredSize(new java.awt.Dimension(viewPortWidth, viewPortHeight));
 		setSize(viewPortWidth, viewPortHeight);
 		gridVisible = false;
@@ -48,6 +60,10 @@ public class Viewport extends JComponent {
 	
 	public boolean getGridVisible() {
 		return gridVisible;
+	}
+	
+	public boolean camIsMoving() {
+		return camMoving;
 	}
 	
 	public void setGridVisible(boolean gridVisible) {
@@ -126,29 +142,29 @@ public class Viewport extends JComponent {
 		g.drawLine(x-15, y, x+15, y);
 		g.drawLine(x, y-15, x, y+15);
 	}
-	
+		
 	public void setupListeners(final LevelEditorMain frame) {
 		setFocusable(true);
 		
 		addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_W:
 						camY -= camSpeed;
-						System.out.println("Moved camera");
+						repaint();
 						break;
 					case KeyEvent.VK_A:
 						camX -= camSpeed;
-						System.out.println("Moved camera");
+						repaint();
 						break;
 					case KeyEvent.VK_S:
 						camY += camSpeed;
-						System.out.println("Moved camera");
+						repaint();
 						break;
 					case KeyEvent.VK_D:
 						camX += camSpeed;
-						System.out.println("Moved camera");
+						repaint();
 						break;
 				}
 			}
@@ -157,9 +173,14 @@ public class Viewport extends JComponent {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					cursor.setCursorLocation(e.getX()+camX,e.getY()+camY);
 					frame.checkSelection(cursor);
+					repaint();
+				} else if (e.getButton() == MouseEvent.BUTTON3) {
+					camMoving = true;
+					camStartX = cursor.getX();
+					camStartY = cursor.getY();
 					repaint();
 				}
 			}
@@ -167,6 +188,9 @@ public class Viewport extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				cursor.endDrag();
+				if (e.getButton() == MouseEvent.BUTTON3) {
+					camMoving = false;
+				}
 			}
 		});
 		
