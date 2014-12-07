@@ -83,7 +83,7 @@ public class Enemy extends Creature {
      * @param w      The bounding width of the entity
      * @param h      The bounding height of the entity
      * @param health The initial health value for the entity
-     * @param anim   The animation for the entity
+     * @param animString   The animation for the entity
 	 * @param initialPatrolPoint The initial patrol point.
 	 * @param finalPatrolPoint The final patrol point.
 	 * @param weaponRange This enemy's weapon's range
@@ -99,7 +99,7 @@ public class Enemy extends Creature {
 		distanceNear = 50;
 		timeOnPoint = 0;
 		timeOnPointMax = 20; // frames
-		normalLOS = 400;
+		normalLOS = 300;
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
 		player = null;
@@ -125,7 +125,7 @@ public class Enemy extends Creature {
 		} 
 		
 		// * Is the player close enough to the Enemy
-		float diffX = player.getX() - getX();
+		float diffX = player.getX() + (player.getWidth()/2) - (getX() + getWidth()/2);
 		float diffY = player.getY() - getY();
 		float distanceFromSqred = (diffX * diffX) + (diffY * diffY);
 		if (player.isSneaking()) {
@@ -162,28 +162,29 @@ public class Enemy extends Creature {
 	
 	@Override
 	public void render(Graphics g, float camX, float camY) {
-		super.render(g, camX, camY);
-		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
-		
-		int startX = (int)(getX() - camX) + (facingRight ? (int)getWidth() : 0);
-		int startY = (int)(getY() - camY) - 20;
-		int endX = (int)((enemyLOS.getX() * sneakLOS) - camX);
-		
-		g.drawLine(startX, startY, startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
-		g.drawLine(startX, startY, startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY));
-		g.drawLine(startX + endX, startY + (int)(-(Math.sin(fieldOfView) * sneakLOS) - camY), 
-			startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
+        super.render(g, camX, camY);
+        Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 
-        g.drawLine(startX, startY, startX + endX, startY + (int)((Math.sin(fieldOfView) * normalLOS) - camY));
-        g.drawLine(startX, startY, startX + endX, startY + (int)(-(Math.sin(fieldOfView) * normalLOS) - camY));
-        g.drawLine(startX ,startY, startX + ((facingRight) ? normalLOS: -normalLOS), startY);
+        int startX = (int) (getX() - camX + (getWidth()/2));
+        int startY = (int) (getY() - camY);
+        int endX = (int) ((enemyLOS.getX() * sneakLOS) - camX);
+        if (player.isSneaking()){
+            g.drawLine(startX, startY, startX + endX, startY + (int) ((Math.sin(fieldOfView) * sneakLOS) - camY));
+            g.drawLine(startX, startY, startX + endX, startY + (int) (-(Math.sin(fieldOfView) * sneakLOS) - camY));
+            g.drawLine(startX, startY, startX + ((facingRight) ? sneakLOS : -sneakLOS), startY);
+        } else {
+
+            g.drawLine(startX, startY, startX + endX, startY + (int) ((Math.sin(fieldOfView) * normalLOS) - camY));
+            g.drawLine(startX, startY, startX + endX, startY + (int) (-(Math.sin(fieldOfView) * normalLOS) - camY));
+            g.drawLine(startX, startY, startX + ((facingRight) ? normalLOS : -normalLOS), startY);
+        }
 	}
 	
 	@Override
 	public void update() {
 		super.update();
-		float distFromNextX = distFrom(getX());
-		System.out.println(distFromNextX);
+        System.out.println(canSeePlayer());
+        float distFromNextX = distFrom(getX());
 		if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {

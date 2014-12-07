@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.*;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -77,9 +79,18 @@ public class Main {
             GameWorld world = LevelLoader.getLevel("assets/Levels/levelTest.txt");
             world.setActiveDimension("Dimension1");
 
-			Player player = new Player(world.getDimensions()[0], 100, 20, 65, 120, 50, playerAnim);
+
+            Player player = new Player(world.getActiveDimension(), 100, 20, 65, 120, 50, playerAnim);
+            world.getActiveDimension().addObject(player);
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
+
+            List<GameObject> objects = world.getActiveDimension().getObjects();
+            for(GameObject gb : objects){
+                if (gb instanceof Enemy){
+                    ((Enemy) gb).givePlayerRef(player);
+                }
+            }
 
 
 			
