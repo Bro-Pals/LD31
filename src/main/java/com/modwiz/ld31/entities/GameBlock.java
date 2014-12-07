@@ -176,6 +176,7 @@ public class GameBlock extends GameObject {
 
 				if (this instanceof Player) {
 					((Player)this).setDimensionToGoTo(null); // reset it every frame
+					((Player)this).setMessages(null); 
 				}
 				
 				if (penX < 0 && penY < 0) {

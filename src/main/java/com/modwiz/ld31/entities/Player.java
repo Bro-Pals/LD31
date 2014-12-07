@@ -12,6 +12,9 @@ public class Player extends Creature {
 	/** If the player is standing on a DimensionChangeBlock, then this is a reference to that
 		block. Otherwise, this value is null. */
 	private Dimension dimensionToGoTo;
+	/** The message the player is currently viewing. If this is null, there is no messages*/
+	private String[] messagesViewing;
+	private int messageOn;
 
 	private static Player player;
 	
@@ -112,6 +115,24 @@ public class Player extends Creature {
 			super.render(g, camX, camY);
 		}
 		renderHealthBar(g, camX, camY);
+		
+		// render the message from a MessageBlock
+		if (messagesViewing != null) {
+			int boxWidth = 100;
+			int boxHeight = 50;
+			int boxX = (int)(getX() + (getWidth()/2) - (boxWidth/2) - camX);
+			int boxY = (int)(getY() - boxHeight - 10 - camY);
+			g.setColor(Color.BLACK);
+			g.fillRect(boxX, boxY, boxWidth, boxHeight);
+			g.setColor(Color.WHITE);
+			g.fillRect(boxX+1, boxY+1, boxWidth-2, boxHeight-2);
+			g.setColor(Color.BLACK);
+			g.drawString(messagesViewing[messageOn], boxX + 5, boxY + 20);
+			if (messageOn < messagesViewing.length - 1) { // not on the last message
+				g.drawString("Press S to continue...", boxX+15, boxY + 35);
+			}
+		}
+		
 		// bounding box
 		//g.setColor(Color.BLACK);
 		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
@@ -135,6 +156,24 @@ public class Player extends Creature {
 			setParent(dimensionToGoTo);
 			getParent().getObjects().add(this);
 			dimensionToGoTo = null;
+		}
+	}
+	
+	/**
+		View the next message
+	*/
+	public void cycleMessages() {
+		if (messagesViewing != null) {
+			if (messageOn < messagesViewing.length - 2) {
+				messageOn++;
+			}
+		}
+	}
+	
+	public void setMessages(String[] msgs) {
+		if (messagesViewing != msgs) {
+			messagesViewing = msgs;
+			messageOn = 0;
 		}
 	}
 	

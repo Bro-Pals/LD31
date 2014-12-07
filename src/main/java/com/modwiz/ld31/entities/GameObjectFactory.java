@@ -161,4 +161,17 @@ public class GameObjectFactory {
 		return new DimensionChangeBlock(parent, x, y, width, height, dimTo);
 	}
 	
+	
+	/**
+		Make a default DimensionChangeBlock
+		@return A default DimensionChangeBlock
+	*/
+	public MessageBlock createMessageBlock() {
+		return new MessageBlock(null, 0, 0, 100, 100, new String[]{"Default message", "Another default message"});
+	}
+	
+	public MessageBlock createMessageBlock(Dimension parent, float x, float y, float width, float height, String[] msgs) {
+		return new MessageBlock(parent, x, y, width, height, msgs);
+	}
+	
 }
