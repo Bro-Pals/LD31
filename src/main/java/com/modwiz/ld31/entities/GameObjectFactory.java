@@ -117,4 +117,16 @@ public class GameObjectFactory {
 		return new RadiationSucker(parent, x, y);
 	}
 	
+	/**
+		Make a default DimensionChangeBlock
+		@return A default DimensionChangeBlock
+	*/
+	public DimensionChangeBlock createDimensionChangeBlock() {
+		return new DimensionChangeBlock(null, 0, 0, 100, 100, null);
+	}
+	
+	public DimensionChangeBlock createDimensionChangeBlock(Dimension parent, float x, float y, float width, float height, Dimension dimTo) {
+		return new DimensionChangeBlock(parent, x, y, width, height, dimTo);
+	}
+	
 }
