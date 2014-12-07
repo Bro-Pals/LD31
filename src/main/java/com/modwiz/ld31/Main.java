@@ -50,13 +50,12 @@ public class Main {
 			BufferedImage texture0 = null;
 			BufferedImage texture1 = null;
 			
+			Animation playerAnim = null;
+			Animation enemyAnim = null;
+			
 			try {
-				projectileImage = assetLoader.loadAsset(BufferedImage.class, "img/golden_projectile.png");
-				enemy0Moving = assetLoader.loadAsset(BufferedImage.class, "img/enemy0Move.png");
-				playerMoving = assetLoader.loadAsset(BufferedImage.class,"img/playerMove.png");
-				playerStab = assetLoader.loadAsset(BufferedImage.class,"img/playerStab.png");
-				texture0 = assetLoader.loadAsset(BufferedImage.class,"img/texture0.png");
-				texture1 = assetLoader.loadAsset(BufferedImage.class,"img/texture1.png");
+				playerAnim = assetLoader.loadAsset(Animation.class,"anim/player.txt");
+				enemyAnim = assetLoader.loadAsset(Animation.class,"anim/enemy0.txt");
 			} catch(NullPointerException npe) {
 				System.out.println("Oh no it's a " + npe.toString());
 			} catch(Exception e) {
@@ -64,44 +63,6 @@ public class Main {
 				System.exit(0);
 			}
 			
-			BufferedImage[][] playerAnimations = new BufferedImage[4][];
-			BufferedImage[][] enemyAnimations = new BufferedImage[2][4];
-			/*
-				track | description
-				0     | walk right
-				1     | walk left
-				2     | stab right
-				3     | stab left
-			*/
-			playerAnimations[0] = new BufferedImage[3];
-			playerAnimations[1] = new BufferedImage[3];
-			playerAnimations[2] = new BufferedImage[6];
-			playerAnimations[3] = new BufferedImage[6];
-			if (playerMoving != null) {
-				for (int i=0; i<3; i++) {
-					playerAnimations[0][i] = playerMoving.getSubimage(i * 80, 0, 80, 120);
-					playerAnimations[1][i] = flipImage(playerAnimations[0][i], true);
-				}
-			}
-			if (playerStab != null) {
-				for (int i=0; i<5; i++) {
-					playerAnimations[2][i] = playerStab.getSubimage(i * 80, 0, 80, 120);
-					playerAnimations[3][i] = flipImage(playerAnimations[2][i], true);
-				}
-			}
-			playerAnimations[2][5] = playerAnimations[2][5];
-			playerAnimations[3][5] = playerAnimations[3][5];
-			
-			if (enemy0Moving != null) {
-				for (int i=0; i<4; i++) {
-					enemyAnimations[0][i] = enemy0Moving.getSubimage(i * 60, 0, 60, 100);
-					enemyAnimations[1][i] = flipImage(enemyAnimations[0][i], true);
-				}
-			}
-
-			
-			Animation playerAnim = new Animation(playerAnimations, 7);
-			Animation enemyAnim = new Animation(enemyAnimations, 7);
 			
 			Dimension firstDimension = new Dimension("First");
 			GameBlock firstBlock = new GameBlock(firstDimension, 50, 400, 300, 30, true, texture0);
