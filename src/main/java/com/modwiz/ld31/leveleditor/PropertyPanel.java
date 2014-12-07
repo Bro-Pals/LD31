@@ -3,9 +3,11 @@ package com.modwiz.ld31.leveleditor;
 import com.modwiz.ld31.entities.*;
 
 import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -61,6 +63,7 @@ public class PropertyPanel extends JPanel {
 		fields[ANIMATION] = new JTextField(6);
 		fields[ANIMATION].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { setAnimation();  } });
 		imageBrowse = new JButton("Browse");
+		openImageDialog();
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
 		
@@ -73,7 +76,12 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void openImageDialog() {
-		
+		AssetLoader.getSingleton().loadAsset(BufferedImage.class, "img/brick.png");
+		BufferedImageLoader imageLoader = AssetLoader.getSingleton().getLoader(BufferedImage.class);
+		Set<String> assetPaths = imageLoader.getKeys();
+		for (String key : assetPaths) {
+			System.out.println(key);
+		}
 	}
 	
 	private void setPosition() {
