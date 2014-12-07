@@ -397,7 +397,6 @@ public class LevelEditorMain extends JFrame {
 		}
 		currentLevel = new GameWorld();
 		Dimension dim = new Dimension("Dimension1");
-		dim.setName(dimName);
 		currentLevel.addDimension(dim);
 		Dimension[] dimensions = currentLevel.getDimensions();
 		dimList.setListData(dimensions);
