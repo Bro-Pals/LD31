@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import com.modwiz.ld31.utils.assets.AssetLoader;
 import com.modwiz.ld31.utils.assets.loaders.AnimationLoader;
+import com.modwiz.ld31.Main;
 
 /**
 	The extreme creature that the Player and Enemies will extend from
@@ -43,6 +44,7 @@ public class Creature extends GameBlock {
 		attacking = false;
 		attackAnimDelay = 2;
 		normalAnimDelay = 7;
+		getAcceleration().set(1, (float)Main.GRAVITY_RATIO);
 	}
 
 	/**

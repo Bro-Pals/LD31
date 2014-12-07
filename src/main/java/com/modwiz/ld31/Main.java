@@ -29,7 +29,7 @@ public class Main {
 	private static float camY = 0; 
 
 	// Ratio of our 1 to real 9.8
-	private static final double GRAVITY_RATIO = 0.1020408163265306;
+	public static final double GRAVITY_RATIO = 1.1;
     public static void main(String[] args) {
         GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
         GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
@@ -87,7 +87,6 @@ public class Main {
 			player.setParent(world.getActiveDimension());
             world.getActiveDimension().addObject(player);
 			player.getVelocity().set(0, 2);
-			player.getAcceleration().set(1, 1); // gravity!
 
 			
 			long start = System.currentTimeMillis();
@@ -143,9 +142,9 @@ public class Main {
 				player.setFacingRight(player.getX() + (player.getWidth()/2) < mousePosition.getX());
 				
 				// moving and stuff
-				if (d && !a) {
+				if (d) {
 					player.getVelocity().set(0, 4);
-				} else if (a && !d) {
+				} else if (a) {
 					player.getVelocity().set(0, -4);
 				}
 

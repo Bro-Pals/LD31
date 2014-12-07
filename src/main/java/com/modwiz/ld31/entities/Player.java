@@ -108,6 +108,15 @@ public class Player extends Creature {
 		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
 	}
 	
+	@Override
+	public void update() {
+		super.update();
+		radiationLevel--;
+		if (radiationLevel > 0) {
+			damage(0.1); // damage a little
+		}
+	}
+	
 	public void changeRadiation(double amount) {
 		this.radiationLevel += amount;
 		if (this.radiationLevel < 0) 
@@ -123,6 +132,7 @@ public class Player extends Creature {
 			getParent().getObjects().remove(this);
 			setParent(dim);
             getParent().addObject(this);
+			radiationLevel += 20;
     }
 
 	
