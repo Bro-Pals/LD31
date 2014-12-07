@@ -148,10 +148,7 @@ public class Enemy extends Creature {
 	public void update() {
 		super.update();
 		float distFromNextX = distFrom(getX());
-<<<<<<< HEAD
-			System.out.println(canSeePlayer());
-=======
->>>>>>> 156ad94dbfb8a9e40255fd30c321e07b03819c51
+		System.out.println(canSeePlayer());
         if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {

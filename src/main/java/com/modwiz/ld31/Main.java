@@ -144,10 +144,7 @@ public class Main {
 				}
 
 				if (w) {
-					if (player.isGrounded()) {
-						System.out.println("JUMP");
-						player.getVelocity().set(1, -14); // jumping
-					}
+					player.jump(15);
 				}
 				player.setSneaking(shift);
 				
