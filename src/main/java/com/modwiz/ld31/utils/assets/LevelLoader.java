@@ -97,7 +97,7 @@ public class LevelLoader {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageKey();
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock();
         } else {
             //Must be a game object then
             return "" + LevelString.OBJECT + LevelString.SEP + object.getX() +
