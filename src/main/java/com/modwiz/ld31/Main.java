@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -33,6 +34,7 @@ public class Main {
 
     public static void main(String[] args) {
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
+			preloadAssets(); //For the level editor
 			LevelEditorMain editor = new LevelEditorMain();
 			editor.init();
 			editor.setVisible(true);
@@ -201,6 +203,19 @@ public class Main {
 			case KeyEvent.VK_S: s = value; break;
 			case KeyEvent.VK_D: d = value; break;
 			case KeyEvent.VK_SHIFT: shift = value; break;
+		}
+	}
+	
+	private static void preloadAssets() {
+		//For the level editor
+		AssetLoader al = AssetLoader.getSingleton();
+		File imageDir = new File("assets/img");
+		String[] files = imageDir.list();
+		for (int i=0; i<files.length; i++) {
+			String extension = files[i].split(Pattern.quote("."))[1];
+			if (extension.equals("png")) {
+				al.loadAsset(BufferedImage.class, "img/" + files[i]);
+			}
 		}
 	}
 	

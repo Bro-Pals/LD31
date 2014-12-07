@@ -3,14 +3,17 @@ package com.modwiz.ld31.leveleditor;
 import com.modwiz.ld31.entities.*;
 
 import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.loaders.BufferedImageLoader;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
 /**
 	Edit the properties of an object from the property panel.
@@ -74,14 +77,19 @@ public class PropertyPanel extends JPanel {
 	
 	class ImageDialog extends JDialog implements ActionListener {
 		
+		private JList<String> list;
+		
 		public ImageDialog() {
 			super(lem);
-			JList list = new JList();
+			list = new JList<String>(
+				(String[])((BufferedImageLoader)AssetLoader.getSingleton().getLoader(BufferedImage.class)).getKeys().toArray(new String[0])
+			);
 			setLayout(new BorderLayout());
 			add(list, BorderLayout.CENTER);
 			JButton button = new JButton("Accept");
 			button.addActionListener(this);
 			add(button, BorderLayout.SOUTH);
+			setVisible(true);
 		}
 		
 		@Override
@@ -96,7 +104,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void openImageDialog() {
-		ImageDialog dialog = new ImageDialog();
+		ImageDialog log = new ImageDialog();
 	}
 	
 	private void setPosition() {
