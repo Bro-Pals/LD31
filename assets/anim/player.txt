@@ -1,0 +1,7 @@
+#track file numImgs width height [boolean]flipped
+#player move right and left
+0 img/playerMove.png 3 80 120 false
+1 img/playerMove.png 3 80 120 true
+#player stab right and left
+2 img/playerStab.png 5 80 120 false
+3 img/playerStab.png 5 80 120 true
