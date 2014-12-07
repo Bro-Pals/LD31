@@ -165,8 +165,8 @@ public class Enemy extends Creature {
 		super.render(g, camX, camY);
 		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 		
-		int startX = (int)(getX() - camX);
-		int startY = (int)(getY() - camY);
+		int startX = (int)(getX() - camX) + (facingRight ? (int)getWidth() : 0);
+		int startY = (int)(getY() - camY) - 20;
 		int endX = (int)((enemyLOS.getX() * sneakLOS) - camX);
 		
 		g.drawLine(startX, startY, startX + endX, startY + (int)((Math.sin(fieldOfView) * sneakLOS) - camY));
@@ -183,13 +183,13 @@ public class Enemy extends Creature {
 	public void update() {
 		super.update();
 		float distFromNextX = distFrom(getX());
-		System.out.println(canSeePlayer());
+		System.out.println(distFromNextX);
 		if (distFrom(getX()-1)<distFromNextX){
             getVelocity().set(0,-3);
         } else {
             getVelocity().set(0,3);
         }
-        if ((int)distFromNextX <= 5 && frame > 1){
+        if ((int)distFromNextX <= 5 && frame > 3){
             patrolPointOn = !patrolPointOn;
         }
         if(canSeePlayer()){

@@ -73,11 +73,9 @@ public class Main {
 				System.out.println("Problem loading images " + e.toString());
 				System.exit(0);
 			}
-			
-			
-			Dimension firstDimension = new Dimension("First");
-			GameBlock firstBlock = new GameBlock(firstDimension, 20, 430, 300, 30, true, texture0);
-			GameBlock secondBlock = new GameBlock(firstDimension, 375, 400, 100, 30, true, texture0);
+
+            GameWorld world = LevelLoader.getLevel("assets/Levels/levelTest.txt");
+            world.setActiveDimension("Dimension1");
 
 			Player player = Player.getSingleton();
 			player.setParent(firstDimension);
@@ -85,25 +83,6 @@ public class Main {
 			player.getVelocity().set(0, 2);
 			player.getAcceleration().set(1, 1); // gravity!
 
-
-			Enemy enemy = new Enemy(firstDimension, 450, 130, 60, 100, 50, enemyAnim);
-			enemy.setPatrolPath(150, 450);
-			enemy.givePlayerRef(player);
-			//enemy.getVelocity().set(0, -10f);
-			enemy.getAcceleration().set(1, 1); // gravity!
-			
-			firstDimension.getObjects().add(player); // our first block!!
-			firstDimension.getObjects().add(firstBlock); // our first block!!
-			firstDimension.getObjects().add(secondBlock);
-			firstDimension.getObjects().add(new GameBlock(firstDimension, 475, 395, 50, 20, true, texture0));
-			firstDimension.getObjects().add(new GameBlock(firstDimension, 525, 389, 50, 20, true, texture0));
-			firstDimension.getObjects().add(new GameBlock(firstDimension, 575, 383, 50, 20, true, texture0));
-			firstDimension.getObjects().add(new GameBlock(firstDimension, 350, 360, 50, 50, true, texture0));
-			firstDimension.getObjects().add(enemy);
-
-			GameWorld world = new GameWorld();
-			world.addDimension(firstDimension);
-			world.setActiveDimension("First");
 			
 			long start = System.currentTimeMillis();
 			int millisBetweenFrames = 30;
