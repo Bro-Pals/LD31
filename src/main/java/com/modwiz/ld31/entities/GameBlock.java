@@ -177,8 +177,9 @@ public class GameBlock extends GameObject {
 							float diffForStep = this.getY() + this.getHeight() - bl.getY();
 							if (diffForStep > 2 && diffForStep < 7) {
 								setY(getY() - 8);
-							} else if (this instanceof Enemy && diffForStep >= 7 && grounded) {
-								((Enemy)this).jump(-15);
+							} else if (this instanceof Enemy && !(bl instanceof Creature) && 
+									diffForStep >= 7 && grounded) {
+								((Enemy)this).jump(15);
 							}
 							getVelocity().set(0, 0);
 						}
