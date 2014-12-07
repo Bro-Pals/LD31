@@ -40,7 +40,9 @@ public class LevelLoader {
                     //Next step processing
                     if (readingDimension) {
                         //Parse a game object
-                        current.addObject(readGameObject(current, currentLine));
+						if (!currentLine.equals("NO_LOAD")) {
+							current.addObject(readGameObject(current, currentLine));
+						}
                         System.out.println("Read " + currentLine);
                     }
                 }
@@ -66,7 +68,9 @@ public class LevelLoader {
             for (Dimension dim : dimensions) {
                 writer.println("" + LevelString.DIM_START + LevelString.SEP + dim.getName());
                 for (GameObject obj : dim.getObjects()) {
-                    writer.println(writeGameObject(obj));
+                    if (obj instanceof Player) {
+						writer.println(writeGameObject(obj));
+					}
                 }
                 writer.println("" + LevelString.DIM_END);
             }
@@ -80,10 +84,7 @@ public class LevelLoader {
 
     public static String writeGameObject(GameObject object) {
         if (object instanceof Player) {
-            Player p = (Player)object;
-            return "" + LevelString.PLAYER + LevelString.SEP + p.getX() + LevelString.SEP +
-                    p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.getHealth() + LevelString.SEP + p.getAnimationString();
+			return "NO_LOAD";
         } else if (object instanceof Enemy) {
             Enemy e = (Enemy)object;
             return "" + LevelString.ENEMY + LevelString.SEP + e.getX() + LevelString.SEP +
@@ -137,17 +138,6 @@ public class LevelLoader {
     public static GameObject readGameObject(Dimension parent, String string) {
         String[] split = splitLine(string);
         switch(LevelString.parseEncoded(split[0])) {
-            case PLAYER:
-				System.out.println("Loading Player");
-                return new Player(
-                        parent,
-                        Float.parseFloat(split[1]),
-                        Float.parseFloat(split[2]),
-                        Float.parseFloat(split[3]),
-                        Float.parseFloat(split[4]),
-                        (int)Double.parseDouble(split[5]),
-                        split[6]
-                );
             case ENEMY:
 				System.out.println("Loading Enemy");
                 return new Enemy(
