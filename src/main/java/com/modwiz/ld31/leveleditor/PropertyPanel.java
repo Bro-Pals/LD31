@@ -2,8 +2,15 @@ package com.modwiz.ld31.leveleditor;
 
 import com.modwiz.ld31.entities.*;
 
+import com.modwiz.ld31.utils.assets.AssetRegistry;
+import com.modwiz.ld31.utils.assets.CachedLoader;
+import com.modwiz.ld31.utils.assets.AssetLoader;
+import com.modwiz.ld31.utils.assets.AssetRegistry;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import java.awt.GridLayout;
@@ -34,8 +41,10 @@ public class PropertyPanel extends JPanel {
 	private JButton imageBrowse, animationBrowse;
 	private LevelEditorMain lem;
 	private JButton updateAll;
+	private CachedLoader cachedLoader;
 	
-	public PropertyPanel(LevelEditorMain lem) {
+	public PropertyPanel(final LevelEditorMain lem) {
+		cachedLoader = (CachedLoader)AssetLoader.getAssetLoader();
 		this.lem = lem;
 		editing = null;
 		setLayout(new GridLayout(7, 2, 10, 10));
@@ -59,6 +68,31 @@ public class PropertyPanel extends JPanel {
 		imageBrowse = new JButton("Browse");
 		animationBrowse = new JButton("Browse");
 		updateAll = new JButton("Update");
+		
+		imageBrowse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Set<String> keySet = AssetRegistry.bufferedImageRegistry.getAssetKeys();
+				final JDialog log = new JDialog(lem);
+				log.setVisible(true);
+				log.pack();
+				log.setLocationRelativeTo(lem);
+				log.setTitle("Chooser an image");
+				final JList<String> list = new JList<String>((String[]) keySet.toArray());
+				final JButton button = new JButton("Accept");
+				button.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String str = list.getSelectedValue();
+						log.dispose();
+						if (str!=null) {
+							fields[IMAGE].setText(str);
+							setImage();
+						}
+					}
+				});
+			}
+		});
 	}
 	
 	private void setPosition() {
@@ -89,7 +123,7 @@ public class PropertyPanel extends JPanel {
 	}
 	
 	private void setImage() {
-		
+		((GameBlock)editing).setImage(AssetRegistry.bufferedImageRegistry.getAsset(fields[IMAGE].getText()).get());
 		lem.repaintViewport();
 	}
 	

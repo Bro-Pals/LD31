@@ -37,6 +37,7 @@ public class Main {
 			editor.setVisible(true);
 			//The level editor is now OK
 		} else {
+			loadAssets();
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
 			
@@ -186,6 +187,10 @@ public class Main {
 			}
 		}
     }
+	
+	private static void loadAssets() {
+		
+	}
 	
 	private static void changeKey(int keyCode, boolean value) {
 		switch(keyCode) {

@@ -602,6 +602,4 @@ public class LevelEditorMain extends JFrame {
 			}
 		}
 	}
-	
-
 }
