@@ -72,8 +72,31 @@ public class PropertyPanel extends JPanel {
 		});
 	}
 	
-	private void openImageDialog() {
+	class ImageDialog extends JDialog implements ActionListener {
 		
+		public ImageDialog() {
+			super(lem);
+			JList list = new JList();
+			setLayout(new BorderLayout());
+			add(list, BorderLayout.CENTER);
+			JButton button = new JButton("Accept");
+			button.addActionListener(this);
+			add(button, BorderLayout.SOUTH);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String str = list.getSelectedValue();
+			if (str!=null) {
+				fields[IMAGE].setText(str);
+				setImage();
+			}
+			dispose();
+		}
+	}
+	
+	private void openImageDialog() {
+		ImageDialog dialog = new ImageDialog();
 	}
 	
 	private void setPosition() {
