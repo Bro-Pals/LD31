@@ -81,4 +81,12 @@ public class AssetRegistry<T> {
     public boolean assetExists(String assetName) {
         return map.containsKey(assetName);
     }
+	
+	/**
+	 * Returns a list of all the keys for all the loaded BufferedImages.
+	 * @return The array of loaded images.
+	 */
+	public String[] getAssetKeys() {
+		return (String[])map.keySet().toArray(new String[0]);
+	}
 }
