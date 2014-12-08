@@ -4,13 +4,13 @@ is guarded by his office managers. You are an Interdimensional
 Assassin hired to kill him, in order to save the Free World.
 
 
+-----Level 1-----
+
 Dimension 1: Present dimension
 -Enemies: Human guards
 -Floor / blocks: Cement
 -Background: cement wall
 
-
------Level 1-----
 Dimension 2: Future dimension
 -Enemies: Gangsters that have taken over the building
 -Floor / blocks: Overgrown building

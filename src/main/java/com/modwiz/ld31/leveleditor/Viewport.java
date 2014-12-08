@@ -79,6 +79,11 @@ public class Viewport extends JComponent {
 		this.level = level;
 	}
 	
+	public void setCam(float x, float y) {
+		camX = x;
+		camY = y;
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);

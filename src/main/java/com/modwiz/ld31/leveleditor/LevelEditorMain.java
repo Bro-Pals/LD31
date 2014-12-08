@@ -152,6 +152,15 @@ public class LevelEditorMain extends JFrame {
 				}
 			}
 		});
+		JMenuItem resetView = new JMenuItem("Reset Camera");
+		resetView.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				viewport.setCam(0, 0);
+				viewport.repaint();
+			}
+		});
+		editMenu.add(resetView);
 		editMenu.add(cloneSelected);
 	}
 	
