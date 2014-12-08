@@ -10,22 +10,21 @@ import java.util.List;
  * The world that will hold references to all the GameObjects in the game in the current dimension
  */
 public class Dimension {
-	
-	private List<GameObject> objects;
 	private String name;
+
+	private Room currentRoom;
 
 	/**
 	 * Creates a new Dimension object
-	 * @param The name of the dimension
+	 * @param n The name of the dimension
 	 */
 	public Dimension(String n) {
-		objects = new ArrayList<>();
+		currentRoom = new Room();
 		name = n;
 	}
-	
+
 	public Dimension() {
-		objects = new ArrayList<>();
-		name = "NoName";
+		this("NoName");
 	}
 
 	/**
@@ -47,10 +46,11 @@ public class Dimension {
 	 * @return A {@link java.util.List} of {@link com.modwiz.ld31.entities.GameObject} instances
 	 */
 	public List<GameObject> getObjects() {
-		return objects;
+		return currentRoom.getObjects();
 	}
 	
 	public void updateObjects() {
+		/*
 		for (int i=0; i<objects.size(); i++) {
 			GameObject obj = objects.get(i);
 			if (obj.isDead()) {
@@ -58,7 +58,8 @@ public class Dimension {
 				continue;
 			}
 			obj.update();
-		}
+		}*/
+		currentRoom.updateRoom();
 	}
 
 	/**
@@ -68,9 +69,12 @@ public class Dimension {
 	 * @param camY The camera's Y position in the world.
 	 */
 	public void renderObjects(Graphics g, float camX, float camY) {
+		/*
 		for (GameObject obj : objects) {
 			obj.render(g, camX, camY);
 		}
+		*/
+		currentRoom.renderRoom(g, camX, camY);
 	}
 	
 	/**
@@ -78,7 +82,7 @@ public class Dimension {
 	* @param object the object to add to the dimension
 	*/
 	public void addObject(GameObject object) {
-		objects.add(object);
+		currentRoom.addObject(object);
 		object.setParent(this);
 	}
 	
@@ -87,8 +91,16 @@ public class Dimension {
 	* @param object the object to remove to the dimension
 	*/
 	public void removeObject(GameObject object) {
-		objects.remove(object);
+		currentRoom.removeObject(object);
 		object.setParent(null);
+	}
+
+	public Room getRoom() {
+		return currentRoom;
+	}
+
+	public void setRoom(Room room) {
+		currentRoom = room;
 	}
 	
 	@Override

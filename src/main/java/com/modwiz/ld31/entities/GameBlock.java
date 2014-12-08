@@ -165,7 +165,8 @@ public class GameBlock extends GameObject {
 
 		grounded = false;
 		// collision checking
-		for (GameObject obj : getParent().getObjects()) {
+		for (int i = 0; i < getParent().getObjects().size(); i++) {
+			GameObject obj = getParent().getObjects().get(i);
 			if (obj instanceof GameBlock && obj != this) {
 				GameBlock bl = (GameBlock) obj; // we're working with another block
 				
