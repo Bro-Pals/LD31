@@ -18,7 +18,6 @@ public class MessageBlock extends GameBlock {
 		}
 		setCanCollide(false);
 		messages = msgs;
-		System.out.println("I AM BEING MADE WIT MESSAGES = " + messages.toString());
 	}
 	
 	public void onCollide(GameObject other) {

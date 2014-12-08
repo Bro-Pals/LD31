@@ -193,15 +193,6 @@ public class LevelLoader {
 						Integer.parseInt(split[6])
                 );
 			case MESSAGE:
-				System.out.println("*****");
-				System.out.println("LOADING MESSAGE ");
-				System.out.println("*****");
-				System.out.println(split);
-				System.out.println("Total length:" + split.length);
-				for (int i=0; i<split.length; i++) {
-					System.out.println(i);
-					System.out.print(split[i]);
-				}
                 MessageBlock mb = new MessageBlock(
                         parent,
                         Float.parseFloat(split[1]),
@@ -214,11 +205,10 @@ public class LevelLoader {
 				//Parse the message block
 				int msgCount = Integer.parseInt(split[6]);
 				String[] messages = new String[msgCount];
-				System.out.println("Number of messages: " + msgCount);
-				for (int i=7; i<split.length; i++) {
+				for (int i=7; i<split.length - 1; i++) {
+					if (i-7 >= messages.length)
+						break; // so there's no out of bounds
 					messages[i-7] = split[i];
-					System.out.println("Message " + i+ ":");
-					System.out.print(split[7+i]);
 				}
 				mb.setMessages(messages);
 				return mb;
