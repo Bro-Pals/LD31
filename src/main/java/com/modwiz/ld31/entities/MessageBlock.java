@@ -18,10 +18,12 @@ public class MessageBlock extends GameBlock {
 		}
 		setCanCollide(false);
 		messages = msgs;
+		System.out.println("I AM BEING MADE WIT MESSAGES = " + messages);
 	}
 	
 	public void onCollide(GameObject other) {
 		if (other instanceof Player) {
+			System.out.println("We are colliding with a super cool MessageBlock");
 			((Player)other).setMessages(messages);
 		}
 	}

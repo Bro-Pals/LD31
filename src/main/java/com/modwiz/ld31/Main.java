@@ -94,7 +94,7 @@ public class Main {
 				System.exit(0);
 			}
 
-            world = level1;
+            world = level2;
             world.setActiveDimension("MainDimension");
 
 			Player player = Player.getSingleton();
@@ -170,7 +170,6 @@ public class Main {
 					player.cycleMessages();
 				}
 
-				player.setMessages(null);
 				player.setPreviewJump(true);
 				if (keys[KeyEvent.VK_1]) {
 					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
@@ -245,6 +244,7 @@ public class Main {
 
 				player.setSneaking(shift);
 				
+				player.setMessages(null); // in case we're no longer by a message block
 				world.updateDimension();
 
 				if (!player.isPreviewJump()) {
@@ -321,7 +321,7 @@ public class Main {
 			if (camX < 0) {
 				camX = 0;
 			} else if (camX > (width / 2.0)) {
-				System.out.println(camX);
+				//System.out.println(camX);
 			}
 
 			if (camX < 0) {

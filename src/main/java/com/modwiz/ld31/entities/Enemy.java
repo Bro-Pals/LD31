@@ -92,7 +92,7 @@ public class Enemy extends Creature {
 			int finalPatrolPoint, double weaponRange, double weaponDamage, int weaponCooldown) {
         super(parent, x, y, w, h, health, animString);
 		setWeapon(new Weapon(this, weaponRange, weaponDamage, weaponCooldown));
-		System.out.println("WEAPON RANGE: "  + getWeapon().getRange());
+		//System.out.println("WEAPON RANGE: "  + getWeapon().getRange());
         setPatrolPath(initialPatrolPoint, finalPatrolPoint);
 		patrolPointOn = true;
 		distanceNear = 50;

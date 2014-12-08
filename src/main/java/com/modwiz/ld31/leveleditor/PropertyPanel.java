@@ -209,10 +209,10 @@ public class PropertyPanel extends JPanel {
 	
 	private void setMessageList() {
 		try {
-			String[] messages = fields[POSITION].getText().split(Pattern.quote(","));
+			String[] messages = fields[MESSAGE_LIST].getText().split(Pattern.quote(","));
 			((MessageBlock)editing).setMessages(messages);
 		} catch(Exception e) {
-			fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
+			fields[MESSAGE_LIST].setText("" + editing.getX() + "," + editing.getY());
 		}
 		lem.repaintViewport();
 	}
@@ -261,6 +261,7 @@ public class PropertyPanel extends JPanel {
 	private void setHealth() {
 		try {
 			((Creature)editing).setHealth(Double.parseDouble(fields[HEALTH].getText()));
+			((Creature)editing).setMaxHealth(Double.parseDouble(fields[HEALTH].getText()));
 		} catch(Exception e) {
 			
 		}

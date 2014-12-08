@@ -179,6 +179,14 @@ public class Creature extends GameBlock {
 	public void setHealth(double health) {
 		this.health = health;
 	}
+	
+	/**
+	 * Set the maximum current health for the creature
+	 * @param health The new health
+	 */
+	public void setMaxHealth(double mhealth) {
+		this.maxHealth = mhealth;
+	}
 
 	/**
 	 * Get if the creature is facing rihgt
