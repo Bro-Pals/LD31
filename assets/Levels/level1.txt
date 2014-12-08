@@ -2,7 +2,7 @@ TYPZOW$future
 TEPZOW$2000.0$120.0$5700.0$50.0$true$img/sidewalk.png$true
 TEPZOW$2000.0$170.0$5800.0$600.0$true$img/deep_ground.png$true
 TEPZOW$1200.0$120.0$800.0$650.0$true$img/deep_ground.png$true
-TEPZOW$1203.0$-680.0$7300.0$800.0$true$img/dreary_sky.png$false
+TEPZOW$1203.0$-2000.0$7300.0$2120.0$true$img/dreary_sky.png$false
 TEPZOW$7700.0$120.0$800.0$650.0$true$img/deep_ground.png$true
 TEPZOW$7694.0$-80.0$10.0$200.0$true$img/gate0.png$true
 TEPZOW$1995.0$-80.0$10.0$200.0$true$img/gate0.png$true
@@ -16,6 +16,11 @@ TEPZOW$6492.0$-880.0$550.0$1000.0$true$img/old_building0.png$false
 TEPZOW$5314.0$-880.0$550.0$1000.0$true$img/old_building0.png$false
 TEPZOW$4548.0$20.0$100.0$100.0$true$img/dumpster.png$false
 TEPZOW$7034.0$20.0$100.0$100.0$false$img/dumpster.png$false
+LEPZVQ$2119.0$20.0$40.0$100.0$10.0$null$2132$3023$350.0$3.0$20
+LEPZVQ$3996.0$20.0$40.0$100.0$10.0$null$4019$5409$350.0$3.0$20
+LEPZVQ$4830.0$20.0$40.0$100.0$10.0$null$4819$5909$350.0$3.0$20
+LEPZVQ$5402.0$20.0$40.0$100.0$10.0$null$5402$6500$350.0$3.0$20
+LEPZVQ$7474.0$20.0$40.0$100.0$10.0$null$6743$7474$350.0$3.0$20
 TWPZOW
 TYPZOW$past
 TWPZOW
