@@ -94,7 +94,7 @@ public class Main {
 				System.exit(0);
 			}
 
-            world = level2;
+            world = level1;
             world.setActiveDimension("MainDimension");
 
 			Player player = Player.getSingleton();
