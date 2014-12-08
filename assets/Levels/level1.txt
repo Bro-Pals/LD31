@@ -28,7 +28,7 @@ TEPZOW$5604.0$-276.0$124.0$40.0$true$img/platform0.png$true
 TEPZOW$5740.0$-355.0$112.0$40.0$true$img/platform0.png$true
 TEPZOW$5919.0$-430.0$530.0$40.0$true$img/platform0.png$true
 LEPZVQ$5946.0$-530.0$40.0$100.0$10.0$null$5946$6340$350.0$3.0$20
-TEPZOW$6207.0$-547.0$100.0$100.0$true$img/evil_window.png$true
+TEPZOW$6207.0$-547.0$100.0$100.0$true$img/evil_window.png$false
 TWPZOW
 TYPZOW$past
 TWPZOW
@@ -110,19 +110,19 @@ TEPZOW$7115.0$-519.0$124.0$20.0$true$img/better_metal.png$true
 TEPZOW$6949.0$-610.0$96.0$20.0$true$img/better_metal.png$true
 TEPZOW$7143.0$-705.0$96.0$20.0$true$img/better_metal.png$true
 TEPZOW$6949.0$-798.0$96.0$20.0$true$img/better_metal.png$true
-TEPZOW$7239.0$-1083.0$1061.0$285.0$false$img/cement_background.png$false
+TEPZOW$7239.0$-1083.0$1061.0$285.0$true$img/cement_background.png$false
 LEPZVQ$7020.0$-530.0$40.0$100.0$10.0$anim/modernGuard.animation$6540$7020$50.0$3.0$20
 LEPZVQ$7295.0$-898.0$40.0$100.0$10.0$anim/modernGuard.animation$6540$7295$50.0$3.0$20
-TEPZOW$6019.0$-580.0$85.0$150.0$false$img/iron_door.png$false
-TEPZOW$6605.0$-580.0$85.0$150.0$false$img/iron_door.png$false
+TEPZOW$6019.0$-580.0$85.0$150.0$true$img/iron_door.png$false
+TEPZOW$6605.0$-580.0$85.0$150.0$true$img/iron_door.png$false
 TEPZOW$7423.0$-948.0$85.0$150.0$true$img/iron_door.png$false
 TEPZOW$7814.0$-948.0$85.0$150.0$true$img/iron_door.png$false
-TEPZOW$6035.0$-705.0$60.0$20.0$false$img/corp_light.png$true
-TEPZOW$6620.0$-705.0$60.0$20.0$false$img/corp_light.png$true
+TEPZOW$6035.0$-705.0$60.0$20.0$true$img/corp_light.png$false
+TEPZOW$6620.0$-705.0$60.0$20.0$true$img/corp_light.png$false
 TEPZOW$7439.0$-1083.0$60.0$20.0$true$img/corp_light.png$false
-TEPZOW$7825.0$-1083.0$60.0$20.0$false$img/corp_light.png$false
-TEPZOW$8300.0$-1707.0$772.0$909.0$false$img/cement.png$true
-TEPZOW$7630.0$-858.0$80.0$60.0$false$img/table0.png$true
+TEPZOW$7825.0$-1083.0$60.0$20.0$true$img/corp_light.png$false
+TEPZOW$8300.0$-1707.0$772.0$909.0$true$img/cement.png$true
+TEPZOW$7630.0$-858.0$80.0$60.0$true$img/table0.png$false
 TTPZTW$7538.0$-969.0$75.0$43.0$According to these records...$14
 TTPZTW$7594.0$-927.0$75.0$43.0$The CEO of FizzBuzz Enterprise$14
 TTPZTW$7596.0$-895.0$75.0$43.0$is in colonial times!$14
