@@ -1,0 +1,8 @@
+#track file numImgs width height [boolean]flipped
+#enemy0 moving
+amount 4
+0 img/pilgrimMove.png 6 40 100 false
+1 img/pilgrimMove.png 6 40 100 true
+#enemy attacking animations
+2 img/modernGuardAttack.png 4 40 100 false
+3 img/modernGuardAttack.png 4 40 100 true
