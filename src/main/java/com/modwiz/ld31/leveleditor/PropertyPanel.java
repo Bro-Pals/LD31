@@ -321,6 +321,7 @@ public class PropertyPanel extends JPanel {
 			addSize();
 			addAnimation();
 			addStatic();
+			add(new JLabel());
 			addHealth();
 			addWeapon();
 			addPatrolPath();
@@ -330,6 +331,7 @@ public class PropertyPanel extends JPanel {
 			addSize();
 			addAnimation();
 			addStatic();
+			add(new JLabel());
 			addHealth();
 			addWeapon();
 		}  else if (entity instanceof TextBlock) {

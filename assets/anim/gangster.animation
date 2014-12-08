@@ -1,0 +1,8 @@
+#track file numImgs width height [boolean]flipped
+#gangster moving
+amount 4
+0 img/gangMemberMove.png 6 40 100 false
+1 img/gangMemberMove.png 6 40 100 true
+#gangster attack
+2 img/enemy0Attack.png 4 40 100 false
+3 img/enemy0Attack.png 4 40 100 true
