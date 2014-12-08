@@ -116,11 +116,11 @@ public class Enemy extends Creature {
 		// maybe check:
 		// * Is the player in the direction Enemy is facing
 		if (isFacingRight()) {
-			if (player.getX() + (player.getWidth()/2) < (getX() + (getWidth()/2))) {
+			if (player.getCenterX() < getCenterX()) {
 				return false;
 			}
 		} else {
-			if (player.getX() + (player.getWidth()/2) > (getX() + (getWidth()/2))) {
+			if (player.getCenterX() > getCenterX()) {
 				return false;
 			}
 		} 
@@ -128,8 +128,8 @@ public class Enemy extends Creature {
 		System.out.println("Facing the right way...");
 		
 		// * Is the player close enough to the Enemy
-		float diffX = player.getX() + (player.getWidth()/2) - (getX() + (getWidth()/2));
-		float diffY = player.getY() + (player.getHeight()/2) - (getY() + (getHeight()/2));
+		float diffX = player.getCenterX() - getCenterX();
+		float diffY = player.getCenterY() - getCenterY();
 		float distanceFromSqred = (diffX * diffX) + (diffY * diffY);
 		if (player.isSneaking() && !spottedPlayer) { // don't reduce it if already seen when he starts sneaking
 			if (distanceFromSqred > sneakLOS * sneakLOS) {
@@ -203,11 +203,12 @@ public class Enemy extends Creature {
         }
         if(canSeePlayer()){
 			spottedPlayer = true;
-            if(Math.abs(getX()-player.getX())>(Math.abs(getX()-1-player.getX()))){
+            if(player.getCenterX() < getCenterX()){
                 getVelocity().set(0,-3);
             } else {
                 getVelocity().set(0,3);
             }
+			System.out.println("I AM HEADING TO U");
 			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
 				System.out.println("JSDKLFJSDL");
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
