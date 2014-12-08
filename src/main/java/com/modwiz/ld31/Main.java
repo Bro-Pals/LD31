@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,14 +31,16 @@ public class Main {
 	private static float camY = 0; 
 
 	private static GameWorld world;
-	
+	private static int jumpCooldown;
+
 	public static GameWorld getCurrentWorld() { return world; }
 	
 	// Ratio of our 1 to real 9.8
 	public static final double GRAVITY_RATIO = 1.1;
 	private static boolean manualCam = false;
 	private static int manualCamCooldown;
-	private static final float camMoveRate = 2;
+	private static final float camMoveRate = 4;
+	private static final AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
 
 	public static void main(String[] args) {
         GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
@@ -110,9 +113,7 @@ public class Main {
 
 			window.getRawFrame().addKeyListener(new KeyListener() {
 				@Override
-				public void keyTyped(KeyEvent e) {
-
-				}
+				public void keyTyped(KeyEvent e) {}
 
 				@Override
 				public void keyPressed(KeyEvent e) {
@@ -124,12 +125,43 @@ public class Main {
 					keys[e.getKeyCode()] = false;
 				}
 			});
+
+			window.getRawFrame().addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					mouse[e.getButton()] = false;
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					mouse[e.getButton()] = true;
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					mouse[e.getButton()] = false;
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {}
+
+				@Override
+				public void mouseExited(MouseEvent e) {}
+			});
+
 			while(window.exists()) {
 				start = System.currentTimeMillis();
                 if(world.getActiveDimension() != player.getParent()){
                     world.setActiveDimension(player.getParent().getName());
                 }
 				Graphics g = window.getDrawGraphics();
+				Graphics2D g2d = null;
+				if (g instanceof Graphics2D) {
+					g2d = (Graphics2D) g;
+				}
+
+				g.clearRect(0, 0, width, height);
+
 				Point mousePosition = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX() -
 							window.getRawFrame().getLocation().getX() + camX), 
 							(int)(MouseInfo.getPointerInfo().getLocation().getY() -
@@ -138,27 +170,60 @@ public class Main {
 					player.cycleMessages();
 				}
 
+				player.setPreviewJump(true);
 				if (keys[KeyEvent.VK_1]) {
-					world.getActiveDimension().removeObject(player);
-					world.setActiveDimension("past");
-					world.getActiveDimension().addObject(player);
+					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+						world.getActiveDimension().removeObject(player);
+						world.setActiveDimension("past");
+						world.getActiveDimension().addObject(player);
+						jumpCooldown = 20;
+					} else {
+						world.renderDimension(g, camX, camY);
+						Composite old = g2d.getComposite();
+						g2d.setComposite(composite);
+						world.getDimension("past").renderObjects(g, camX, camY);
+						player.render(g, camX, camY);
+						g2d.setComposite(old);
+					}
 				} else if (keys[KeyEvent.VK_2]) {
-					world.getActiveDimension().removeObject(player);
-					world.setActiveDimension("MainDimension");
-					world.getActiveDimension().addObject(player);
+					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+						world.getActiveDimension().removeObject(player);
+						world.setActiveDimension("MainDimension");
+						world.getActiveDimension().addObject(player);
+						jumpCooldown = 20;
+					} else {
+						world.renderDimension(g, camX, camY);
+						Composite old = g2d.getComposite();
+						g2d.setComposite(composite);
+						world.getDimension("MainDimension").renderObjects(g, camX, camY);
+						player.render(g, camX, camY);
+						g2d.setComposite(old);
+					}
 				} else if (keys[KeyEvent.VK_3]) {
-					world.getActiveDimension().removeObject(player);
-					world.setActiveDimension("future");
-					world.getActiveDimension().addObject(player);
+					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+						world.getActiveDimension().removeObject(player);
+						world.setActiveDimension("future");
+						world.getActiveDimension().addObject(player);
+						jumpCooldown = 20;
+					} else {
+						world.renderDimension(g, camX, camY);
+						Composite old = g2d.getComposite();
+						g2d.setComposite(composite);
+						world.getDimension("future").renderObjects(g, camX, camY);
+						player.render(g, camX, camY);
+						g2d.setComposite(old);
+					}
+				} else {
+					player.setPreviewJump(false);
 				}
+
+				jumpCooldown--;
+
 
 				changeKey();
 
-				MouseEvent mouseEvent;
-				while((mouseEvent = window.nextMousePressedEvent() ) != null) {
-					if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-						player.useWeapon((int)mousePosition.getX(), (int)mousePosition.getY());
-					}
+				if (mouse[MouseEvent.BUTTON1]) {
+					player.useWeapon((int)mousePosition.getX(), (int)mousePosition.getY());
 				}
 				
 				// make the player face wherever the mouse is pointing
@@ -180,8 +245,10 @@ public class Main {
 				player.setSneaking(shift);
 				
 				world.updateDimension();
-				g.clearRect(0, 0, width, height);
-				world.renderDimension(g, camX, camY);
+
+				if (!player.isPreviewJump()) {
+					world.renderDimension(g, camX, camY);
+				}
 			
 				window.showBuffer(g);
 
@@ -190,6 +257,7 @@ public class Main {
 				if (diff < millisBetweenFrames) {
 					try { Thread.sleep(millisBetweenFrames - diff); } catch(Exception e) { }
 				}
+				player.setPreviewJump(false);
 			}
 		}
     }
@@ -201,29 +269,46 @@ public class Main {
 				camX = 0;
 			}
 			camY = player.getY() - (height / 2.0f);
-		} else if (keys[KeyEvent.VK_NUMPAD4]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD4]) {
 			camX -= camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD6]) {
-			camX += 1;
-		} else if (keys[KeyEvent.VK_NUMPAD0]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD6]) {
+			camX += camMoveRate;
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD0]) {
 			if (manualCamCooldown <= 0) {
 				manualCam = !manualCam;
 				manualCamCooldown = 20;
 			}
-		} else if (keys[KeyEvent.VK_NUMPAD2]) {
+		}
+		if (keys[KeyEvent.VK_NUMPAD2]) {
 			camY += camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD8]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD8]) {
 			camY -= camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD1]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD1]) {
 			camY += camMoveRate;
 			camX -= camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD3]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD3]) {
 			camY += camMoveRate;
 			camX += camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD7]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD7]) {
 			camY -= camMoveRate;
 			camX -= camMoveRate;
-		} else if (keys[KeyEvent.VK_NUMPAD9]) {
+		}
+
+		if (keys[KeyEvent.VK_NUMPAD9]) {
 			camY -= camMoveRate;
 			camX += camMoveRate;
 		}
@@ -264,7 +349,8 @@ public class Main {
 	}
 
 	private static final boolean[] keys = new boolean[65535];
-	
+	private static final boolean[] mouse = new boolean[10];
+
 	private static void changeKey() {
 		w = keys[KeyEvent.VK_SPACE] || keys[KeyEvent.VK_W];
 		a = keys[KeyEvent.VK_A];
