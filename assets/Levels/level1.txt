@@ -1,10 +1,23 @@
 TYPZOW$future
-TEPZOW$0.0$200.0$1000.0$50.0$true$img/metal.png$true
+TEPZOW$1350.0$250.0$400.0$50.0$true$img/metal.png$true
 TWPZOW
 TYPZOW$past
-TEPZOW$0.0$200.0$1000.0$50.0$true$img/wood.png$true
+TTPZTW$750.0$200.0$202.0$70.0$I see you haven't forgotten, now right click to transport$18
+TEPZOW$850.0$350.0$550.0$400.0$false$img/dirt.png$true
+TEPZOW$850.0$300.0$550.0$50.0$false$img/wood.png$true
+EQOWOE$1300.0$250.0
 TWPZOW
 TYPZOW$MainDimension
-TEPZOW$-11.0$207.0$596.0$53.0$true$img/brick.png$true
-LEPZVQ$404.0$107.0$26.0$100.0$10.0$anim/modernGuard.animation$50$100$55.0$10.0$40
+TEPZOW$-50.0$200.0$550.0$493.0$true$img/brick.png$true
+TEPZOW$500.0$350.0$500.0$342.0$true$img/brick.png$true
+TEPZOW$-50.0$-250.0$50.0$450.0$true$img/brick.png$true
+TEPZOW$0.0$150.0$500.0$50.0$true$img/cobblestone.png$true
+TEPZOW$500.0$150.0$50.0$200.0$true$img/cobblestone.png$true
+TEPZOW$550.0$300.0$450.0$50.0$true$img/cobblestone.png$true
+TTPZTW$215.0$-24.0$162.0$36.0$Took you long enough...$18
+TTPZTW$300.0$50.0$75.0$46.0$We knew we needed your$18
+TTPZTW$650.0$200.0$75.0$75.0$specialty.$18
+TTPZTW$900.0$250.0$304.0$53.0$hold 1, 2, or 3 to see other dimensions$18
+TEPZOW$550.0$200.0$50.0$100.0$false$img/cobblestone.png$true
+TEPZOW$600.0$250.0$50.0$50.0$false$img/cobblestone.png$true
 TWPZOW

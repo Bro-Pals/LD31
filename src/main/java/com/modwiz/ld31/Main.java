@@ -231,9 +231,9 @@ public class Main {
 				
 				// moving and stuff
 				if (d) {
-					player.getVelocity().set(0, 4);
+					player.getVelocity().set(0, 8);
 				} else if (a) {
-					player.getVelocity().set(0, -4);
+					player.getVelocity().set(0, -8);
 				}
 
 				if (w) {
