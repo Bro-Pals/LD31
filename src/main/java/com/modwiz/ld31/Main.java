@@ -174,7 +174,7 @@ public class Main {
 				if (keys[KeyEvent.VK_1]) {
 					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
 						world.setActiveDimension("past");
-						player.jumpDimension(world.getActiveDimension())
+						player.jumpDimension(world.getActiveDimension());
 						jumpCooldown = 20;
 					} else {
 						world.renderDimension(g, camX, camY);
@@ -187,7 +187,7 @@ public class Main {
 				} else if (keys[KeyEvent.VK_2]) {
 					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
 						world.setActiveDimension("MainDimension");
-						player.jumpDimension(world.getActiveDimension())
+						player.jumpDimension(world.getActiveDimension());
 						jumpCooldown = 20;
 					} else {
 						world.renderDimension(g, camX, camY);
@@ -200,7 +200,7 @@ public class Main {
 				} else if (keys[KeyEvent.VK_3]) {
 					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
 						world.setActiveDimension("future");
-						player.jumpDimension(world.getActiveDimension())
+						player.jumpDimension(world.getActiveDimension());
 						jumpCooldown = 20;
 					} else {
 						world.renderDimension(g, camX, camY);

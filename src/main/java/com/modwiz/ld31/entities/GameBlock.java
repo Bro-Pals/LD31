@@ -304,6 +304,14 @@ public class GameBlock extends GameObject {
 		return width;
 	}
 
+	public float getCenterX() {
+		return (getX() + (getWidth()/2));
+	}
+	
+	public float getCenterY() {
+		return (getY() + (getHeight()/2));
+	}
+	
 	/**
 	 * Sets the size of this game block
 	 * @param w The width

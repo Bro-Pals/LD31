@@ -158,7 +158,7 @@ public class Enemy extends Creature {
 			if (obj != this && obj instanceof GameBlock && !(obj instanceof Creature)) {
 				GameBlock bl = (GameBlock) obj;
 				if ((new Rectangle2D.Float(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight())).intersectsLine(
-					(int)getX(), (int)getY(), (int)player.getX(), (int)player.getY())) {
+					(int)getCenterX(), (int)getCenterY(), (int)player.getCenterX(), (int)player.getCenterY())) {
 						return false;
 				}
 			}			
