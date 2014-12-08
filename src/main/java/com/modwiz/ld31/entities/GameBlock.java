@@ -328,6 +328,7 @@ public class GameBlock extends GameObject {
 		if (getImageForString()!=null) {
 			b.setImageString(getImageForString());
 		}
+		b.setCanCollide(getCanCollide());
 		b.setName(getName());
 		return b;
 	}
