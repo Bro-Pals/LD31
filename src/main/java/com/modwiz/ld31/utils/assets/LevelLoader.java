@@ -205,7 +205,7 @@ public class LevelLoader {
 				//Parse the message block
 				int msgCount = Integer.parseInt(split[6]);
 				String[] messages = new String[msgCount];
-				for (int i=7; i<split.length - 1; i++) {
+				for (int i=7; i<split.length; i++) {
 					if (i-7 >= messages.length)
 						break; // so there's no out of bounds
 					messages[i-7] = split[i];

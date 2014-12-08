@@ -108,6 +108,7 @@ public class Enemy extends Creature {
 	public boolean canSeePlayer() {
 		//only can track the player when it's in the same dimension and the player ins't dead
 		if (player == null || getParent() != player.getParent() || player.isDead()) {
+			System.out.println("No player, or he's dead, or in the wrong dimension");
 			return false;
 		}
 		
@@ -124,9 +125,11 @@ public class Enemy extends Creature {
 			}
 		} 
 		
+		System.out.println("Facing the right way...");
+		
 		// * Is the player close enough to the Enemy
-		float diffX = player.getX() + (player.getWidth()/2) - (getX() + getWidth()/2);
-		float diffY = player.getY() - getY();
+		float diffX = player.getX() + (player.getWidth()/2) - (getX() + (getWidth()/2));
+		float diffY = player.getY() + (player.getHeight()/2) - (getY() + (getHeight()/2));
 		float distanceFromSqred = (diffX * diffX) + (diffY * diffY);
 		if (player.isSneaking() && !spottedPlayer) { // don't reduce it if already seen when he starts sneaking
 			if (distanceFromSqred > sneakLOS * sneakLOS) {
@@ -137,6 +140,8 @@ public class Enemy extends Creature {
 			return false;
 		}
 		
+		System.out.println("Close enough...");
+		
 		// * is the player in the enemy's field of view?
 		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 		Vector2 posVect = (Vector2)((new Vector2(diffX, diffY)).normalize());
@@ -145,6 +150,8 @@ public class Enemy extends Creature {
 			//System.out.println(angle + " > " + fieldOfView);
 			return false;
 		}
+		
+		System.out.println("In the field of view...");
 		
 		// * Does the enemy have line of sight of the player?
 		for (GameObject obj : getParent().getObjects()) {
@@ -156,6 +163,8 @@ public class Enemy extends Creature {
 				}
 			}			
 		}
+		
+		System.out.println("OMG GUISE I SEE HIM");
 		
 		return true;
 	}
