@@ -1,12 +1,13 @@
 TYPZOW$future
-TEPZOW$2000.0$120.0$3500.0$50.0$true$img/sidewalk.png$true
-TEPZOW$2000.0$170.0$3500.0$600.0$true$img/deep_ground.png$true
+TEPZOW$2000.0$120.0$5700.0$50.0$true$img/sidewalk.png$true
+TEPZOW$2000.0$170.0$5800.0$600.0$true$img/deep_ground.png$true
+TEPZOW$1200.0$120.0$800.0$650.0$true$img/deep_ground.png$true
+TEPZOW$1995.0$-80.0$10.0$200.0$true$img/gate0.png$true
+TEPZOW$1200.0$-680.0$7300.0$800.0$false$img/dreary_sky.png$false
+TEPZOW$7700.0$120.0$800.0$650.0$true$img/deep_ground.png$true
+TEPZOW$7694.0$-80.0$10.0$200.0$false$img/gate0.png$true
 TWPZOW
 TYPZOW$past
-TTPZTW$750.0$200.0$202.0$70.0$I see you haven't forgotten, now right click to transport$18
-TEPZOW$850.0$350.0$550.0$400.0$true$img/dirt.png$true
-TEPZOW$851.0$300.0$550.0$50.0$true$img/wood.png$true
-EQOWOE$1300.0$250.0
 TWPZOW
 TYPZOW$MainDimension
 TEPZOW$-259.0$120.0$3600.0$400.0$true$img/cement.png$true
