@@ -29,4 +29,5 @@ TEPZOW$1684.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2124.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2584.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$3062.0$-300.0$60.0$20.0$true$img/corp_light.png$true
+LEPZVQ$2424.0$20.0$40.0$100.0$10.0$anim/modernGuard.animation$1400$2400$50.0$3.0$20
 TWPZOW
