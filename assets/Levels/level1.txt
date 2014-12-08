@@ -30,7 +30,7 @@ TEPZOW$1684.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2124.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2584.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$3062.0$-300.0$60.0$20.0$true$img/corp_light.png$true
-LEPZVQ$2424.0$20.0$40.0$100.0$10.0$anim/modernGuard.animation$1600$2000$50.0$3.0$20
+LEPZVQ$2424.0$20.0$40.0$100.0$10.0$anim/modernGuard.animation$2100$2500$50.0$3.0$20
 TTPZTW$39.0$-86.0$251.0$41.0$Agent, This is FuzzBuzz Enterprise...$16
 TTPZTW$354.0$-68.0$140.0$54.0$Find the CEO...$16
 TTPZTW$526.0$-19.0$140.0$54.0$Save the Free World...$14
