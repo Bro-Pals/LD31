@@ -9,5 +9,5 @@ TEPZOW$-99.0$-130.0$140.0$250.0$true$img/tree0.png$false
 TEPZOW$-680.0$120.0$2787.0$20.0$true$img/cobblestone.png$true
 TEPZOW$790.0$-3.0$88.0$123.0$true$img/well.png$false
 LEPZVQ$482.0$20.0$40.0$100.0$10.0$anim/pilgrim.animation$450$800$55.0$3.0$25
-MERGRY$992.0$51.0$40.0$40.0$img/brick.png$1$992.0$51.0
+MERGRY$923.0$19.0$100.0$100.0$img/cement_background.png$4$Hello$My name is mr \n Center block$I love u$ :D
 TWPZOW

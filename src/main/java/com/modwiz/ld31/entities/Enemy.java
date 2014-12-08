@@ -200,6 +200,7 @@ public class Enemy extends Creature {
                 getVelocity().set(0,3);
             }
 			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
+				System.out.println("JSDKLFJSDL");
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
 			}
         } else {
