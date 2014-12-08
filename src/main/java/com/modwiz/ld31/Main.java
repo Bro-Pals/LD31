@@ -170,6 +170,7 @@ public class Main {
 					player.cycleMessages();
 				}
 
+				player.setMessages(null);
 				player.setPreviewJump(true);
 				if (keys[KeyEvent.VK_1]) {
 					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
