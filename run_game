@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar build/libs/LD31-1.0-all.jar
+java -Dsun.java2d.opengl=true -jar build/libs/LD31-1.0-all.jar
