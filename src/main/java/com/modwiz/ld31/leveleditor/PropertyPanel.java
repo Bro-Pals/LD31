@@ -209,7 +209,7 @@ public class PropertyPanel extends JPanel {
 	
 	private void setMessageList() {
 		try {
-			String[] messages = fields[POSITION].getText().split(Pattern.quote(","));
+			String[] messages = fields[MESSAGE_LIST].getText().split(Pattern.quote(","));
 			((MessageBlock)editing).setMessages(messages);
 		} catch(Exception e) {
 			fields[POSITION].setText("" + editing.getX() + "," + editing.getY());
