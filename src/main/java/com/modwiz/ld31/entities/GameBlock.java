@@ -181,7 +181,7 @@ public class GameBlock extends GameObject {
 				float penY = largestMinY - smallestMaxY;
 
 				if (this instanceof Player) {
-					((Player)this).setMessages(null); 
+					//...
 				}
 				
 				if (penX < 0 && penY < 0) {
