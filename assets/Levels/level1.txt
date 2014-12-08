@@ -16,8 +16,8 @@ TEPZOW$500.0$150.0$50.0$200.0$true$img/cobblestone.png$true
 TEPZOW$550.0$300.0$450.0$50.0$true$img/cobblestone.png$true
 TTPZTW$215.0$-24.0$162.0$36.0$Took you long enough...$18
 TTPZTW$300.0$50.0$75.0$46.0$We knew we needed your$18
-TTPZTW$666.0$213.0$75.0$75.0$specialty.$18
-TTPZTW$900.0$200.0$198.0$68.0$hold 1, 2, or 3 to see other dimensions$18
+TTPZTW$650.0$200.0$75.0$75.0$specialty.$18
+TTPZTW$900.0$250.0$304.0$53.0$hold 1, 2, or 3 to see other dimensions$18
 TEPZOW$550.0$200.0$50.0$100.0$false$img/cobblestone.png$true
 TEPZOW$600.0$250.0$50.0$50.0$false$img/cobblestone.png$true
 TWPZOW
