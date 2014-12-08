@@ -131,6 +131,18 @@ public class Player extends Creature {
 			this.radiationLevel = 0;
 	}
 	
+	/**
+		If dimensionToGoTo is NOT null, then it jumps a dimension.
+		The Player's parent becomes the new dimension. After this
+		is called, dimensionToGoTo becomes null
+	*/
+	public void jumpDimension(Dimension dim) {
+		getParent().getObjects().remove(this);
+		setParent(dim);
+		getParent().addObject(this);
+		radiationLevel += 20;
+    }
+
 	public boolean isPreviewJump() {
 		return previewJump;
 	}
