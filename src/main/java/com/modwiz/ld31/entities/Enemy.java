@@ -125,7 +125,7 @@ public class Enemy extends Creature {
 			}
 		} 
 		
-		System.out.println("Facing the right way...");
+		//System.out.println("Facing the right way...");
 		
 		// * Is the player close enough to the Enemy
 		float diffX = player.getCenterX() - getCenterX();
@@ -140,7 +140,7 @@ public class Enemy extends Creature {
 			return false;
 		}
 		
-		System.out.println("Close enough...");
+		//System.out.println("Close enough...");
 		
 		// * is the player in the enemy's field of view?
 		Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
@@ -151,12 +151,15 @@ public class Enemy extends Creature {
 			return false;
 		}
 		
-		System.out.println("In the field of view...");
+		//System.out.println("In the field of view...");
 		
 		// * Does the enemy have line of sight of the player?
 		for (GameObject obj : getParent().getObjects()) {
 			if (obj != this && obj instanceof GameBlock && !(obj instanceof Creature)) {
 				GameBlock bl = (GameBlock) obj;
+				if (!bl.getCanCollide()) {
+					continue; // can see past it if you can ove past it
+				}
 				if ((new Rectangle2D.Float(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight())).intersectsLine(
 					(int)getCenterX(), (int)getCenterY(), (int)player.getCenterX(), (int)player.getCenterY())) {
 						return false;
@@ -164,7 +167,7 @@ public class Enemy extends Creature {
 			}			
 		}
 		
-		System.out.println("OMG GUISE I SEE HIM");
+		//System.out.println("OMG GUISE I SEE HIM");
 		
 		return true;
 	}
@@ -208,9 +211,9 @@ public class Enemy extends Creature {
             } else {
                 getVelocity().set(0,3);
             }
-			System.out.println("I AM HEADING TO U");
-			if (Math.abs((getX() + (getWidth()/2)) - (player.getX() + (player.getWidth()/2))) < getWeapon().getRange()) {
-				System.out.println("JSDKLFJSDL");
+			//System.out.println("I AM HEADING TO U");
+			if (Math.abs(getCenterX() - player.getCenterX()) < getWeapon().getRange()) {
+			//	System.out.println("JSDKLFJSDL");
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
 			}
         } else {
@@ -221,7 +224,7 @@ public class Enemy extends Creature {
     }
 
     public float distFrom(float x){
-        return Math.abs(x - (patrolPointOn ? spawnX + patrolPoint : spawnX));
+        return Math.abs(x - (patrolPointOn ? patrolPoint : spawnX));
     }
 
 	
