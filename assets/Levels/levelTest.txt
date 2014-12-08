@@ -1,4 +1,4 @@
 TYPZOW$Dimension1
-TEPZOW$0.0$250.0$600.0$50.0$true$img/brick.png
+TEPZOW$0.0$250.0$600.0$50.0$true$img/brick.png$true
 LEPZVQ$500.0$150.0$63.0$100.0$10.0$anim/enemy0.animation$200$300$55.0$3.0$12
 TWPZOW

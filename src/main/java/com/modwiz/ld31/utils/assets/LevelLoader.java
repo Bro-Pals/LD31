@@ -133,7 +133,7 @@ public class LevelLoader {
             GameBlock p = (GameBlock)object;
             return "" + LevelString.BLOCK + LevelString.SEP + p.getX() + LevelString.SEP +
                     p.getY() + LevelString.SEP + p.getWidth() + LevelString.SEP +
-                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageForString();
+                    p.getHeight() + LevelString.SEP + p.isStaticBlock() + LevelString.SEP + p.getImageForString() + LevelString.SEP + p.getCanCollide();
         } else {
             //Must be a game object then
             return "" + LevelString.OBJECT + LevelString.SEP + object.getX() +
@@ -239,7 +239,7 @@ public class LevelLoader {
                 );
             case BLOCK:
 				System.out.println("Loading Block");
-                return new GameBlock(
+                GameBlock gb =  new GameBlock(
                         parent,
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2]),
@@ -248,6 +248,8 @@ public class LevelLoader {
 						Boolean.parseBoolean(split[5]),
 						split[6]
                 );
+				gb.setCanCollide(Boolean.parseBoolean(split[7]));
+				return gb;
             case OBJECT:
 				System.out.println("Loading Object");
                 return new GameObject(

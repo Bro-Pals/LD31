@@ -21,7 +21,9 @@ public class Player extends Creature {
 		player = new Player(null, 0, 0, 60, 120, 100, "anim/player.animation");
 		player.setName("ThePlayer");
 	}
-	
+
+	private boolean previewJump = false;
+
 	public static Player getSingleton() {
 		return player;
 	}
@@ -81,11 +83,18 @@ public class Player extends Creature {
 		radiationLevel = 0;
 		setWeapon(new Weapon(this, 35, 30, 42));
     }
-	
+
+
 	@Override
 	public void render(Graphics g, float camX, float camY) {
 		super.render(g, camX, camY);
-		
+		if (previewJump) {
+			// This should be correct but if its wrong there should be another message
+			if (!(g instanceof Graphics2D)) {
+				g.drawChars("Jump Preview".toCharArray(), 0, 12, 20, 30);
+			}
+		}
+
 		// render the message from a MessageBlock
 		if (messagesViewing != null) {
 			int boxWidth = 100;
@@ -102,7 +111,6 @@ public class Player extends Creature {
 				g.drawString("Press S to continue...", boxX+15, boxY + 35);
 			}
 		}
-		
 		// bounding box
 		//g.setColor(Color.BLACK);
 		//g.drawRect((int)(getX()-camX), (int)(getY()-camY), (int)getWidth(), (int)getHeight());
@@ -135,7 +143,14 @@ public class Player extends Creature {
 			radiationLevel += 20;
     }
 
-	
+	public boolean isPreviewJump() {
+		return previewJump;
+	}
+
+	public void setPreviewJump(boolean previewJump) {
+		this.previewJump = previewJump;
+	}
+
 	/**
 		View the next message
 	*/
