@@ -43,16 +43,6 @@ public class Main {
 	private static final AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
 
 	public static void main(String[] args) {
-        GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
-        GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
-		GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
-		GameWorld testLevel = LevelLoader.getLevel("Levels/testLevel.txt");
-        ArrayList<GameWorld> worlds = new ArrayList<GameWorld>();
-        worlds.add(level1);
-        worlds.add(level2);
-        worlds.add(level3);
-		worlds.add(testLevel);
-
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			preloadAssets(); //For the level editor
 			LevelEditorMain editor = new LevelEditorMain();
@@ -61,6 +51,15 @@ public class Main {
 			editor.postInit();
 			//The level editor is now OK
 		} else {
+			GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
+			GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
+			GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
+			GameWorld testLevel = LevelLoader.getLevel("Levels/testLevel.txt");
+			ArrayList<GameWorld> worlds = new ArrayList<GameWorld>();
+			worlds.add(level1);
+			worlds.add(level2);
+			worlds.add(level3);
+			worlds.add(testLevel);
 			System.out.println("This shows that it is working!");
 			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
 
@@ -129,7 +128,7 @@ public class Main {
 			window.getRawFrame().addMouseListener(new MouseListener() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					mouse[e.getButton()] = false;
+					//mouse[e.getButton()] = false;
 				}
 
 				@Override
@@ -149,116 +148,140 @@ public class Main {
 				public void mouseExited(MouseEvent e) {}
 			});
 
+			int currentStartScreen = 0;
+			boolean canChange = true;
+			BufferedImage[] startScreens = new BufferedImage[] {
+				assetLoader.loadAsset(BufferedImage.class, "img/introScreen1.png"),
+				assetLoader.loadAsset(BufferedImage.class, "img/introScreen2.png"),
+				assetLoader.loadAsset(BufferedImage.class, "img/introScreen3.png"),
+				assetLoader.loadAsset(BufferedImage.class, "img/introScreen4.png")
+			};
+			
 			while(window.exists()) {
 				start = System.currentTimeMillis();
-                if(world.getActiveDimension() != player.getParent()){
-                    world.setActiveDimension(player.getParent().getName());
-                }
-				Graphics g = window.getDrawGraphics();
-				Graphics2D g2d = null;
-				if (g instanceof Graphics2D) {
-					g2d = (Graphics2D) g;
-				}
-
-				g.clearRect(0, 0, width, height);
-
-				Point mousePosition = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX() -
-							window.getRawFrame().getLocation().getX() + camX), 
-							(int)(MouseInfo.getPointerInfo().getLocation().getY() -
-							window.getRawFrame().getLocation().getY()+ camY));
-				if (keys[KeyEvent.VK_S]) {
-					player.cycleMessages();
-				}
-
-				player.setPreviewJump(true);
-				if (keys[KeyEvent.VK_1]) {
-					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
-						world.setActiveDimension("past");
-						player.jumpDimension(world.getActiveDimension());
-						jumpCooldown = 20;
-					} else {
-						world.renderDimension(g, camX, camY);
-						Composite old = g2d.getComposite();
-						g2d.setComposite(composite);
-						world.getDimension("past").renderObjects(g, camX, camY);
-						player.render(g, camX, camY);
-						g2d.setComposite(old);
+				if (currentStartScreen>=startScreens.length) {
+					if(world.getActiveDimension() != player.getParent()){
+						world.setActiveDimension(player.getParent().getName());
 					}
-				} else if (keys[KeyEvent.VK_2]) {
-					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
-						world.setActiveDimension("MainDimension");
-						player.jumpDimension(world.getActiveDimension());
-						jumpCooldown = 20;
-					} else {
-						world.renderDimension(g, camX, camY);
-						Composite old = g2d.getComposite();
-						g2d.setComposite(composite);
-						world.getDimension("MainDimension").renderObjects(g, camX, camY);
-						player.render(g, camX, camY);
-						g2d.setComposite(old);
+					Graphics g = window.getDrawGraphics();
+					Graphics2D g2d = null;
+					if (g instanceof Graphics2D) {
+						g2d = (Graphics2D) g;
 					}
-				} else if (keys[KeyEvent.VK_3]) {
-					if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
-						world.setActiveDimension("future");
-						player.jumpDimension(world.getActiveDimension());
-						jumpCooldown = 20;
-					} else {
-						world.renderDimension(g, camX, camY);
-						Composite old = g2d.getComposite();
-						g2d.setComposite(composite);
-						world.getDimension("future").renderObjects(g, camX, camY);
-						player.render(g, camX, camY);
-						g2d.setComposite(old);
+
+					g.clearRect(0, 0, width, height);
+
+					Point mousePosition = new Point((int)(MouseInfo.getPointerInfo().getLocation().getX() -
+								window.getRawFrame().getLocation().getX() + camX), 
+								(int)(MouseInfo.getPointerInfo().getLocation().getY() -
+								window.getRawFrame().getLocation().getY()+ camY));
+					if (keys[KeyEvent.VK_S]) {
+						player.cycleMessages();
 					}
-				} else {
+
+					player.setPreviewJump(true);
+					if (keys[KeyEvent.VK_1]) {
+						if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+							world.setActiveDimension("past");
+							player.jumpDimension(world.getActiveDimension());
+							jumpCooldown = 20;
+						} else {
+							world.renderDimension(g, camX, camY);
+							Composite old = g2d.getComposite();
+							g2d.setComposite(composite);
+							world.getDimension("past").renderObjects(g, camX, camY);
+							player.render(g, camX, camY);
+							g2d.setComposite(old);
+						}
+					} else if (keys[KeyEvent.VK_2]) {
+						if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+							world.setActiveDimension("MainDimension");
+							player.jumpDimension(world.getActiveDimension());
+							jumpCooldown = 20;
+						} else {
+							world.renderDimension(g, camX, camY);
+							Composite old = g2d.getComposite();
+							g2d.setComposite(composite);
+							world.getDimension("MainDimension").renderObjects(g, camX, camY);
+							player.render(g, camX, camY);
+							g2d.setComposite(old);
+						}
+					} else if (keys[KeyEvent.VK_3]) {
+						if (mouse[MouseEvent.BUTTON3] && jumpCooldown <= 0) {
+							world.setActiveDimension("future");
+							player.jumpDimension(world.getActiveDimension());
+							jumpCooldown = 20;
+						} else {
+							world.renderDimension(g, camX, camY);
+							Composite old = g2d.getComposite();
+							g2d.setComposite(composite);
+							world.getDimension("future").renderObjects(g, camX, camY);
+							player.render(g, camX, camY);
+							g2d.setComposite(old);
+						}
+					} else {
+						player.setPreviewJump(false);
+					}
+
+					jumpCooldown--;
+
+
+					changeKey();
+
+					if (mouse[MouseEvent.BUTTON1]) {
+						player.useWeapon((int)mousePosition.getX(), (int)mousePosition.getY());
+					}
+					
+					// make the player face wherever the mouse is pointing
+					player.setFacingRight(player.getX() + (player.getWidth()/2) < mousePosition.getX());
+					
+					// moving and stuff
+					if (d) {
+						player.getVelocity().set(0, 8);
+					} else if (a) {
+						player.getVelocity().set(0, -8);
+					}
+
+					if (w) {
+						player.jump(15);
+					}
+
+					doCameraUpdate(player, width, height);
+
+					player.setSneaking(shift);
+					
+					player.setMessages(null); // in case we're no longer by a message block
+					world.updateDimension();
+					
+					if (!player.isPreviewJump()) {
+						world.renderDimension(g, camX, camY);
+					}
+				
+					window.showBuffer(g);
+
+					
+					long diff = System.currentTimeMillis() - start;
+					if (diff < millisBetweenFrames) {
+						try { Thread.sleep(millisBetweenFrames - diff); } catch(Exception e) { }
+					}
 					player.setPreviewJump(false);
+				} else {
+				/* Start screen code */
+				if (mouse[MouseEvent.BUTTON1] && canChange) {
+					currentStartScreen++;
+					canChange = false;
+				} else if (mouse[MouseEvent.BUTTON1] == false) {
+					canChange = true;
 				}
-
-				jumpCooldown--;
-
-
-				changeKey();
-
-				if (mouse[MouseEvent.BUTTON1]) {
-					player.useWeapon((int)mousePosition.getX(), (int)mousePosition.getY());
+				Graphics g = window.getDrawGraphics();
+				if (currentStartScreen<startScreens.length) {
+					g.drawImage(startScreens[currentStartScreen], 0, 0, null);
 				}
-				
-				// make the player face wherever the mouse is pointing
-				player.setFacingRight(player.getX() + (player.getWidth()/2) < mousePosition.getX());
-				
-				// moving and stuff
-				if (d) {
-					player.getVelocity().set(0, 8);
-				} else if (a) {
-					player.getVelocity().set(0, -8);
-				}
-
-				if (w) {
-					player.jump(15);
-				}
-
-				doCameraUpdate(player, width, height);
-
-				player.setSneaking(shift);
-				
-				player.setMessages(null); // in case we're no longer by a message block
-				world.updateDimension();
-
-				if (!player.isPreviewJump()) {
-					world.renderDimension(g, camX, camY);
-				}
-			
 				window.showBuffer(g);
-
-				
-				long diff = System.currentTimeMillis() - start;
-				if (diff < millisBetweenFrames) {
-					try { Thread.sleep(millisBetweenFrames - diff); } catch(Exception e) { }
-				}
-				player.setPreviewJump(false);
 			}
 		}
     }
+	}
 
 	private static void doCameraUpdate(final Player player, final int width, final int height) {
 		if (keys[KeyEvent.VK_NUMPAD5]) {
