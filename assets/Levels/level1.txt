@@ -45,9 +45,9 @@ TEPZOW$10558.0$-1037.0$10.0$200.0$true$img/gate0.png$true
 TEPZOW$8949.0$-1570.0$550.0$1000.0$true$img/old_building0.png$false
 LEPZVQ$9645.0$-670.0$40.0$100.0$10.0$anim/gangster.animation$9291$9701$70.0$3.0$20
 TEPZOW$9492.0$-670.0$100.0$100.0$true$img/dumpster.png$false
-TEPZOW$7239.0$-788.0$773.0$118.0$false$img/cement.png$true
+TEPZOW$7239.0$-788.0$773.0$118.0$true$img/cement.png$true
 TTPZTW$7455.0$-763.0$75.0$65.0$Wait no this isn't Colonial times! D:$20
-TEPZOW$-383.0$120.0$837.0$50.0$false$img/texture0.png$true
+TEPZOW$-383.0$120.0$837.0$50.0$true$img/texture0.png$true
 TTPZTW$-302.0$30.0$242.0$75.0$You died. Return to the right dimension...$12
 TWPZOW
 TYPZOW$past
@@ -85,7 +85,7 @@ TEPZOW$12974.0$-1575.0$692.0$2270.0$true$img/dirt.png$true
 TEPZOW$5400.0$-778.0$819.0$484.0$true$img/dirt.png$true
 TEPZOW$6219.0$-1053.0$256.0$275.0$true$img/fence.png$true
 TEPZOW$12280.0$-721.0$694.0$920.0$true$img/dirtBackground.png$true
-TEPZOW$-383.0$120.0$786.0$50.0$false$img/texture0.png$true
+TEPZOW$-383.0$120.0$786.0$50.0$true$img/texture0.png$true
 TTPZTW$-295.0$15.0$75.0$75.0$You died. Return to the right dimension...$12
 TWPZOW
 TYPZOW$MainDimension
@@ -110,7 +110,6 @@ TEPZOW$1684.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2124.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$2584.0$-300.0$60.0$20.0$true$img/corp_light.png$true
 TEPZOW$3062.0$-300.0$60.0$20.0$true$img/corp_light.png$true
-LEPZVQ$2424.0$20.0$40.0$100.0$10.0$anim/modernGuard.animation$2100$2500$75.0$8.0$24
 TTPZTW$39.0$-86.0$251.0$41.0$Agent, This is FuzzBuzz Enterprise...$16
 TTPZTW$354.0$-68.0$140.0$54.0$Find the CEO...$16
 TTPZTW$526.0$-19.0$140.0$54.0$Save the Free World...$14
@@ -193,4 +192,5 @@ TEPZOW$12913.0$-125.0$60.0$20.0$true$img/corp_light.png$false
 TTPZTW$12906.0$40.0$110.0$75.0$There he is!$16
 LEPZVQ$12243.0$99.0$70.0$100.0$20.0$anim/finalboss.animation$0$0$1.0$3.0$20
 TTPZTW$3172.0$23.0$75.0$75.0$Right-click to jump$14
+LEPZVQ$1566.0$23.0$40.0$100.0$10.0$anim/modernGuard.animation$1566$3000$70.0$3.0$20
 TWPZOW
