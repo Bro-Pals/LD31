@@ -44,7 +44,7 @@ public class LevelLoader {
 							GameObject obj = readGameObject(current, currentLine);
 							current.addObject(obj);
 						}
-                        System.out.println("Read " + currentLine);
+                       // System.out.println("Read " + currentLine);
                     }
                 }
             }
@@ -155,8 +155,8 @@ public class LevelLoader {
         String[] split = splitLine(string);
         switch(LevelString.parseEncoded(split[0])) {
             case ENEMY:
-				System.out.println("Loading Enemy");
-                return new Enemy(
+			//	System.out.println("Loading Enemy");
+                Enemy enemy = new Enemy(
                         parent,
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2]),
@@ -170,8 +170,10 @@ public class LevelLoader {
 						Double.parseDouble(split[10]),
 						Integer.parseInt(split[11])
                 );
+				enemy.setAnimationString(split[6]);
+				return enemy;
             case CREATURE:
-				System.out.println("Loading Creature");
+			//	System.out.println("Loading Creature");
                 return new Creature(
                         parent,
                         Float.parseFloat(split[1]),
@@ -182,7 +184,7 @@ public class LevelLoader {
                         split[6]
                 );
 			case TEXT:
-				System.out.println("Loading Text");
+			//	System.out.println("Loading Text");
                 return new TextBlock(
                         parent,
                         Float.parseFloat(split[1]),
@@ -213,7 +215,7 @@ public class LevelLoader {
 				mb.setMessages(messages);
 				return mb;
 			case DIMENSION_CHANGE_BLOCK:
-				System.out.println("Loading Dimension Change Block");
+			//	System.out.println("Loading Dimension Change Block");
                 DimensionChangeBlock dcb= new DimensionChangeBlock(
 					parent,
 					Float.parseFloat(split[1]),
@@ -225,21 +227,21 @@ public class LevelLoader {
 				);
 				return dcb;
 			case DNA_REPAIR_CELL:
-				System.out.println("Loading DNA Repair cell");
+			//	System.out.println("Loading DNA Repair cell");
                 return new DNARepairCell(
                         parent,
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2])
                 );
 			case RADIATION_SUCKER:
-				System.out.println("Loading Radiation Sucker");
+			//	System.out.println("Loading Radiation Sucker");
                 return new RadiationSucker(
                         parent,
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2])
                 );
             case BLOCK:
-				System.out.println("Loading Block");
+			//	System.out.println("Loading Block");
                 GameBlock gb =  new GameBlock(
                         parent,
                         Float.parseFloat(split[1]),
@@ -252,14 +254,14 @@ public class LevelLoader {
 				gb.setCanCollide(Boolean.parseBoolean(split[7]));
 				return gb;
             case OBJECT:
-				System.out.println("Loading Object");
+		//		System.out.println("Loading Object");
                 return new GameObject(
                         parent,
                         Float.parseFloat(split[1]),
                         Float.parseFloat(split[2])
                 );
             default:
-                System.err.println("Unrecognisable entity type: " + split[0]);
+            //    System.err.println("Unrecognisable entity type: " + split[0]);
         }
         return null;
     }
