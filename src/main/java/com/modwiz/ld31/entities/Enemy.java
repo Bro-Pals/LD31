@@ -177,6 +177,7 @@ public class Enemy extends Creature {
         super.render(g, camX, camY);
         Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 
+		/*
         int startX = (int) (getX() - camX + (getWidth()/2));
         int startY = (int) (getY() - camY);
         int endX = (int) ((enemyLOS.getX() * sneakLOS) - camX);
@@ -190,6 +191,7 @@ public class Enemy extends Creature {
             g.drawLine(startX, startY, startX + endX, startY + (int) (-(Math.sin(fieldOfView) * normalLOS) - camY));
             g.drawLine(startX, startY, startX + ((facingRight) ? normalLOS : -normalLOS), startY);
         }
+		*/
 	}
 	
 	@Override

@@ -62,6 +62,8 @@ public class Creature extends GameBlock {
 		this(parent, x, y, w, h, health);
 		animation = anim;
 		animString = null;
+		attackAnimDelay = 2;
+		normalAnimDelay = 7;
 	}
 	
 	/**
@@ -81,6 +83,8 @@ public class Creature extends GameBlock {
 			animation = AssetLoader.getSingleton().loadAsset(Animation.class, animString);
 		}
 		this.animString = animString;
+		attackAnimDelay = 2;
+		normalAnimDelay = 7;
 	}
 
 	public void setAttacking(boolean a) {
@@ -186,6 +190,10 @@ public class Creature extends GameBlock {
 	 */
 	public void setMaxHealth(double mhealth) {
 		this.maxHealth = mhealth;
+	}
+	
+	public double getMaxHealth() {
+		return maxHealth;
 	}
 
 	/**

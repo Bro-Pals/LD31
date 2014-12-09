@@ -34,6 +34,7 @@ public class Main {
 	private static int jumpCooldown;
 
 	public static GameWorld getCurrentWorld() { return world; }
+	public static boolean gameWon = false;
 	
 	// Ratio of our 1 to real 9.8
 	public static final double GRAVITY_RATIO = 1.1;
@@ -158,7 +159,9 @@ public class Main {
 				assetLoader.loadAsset(BufferedImage.class, "img/introScreen4.png")
 			};
 			
-			boolean gameWon = false;
+			BufferedImage winScreen = assetLoader.loadAsset(BufferedImage.class, "img/winScreen.png");
+			
+			
 			
 			while(window.exists()) {
 				start = System.currentTimeMillis();
@@ -240,6 +243,7 @@ public class Main {
 					if (player.isDead()) {
 						player.setX(0);
 						player.setY(0);
+						player.setHealth(player.getMaxHealth());
 						player.setDead(false);
 					}
 					// moving and stuff
@@ -266,6 +270,7 @@ public class Main {
 				
 					if (gameWon) {
 						// if you win the game
+						g.drawImage(winScreen, 0, 0, null);
 					}
 				
 					window.showBuffer(g);
