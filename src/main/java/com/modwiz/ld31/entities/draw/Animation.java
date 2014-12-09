@@ -42,9 +42,9 @@ public class Animation {
 		if (frameDelayOn >= frameDelay) {
 			frameDelayOn = 0;
 			frameOn++;
-			System.out.println("NEXT FRAME");
+			//System.out.println("NEXT FRAME");
 			if (frameOn >= tracks[trackOn].length) {
-				System.out.println("FRAME RESET");
+				//System.out.println("FRAME RESET");
 				frameOn = 0;
 			}
 		}
@@ -72,7 +72,7 @@ public class Animation {
 			//System.out.println("didn't have to change track that time");
 			frameOn = 0;
 			frameDelay = newDelay;
-			frameDelayOn = 0;
+			//frameDelayOn = 0;
 			trackOn = track;
 		}	
 	}
