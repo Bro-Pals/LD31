@@ -2,6 +2,7 @@ package com.modwiz.ld31.entities;
 
 import com.modwiz.ld31.world.Dimension;
 import com.modwiz.ld31.entities.draw.Animation;
+import com.modwiz.ld31.Main;
 import java.awt.geom.Rectangle2D;
 import horsentpmath.Vector2;
 import java.awt.Graphics;
@@ -269,6 +270,14 @@ public class Enemy extends Creature {
 	 */
 	public int getFinalPoint() {
 		return patrolPoint;
+	}
+	
+	@Override
+	public void setDead(boolean dead) {
+		super.setDead(dead);
+		if (getAnimString().equals("anim/finalboss.animation")) {
+			Main.gameWon = true;
+		}
 	}
 	
 	@Override
