@@ -53,7 +53,7 @@ public class Dimension {
 	public void updateObjects() {
 		for (int i=0; i<objects.size(); i++) {
 			GameObject obj = objects.get(i);
-			if (obj.isDead()) {
+			if (obj.isDead() && !(obj instanceof Player)) {
 				objects.remove(i);
 				continue;
 			}

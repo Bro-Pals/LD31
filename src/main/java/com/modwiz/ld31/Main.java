@@ -234,7 +234,11 @@ public class Main {
 					
 					// make the player face wherever the mouse is pointing
 					player.setFacingRight(player.getX() + (player.getWidth()/2) < mousePosition.getX());
-					
+					if (player.isDead()) {
+						player.setX(0);
+						player.setY(0);
+						player.setDead(false);
+					}
 					// moving and stuff
 					if (d) {
 						player.getVelocity().set(0, 8);

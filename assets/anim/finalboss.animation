@@ -1,0 +1,8 @@
+#track file numImgs width height [boolean]flipped
+#enemy0 moving
+amount 4
+0 img/finalBoss.png 2 100 100 false
+1 img/finalBoss.png 2 100 100 false
+#enemy attacking animations
+2 img/finalBoss.png 2 100 100 false
+3 img/finalBoss.png 2 100 100 false
