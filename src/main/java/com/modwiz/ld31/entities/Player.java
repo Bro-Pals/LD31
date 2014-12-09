@@ -123,6 +123,11 @@ public class Player extends Creature {
 		if (radiationLevel > 0) {
 			damage(0.1); // damage a little
 		}
+		if(getAnimation() != null) {
+			getAnimation().update(); 
+		} else {
+			System.out.println("No animation: Skipping update animation in creature");
+		}
 	}
 	
 	public void changeRadiation(double amount) {
