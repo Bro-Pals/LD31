@@ -44,6 +44,7 @@ public class Creature extends GameBlock {
 		attacking = false;
 		attackAnimDelay = 2;
 		normalAnimDelay = 7;
+		facingRight = true;
 		getAcceleration().set(1, (float)Main.GRAVITY_RATIO);
 	}
 
@@ -64,6 +65,7 @@ public class Creature extends GameBlock {
 		animString = null;
 		attackAnimDelay = 2;
 		normalAnimDelay = 7;
+		facingRight = true;
 	}
 	
 	/**
@@ -85,6 +87,7 @@ public class Creature extends GameBlock {
 		this.animString = animString;
 		attackAnimDelay = 2;
 		normalAnimDelay = 7;
+		facingRight = true;
 	}
 
 	public void setAttacking(boolean a) {
@@ -144,8 +147,8 @@ public class Creature extends GameBlock {
 	 * @param animationString the new animation string
 	 */
 	public void setAnimationString(String animationString) {
-		animString = animationString;
-		setAnimation(AssetLoader.getSingleton().loadAsset(Animation.class, animationString));
+		this.animString = animationString;
+		setAnimation(AssetLoader.getSingleton().loadAsset(Animation.class, this.animString));
 	}
 	
 	/**
@@ -254,7 +257,7 @@ public class Creature extends GameBlock {
 			}
 			if (isFacingRight()) { 
 				getAnimation().setTrack(rightAnim, delay); // won't reset the frame if the track it's changing to is the same as it already was
-					g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
+				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX), (int)(getY()-camY), null);
 			} else {
 				getAnimation().setTrack(leftAnim, delay);
 				g.drawImage(getAnimation().getCurrentFrame(), (int)(getX()-camX-20), (int)(getY()-camY), null);

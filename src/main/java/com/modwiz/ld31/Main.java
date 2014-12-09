@@ -46,7 +46,6 @@ public class Main {
 	private static final AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
 
 	public static void main(String[] args) {
-		System.setProperty("sun.java2d.opengl","true");
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			preloadAssets(); //For the level editor
 			LevelEditorMain editor = new LevelEditorMain();
@@ -55,6 +54,7 @@ public class Main {
 			editor.postInit();
 			//The level editor is now OK
 		} else {
+			System.setProperty("sun.java2d.opengl","true");
 			GameWorld level1 = LevelLoader.getLevel("Levels/level1.txt");
 			GameWorld level2 = LevelLoader.getLevel("Levels/level2.txt");
 			GameWorld level3 = LevelLoader.getLevel("Levels/level3.txt");
