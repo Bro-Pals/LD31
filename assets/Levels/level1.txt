@@ -31,6 +31,19 @@ LEPZVQ$5946.0$-530.0$40.0$100.0$10.0$null$5946$6340$350.0$3.0$20
 TEPZOW$6207.0$-547.0$100.0$100.0$true$img/evil_window.png$false
 TWPZOW
 TYPZOW$past
+TEPZOW$6296.0$-758.0$5008.0$438.0$true$img/dirt.png$true
+TEPZOW$6616.0$-1078.0$458.0$300.0$true$img/log_cabin.png$false
+TEPZOW$7308.0$-1078.0$458.0$300.0$true$img/log_cabin.png$false
+TEPZOW$8450.0$-1078.0$450.0$300.0$true$img/log_cabin.png$false
+TEPZOW$7792.0$-1028.0$140.0$250.0$true$img/tree0.png$false
+TEPZOW$8272.0$-1028.0$140.0$250.0$true$img/tree0.png$false
+TEPZOW$7140.0$-1028.0$140.0$250.0$true$img/tree0.png$false
+TEPZOW$6297.0$-778.0$5010.0$20.0$true$img/cobblestone.png$true
+TEPZOW$8023.0$-901.0$88.0$123.0$true$img/well.png$false
+LEPZVQ$8245.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$950$1500$70.0$3.0$25
+LEPZVQ$8690.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$1200$1500$70.0$3.0$20
+TEPZOW$8967.0$-1053.0$256.0$275.0$true$img/fence.png$true
+TTPZTW$6706.0$-736.0$75.0$75.0$You must kill the great great great grandfather of the CEO of FizzBuzz Enterprise!$25
 TWPZOW
 TYPZOW$MainDimension
 TEPZOW$-259.0$120.0$3600.0$400.0$true$img/cement.png$true
