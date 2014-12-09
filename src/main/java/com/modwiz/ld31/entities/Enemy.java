@@ -220,6 +220,7 @@ public class Enemy extends Creature {
 			}
         } else {
 			spottedPlayer = false;
+			setAttacking(false);
 		}
         frame++;
 

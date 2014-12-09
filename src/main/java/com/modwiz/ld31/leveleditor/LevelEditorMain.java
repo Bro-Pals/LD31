@@ -1,5 +1,7 @@
 package com.modwiz.ld31.leveleditor;
 
+import com.modwiz.ld31.Main;
+
 import javax.swing.JFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
