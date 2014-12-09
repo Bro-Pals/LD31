@@ -43,7 +43,6 @@ public class Enemy extends Creature {
 		sneakLOS = 100;
 		fieldOfView = (float)(Math.PI / 6);
 		player = Player.getSingleton();
-		normalAnimDelay = 4; // this is a protected value from creature
     }
 
     /**
@@ -175,7 +174,7 @@ public class Enemy extends Creature {
 	@Override
 	public void render(Graphics g, float camX, float camY) {
         super.render(g, camX, camY);
-        Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
+       // Vector2 enemyLOS = new Vector2(isFacingRight() ? 1 : -1, 0);
 
 		/*
         int startX = (int) (getX() - camX + (getWidth()/2));
@@ -216,11 +215,13 @@ public class Enemy extends Creature {
 			//System.out.println("I AM HEADING TO U");
 			if (Math.abs(getCenterX() - player.getCenterX()) < getWeapon().getRange()) {
 			//	System.out.println("JSDKLFJSDL");
+				setAttacking(true);
 				useWeapon((int)(player.getX() + (player.getWidth()/2)), (int)(player.getY() + 10));
+			} else {
+				setAttacking(false);
 			}
         } else {
 			spottedPlayer = false;
-			setAttacking(false);
 		}
         frame++;
 

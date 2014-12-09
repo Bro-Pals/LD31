@@ -42,8 +42,11 @@ public class Animation {
 		if (frameDelayOn >= frameDelay) {
 			frameDelayOn = 0;
 			frameOn++;
-			if (frameOn >= tracks[trackOn].length)
+			System.out.println("NEXT FRAME");
+			if (frameOn >= tracks[trackOn].length) {
+				System.out.println("FRAME RESET");
 				frameOn = 0;
+			}
 		}
 	}
 
@@ -66,6 +69,7 @@ public class Animation {
 	 */
 	public void setTrack(int track, int newDelay) {
 		if (track != trackOn && track >= 0 && track < tracks.length) {
+			//System.out.println("didn't have to change track that time");
 			frameOn = 0;
 			frameDelay = newDelay;
 			frameDelayOn = 0;
@@ -78,6 +82,7 @@ public class Animation {
 	 * @return Image to display by the object that is being animated
 	 */
 	public BufferedImage getCurrentFrame() {
+		//System.out.println("Track: " + trackOn + "   Frame: " + frameOn);
 		return tracks[trackOn][frameOn];
 	}
 	

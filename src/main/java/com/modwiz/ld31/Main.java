@@ -46,7 +46,7 @@ public class Main {
 	private static final AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
 
 	public static void main(String[] args) {
-		System.setProperty("sun.java2d.opengl","true");
+		//System.setProperty("sun.java2d.opengl","true");
 		if (args.length == 1 && args[0].equals("LEVEL_EDITOR")) {
 			preloadAssets(); //For the level editor
 			LevelEditorMain editor = new LevelEditorMain();
@@ -245,6 +245,7 @@ public class Main {
 					if (player.isDead()) {
 						player.setX(0);
 						player.setY(0);
+						player.getVelocity().set(0, 0);
 						player.setHealth(player.getMaxHealth());
 						player.setDead(false);
 					}
