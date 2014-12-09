@@ -68,6 +68,9 @@ public class Main {
 			DrawWindow window = new DrawWindow(GAME_TITLE, 800, 600, false);
 
 			AssetLoader assetLoader = AssetLoader.getSingleton();
+			
+			window.getRawFrame().setIconImage(assetLoader.loadAsset(BufferedImage.class, "img/icon.png"));
+			
 			// loading all the animations
 			BufferedImage playerMoving = null;
 			BufferedImage enemy0Moving = null;
