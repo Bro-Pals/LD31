@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-	public static final String GAME_TITLE = "Super cool assasian game with next gen graphics";
+	public static final String GAME_TITLE = "Multi-dimensional Assassin Justice";
 
 	// Values for tracking what keys are pressed at the moment
 	private static boolean w = false;
