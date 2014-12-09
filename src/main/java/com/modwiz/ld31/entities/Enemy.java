@@ -108,7 +108,7 @@ public class Enemy extends Creature {
 	public boolean canSeePlayer() {
 		//only can track the player when it's in the same dimension and the player ins't dead
 		if (player == null || getParent() != player.getParent() || player.isDead()) {
-			System.out.println("No player, or he's dead, or in the wrong dimension");
+			//System.out.println("No player, or he's dead, or in the wrong dimension");
 			return false;
 		}
 		

@@ -157,6 +157,8 @@ public class Main {
 				assetLoader.loadAsset(BufferedImage.class, "img/introScreen4.png")
 			};
 			
+			boolean gameWon = false;
+			
 			while(window.exists()) {
 				start = System.currentTimeMillis();
 				if (currentStartScreen>=startScreens.length) {
@@ -259,6 +261,10 @@ public class Main {
 					
 					if (!player.isPreviewJump()) {
 						world.renderDimension(g, camX, camY);
+					}
+				
+					if (gameWon) {
+						// if you win the game
 					}
 				
 					window.showBuffer(g);
