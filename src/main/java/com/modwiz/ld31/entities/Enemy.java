@@ -223,6 +223,12 @@ public class Enemy extends Creature {
         } else {
 			spottedPlayer = false;
 		}
+		
+		if(getAnimation() != null) {
+			getAnimation().update(); 
+		} else {
+			System.out.println("No animation: Skipping update animation in creature");
+		}
         frame++;
 
     }
