@@ -69,7 +69,7 @@ public class LevelEditorMain extends JFrame {
 	private GameObjectFactory gameObjectFactory;
 	
 	public LevelEditorMain() {
-		super("Ludum Dare 31 Level Editor");
+		super(Main.GAME_TITLE + " Level Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	

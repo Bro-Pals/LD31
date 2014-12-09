@@ -47,19 +47,20 @@ LEPZVQ$9645.0$-670.0$40.0$100.0$10.0$anim/gangster.animation$9291$9701$70.0$3.0$
 TEPZOW$9492.0$-670.0$100.0$100.0$true$img/dumpster.png$false
 TWPZOW
 TYPZOW$past
-TEPZOW$6296.0$-758.0$5986.0$438.0$true$img/dirt.png$true
+TEPZOW$5401.0$-1420.0$7660.0$704.0$true$img/colonialbackground.png$false
+TEPZOW$6219.0$-758.0$6062.0$438.0$true$img/dirt.png$true
 TEPZOW$6616.0$-1078.0$458.0$300.0$true$img/log_cabin.png$false
 TEPZOW$7308.0$-1078.0$458.0$300.0$true$img/log_cabin.png$false
 TEPZOW$8450.0$-1078.0$450.0$300.0$true$img/log_cabin.png$false
 TEPZOW$7792.0$-1028.0$140.0$250.0$true$img/tree0.png$false
 TEPZOW$8272.0$-1028.0$140.0$250.0$true$img/tree0.png$false
 TEPZOW$7140.0$-1028.0$140.0$250.0$true$img/tree0.png$false
-TEPZOW$6297.0$-778.0$2932.0$20.0$true$img/cobblestone.png$true
+TEPZOW$6219.0$-778.0$3004.0$20.0$true$img/cobblestone.png$true
 TEPZOW$8023.0$-901.0$88.0$123.0$true$img/well.png$false
-LEPZVQ$8245.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$950$1500$70.0$3.0$25
-LEPZVQ$8690.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$1200$1500$70.0$3.0$20
+LEPZVQ$8245.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$8189$8889$70.0$3.0$25
+LEPZVQ$8690.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$8439$8739$70.0$3.0$20
 TEPZOW$8967.0$-1053.0$256.0$275.0$true$img/fence.png$true
-TTPZTW$6706.0$-736.0$75.0$75.0$You must kill the great great great grandfather of the CEO of FizzBuzz Enterprise!$25
+TTPZTW$7403.0$-736.0$75.0$75.0$You must kill the great great great grandfather of the CEO of FizzBuzz Enterprise!$25
 TEPZOW$9223.0$-778.0$3059.0$20.0$true$img/dirt.png$true
 TEPZOW$9510.0$-1028.0$140.0$250.0$true$img/tree0.png$false
 TEPZOW$9722.0$-1028.0$140.0$250.0$true$img/tree0.png$false
@@ -75,8 +76,10 @@ TEPZOW$11665.0$-1078.0$450.0$300.0$true$img/log_cabin.png$false
 LEPZVQ$12157.0$-878.0$40.0$100.0$10.0$anim/pilgrim.animation$11457$12157$70.0$3.0$20
 TTPZTW$12207.0$-865.0$75.0$75.0$Only one way to go...$14
 TEPZOW$11590.0$-320.0$692.0$1006.0$true$img/dirt.png$true
-TEPZOW$12282.0$199.0$692.0$495.0$false$img/dirt.png$true
-TEPZOW$12974.0$-1575.0$692.0$2270.0$false$img/dirt.png$true
+TEPZOW$12282.0$199.0$692.0$495.0$true$img/dirt.png$true
+TEPZOW$12974.0$-1575.0$692.0$2270.0$true$img/dirt.png$true
+TEPZOW$5400.0$-778.0$819.0$484.0$true$img/dirt.png$true
+TEPZOW$6219.0$-1053.0$256.0$275.0$true$img/fence.png$true
 TWPZOW
 TYPZOW$MainDimension
 TEPZOW$-259.0$120.0$3600.0$400.0$true$img/cement.png$true
@@ -172,5 +175,14 @@ TEPZOW$7630.0$-858.0$80.0$60.0$true$img/table0.png$false
 TTPZTW$7538.0$-969.0$75.0$43.0$According to these records...$14
 TTPZTW$7594.0$-927.0$75.0$43.0$The CEO of FizzBuzz Enterprise$14
 TTPZTW$7596.0$-895.0$75.0$43.0$is in colonial times!$14
-TEPZOW$12387.0$199.0$50.0$50.0$false$img/cement.png$true
+TEPZOW$11073.0$199.0$2204.0$484.0$true$img/cement.png$true
+TEPZOW$13277.0$-685.0$866.0$1366.0$true$img/cement.png$true
+TEPZOW$12087.0$-685.0$1190.0$560.0$true$img/cement.png$true
+TEPZOW$11188.0$-636.0$899.0$835.0$true$img/cement.png$true
+TEPZOW$12087.0$-125.0$1190.0$324.0$true$img/cement_background.png$false
+TEPZOW$12291.0$-125.0$60.0$20.0$true$img/corp_light.png$false
+TEPZOW$12604.0$-125.0$60.0$20.0$true$img/corp_light.png$false
+TEPZOW$12913.0$-125.0$60.0$20.0$true$img/corp_light.png$false
+TTPZTW$12906.0$40.0$110.0$75.0$There he is!$16
+LEPZVQ$12243.0$99.0$70.0$100.0$20.0$anim/finalboss.animation$0$0$1.0$3.0$20
 TWPZOW

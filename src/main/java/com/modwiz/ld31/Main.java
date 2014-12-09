@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 
 public class Main {
 
+	public static final String GAME_TITLE = "Super cool assasian game with next gen graphics";
+
 	// Values for tracking what keys are pressed at the moment
 	private static boolean w = false;
 	private static boolean a = false;
@@ -63,7 +65,7 @@ public class Main {
 			worlds.add(level3);
 			worlds.add(testLevel);
 			System.out.println("This shows that it is working!");
-			DrawWindow window = new DrawWindow("Super cool assasian game with next gen graphics", 800, 600, false);
+			DrawWindow window = new DrawWindow(GAME_TITLE, 800, 600, false);
 
 			AssetLoader assetLoader = AssetLoader.getSingleton();
 			// loading all the animations
