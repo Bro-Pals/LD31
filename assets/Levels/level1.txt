@@ -80,7 +80,7 @@ TEPZOW$12282.0$199.0$692.0$495.0$true$img/dirt.png$true
 TEPZOW$12974.0$-1575.0$692.0$2270.0$true$img/dirt.png$true
 TEPZOW$5400.0$-778.0$819.0$484.0$true$img/dirt.png$true
 TEPZOW$6219.0$-1053.0$256.0$275.0$true$img/fence.png$true
-TEPZOW$12280.0$-721.0$694.0$920.0$false$img/dirtBackground.png$true
+TEPZOW$12280.0$-721.0$694.0$920.0$true$img/dirtBackground.png$true
 TWPZOW
 TYPZOW$MainDimension
 TEPZOW$-259.0$120.0$3600.0$400.0$true$img/cement.png$true
@@ -186,4 +186,5 @@ TEPZOW$12604.0$-125.0$60.0$20.0$true$img/corp_light.png$false
 TEPZOW$12913.0$-125.0$60.0$20.0$true$img/corp_light.png$false
 TTPZTW$12906.0$40.0$110.0$75.0$There he is!$16
 LEPZVQ$12243.0$99.0$70.0$100.0$20.0$anim/finalboss.animation$0$0$1.0$3.0$20
+TTPZTW$3172.0$23.0$75.0$75.0$Right-click to jump$14
 TWPZOW
