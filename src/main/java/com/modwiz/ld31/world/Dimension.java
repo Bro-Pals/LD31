@@ -1,5 +1,6 @@
 package com.modwiz.ld31.world;
 
+import com.modwiz.ld31.entities.Player;
 import com.modwiz.ld31.entities.GameObject;
 
 import java.awt.*;
