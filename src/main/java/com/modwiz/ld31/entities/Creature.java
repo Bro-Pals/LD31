@@ -24,6 +24,10 @@ public class Creature extends GameBlock {
 	private Animation animation;
 	private String animString;
 
+	public String getAnimString() {
+		return animString;
+	}
+	
 	/**
 	 * Creates a new creature instance
 	 * @param parent Dimension in the game world to be loaded into
